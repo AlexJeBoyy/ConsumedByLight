@@ -1,6 +1,6 @@
 # MoSCoW
-Prioritise all the user stories with the MoSCoW-method.
-Use a label in `GitHub Issues` to indicate the priority.
+Prioritise all the features with the MoSCoW-method.
+Make sure to label each scrum board task with the priority level.
 
 Must haves:
 *
