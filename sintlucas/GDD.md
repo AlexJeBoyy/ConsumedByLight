@@ -1,18 +1,20 @@
 # Game Design Document
 
-### Naam van de game
+### Name of the game
 **Consumed by light**
 
-### Naam van jullie team
+### The team name
 **Game Studio Inc.**
 
-## Introductie
+## Introduction
 **Waarom ga je dit project maken? Wat verwacht je dat het doel wordt van je game?(wie gaat het gebruiken)**
 
 ## Synopsis
 **Beschrijf in een paar zinnen wat de game wordt**
 **Benoem hier ook het genre**
-
+**You are a demon and have taken over a church in France.**
+**The angels want to steal the church back from you and will do that with force.**
+**Defend the church from waves of angels. Its a horde and first person shooter.**
 
 ## USP
 **Beschrijf je USP**
