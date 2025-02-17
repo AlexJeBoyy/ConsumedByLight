@@ -1,10 +1,10 @@
 # Game Design Document
 
 ### Naam van de game
-**Hoe jullie game gaat heten**
+**Consumed by light**
 
 ### Naam van jullie team
-**Hoe jullie team/bedrijf gaat heten**
+**Game Studio Inc.**
 
 ## Introductie
 **Waarom ga je dit project maken? Wat verwacht je dat het doel wordt van je game?(wie gaat het gebruiken)**
@@ -12,6 +12,7 @@
 ## Synopsis
 **Beschrijf in een paar zinnen wat de game wordt**
 **Benoem hier ook het genre**
+
 
 ## USP
 **Beschrijf je USP**
