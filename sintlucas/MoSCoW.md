@@ -20,7 +20,7 @@ Could haves:
 * Different guns
 * Enviourmental hazards
 * Multi-Phase bossfight
-* 
+
 
 Would haves:
-* 
+*  Rogue-lite type upgrade loop
