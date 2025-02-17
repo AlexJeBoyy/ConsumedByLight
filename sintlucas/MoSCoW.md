@@ -11,13 +11,13 @@ Must haves:
 
 Should haves:
 * Telekenisis
-* Different guns
 * 3 different enemy types
 * boss fight
 * Killing enemies with collision
 
 
 Could haves:
+* Different guns
 * Enviourmental hazards
 * Multi-Phase bossfight
 * 
