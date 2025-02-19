@@ -23,22 +23,23 @@ You are a demon and have taken over a church in France.
 The angels want to steal the church back from you and will do that with force.
 Defend the church from waves of angels with your elekenisis powers and trusty gun.
 
-## Onderzoek
-### Doelgroep
-**Voor wie maak je dit product?**
-**Wat vindt je doelgroep leuk/waar zijn ze fan van?**
-**Wat zijn eigenschappen van de doelgroep waar je op in gaat spelen?**
+## Research
+### Adience
 
-### Inspiration/Concurentie
-**Zijn er producten die lijken op wat jullie gaan maken?**
-**Wat ga jij anders doen dan deze concurenten?**
-**Wat ga jij overnemen/hergebruiken van deze concurenten?**
+Teens and young adults who like arena boomer shooters. People who like the games 
+Ultrakill and Deep rock galactic. Moslty for people who aren't into christianity or who are into that
+because you get a biblically acurate angel.
 
-Ultrakill, it's a arena shooter and it also has a bit of a religius theme. Smooth player movement. 
-Deep rock galactic, horde based shooter and also the low polygon style. 
-The bible, the creatures of the bible are used for this game.
+### Inspiration/Competition
 
-## Beschrijving ban het product
+Ultrakill, it's a arena shooter and it also has a bit of a religius theme with smooth player movement. 
+Our game is going to be a more dark aestetic with mind powers. 
+Deep rock galactic, horde based shooter and also the low polygon style. Our game will be
+a lot more gory with blood.
+The bible, the creatures of the bible are used for this game. Our game will not be really
+biblically accurte thoug. 
+
+## Discription of the product
 **Schrijf hier de formal elements en je MDA op**
 **Zorg ook voor een MoSCoW-table, hier, in je PVA of in de MoSCoW.md file.**
 
