@@ -1,25 +1,27 @@
 # PVA
 
 ## Achtergrond van het project
-**Waarom maak je dit? Wat wordt het? Wie werken er mee? Etc**
+**Dit project is voor het keuzedeel Agile game production. Gemaakt door Vigo, Evan, Alex, en Milan.**
 
 ## Concept
-**Wat ga je maken? Wat is jullie idee?**
-**Hier hoort ook een MoSCoW Table bij, maar deze kan ook in de aangeleverde MoSCow.md file in deze folder.**
+**Je bent een demoon die een kerk heeft ingenomen, en engelen buiten moet houden door ze te vermoorden.**
+
 
 ## Rolverdeling
-**Noem al je teamleden en wat hun rol wordt**
-**Denk aan Scrum rollen (Product owner, stakeholder, scrum master, etc), maar ook aan je vaktechnische rol (Developer, artist, sound designer, etc).
+**Alex - scrummaster, developer
+| Vigo - Product owner, developer
+| Milan - stakeholder, lead developer
+| Evan - lead artist**
 
 ## Tooling
 **Welke tools ga je gebruiken? Denk aan game engines en versies, teken of 3D software, websites als trello of mixamo, etc**
 **Beschrijf ook waarom**
 
 ## Afspraken over communicatie
-**Hoe lever je werk aan naar elkaar? Welke pogramma's ga je gebruiken om te communiceren naar elkaar**
+**Voor communicatie gaan we Discord gebruiken. dit is een fijne app voor communicatie die de hele groep gebruikt. Om files naar elkaar door te sturen gebruiken we Github.**
 
 ## Algemene afspraken
-**Hoe ga je om met iemand die absent is? Wat moet je doen als je te laat of absent bent? Waar moet iedereen zich aan houden zodat iedereen prettig met elkaar kan samenwerken?**
+**We geven aan als iemand het ergens niet mee eens is, en zoeken voor een manier om dit te verbeteren. Als er iemand ziek is communiceerd diegenen dat, en werk thuis. als dat niet kan dan neemt iemand anders de taak over, of wordt het gemaakt op een ander tijdstip.**
 
 ## Backlog
 **Deze kan ook in je GDD staan**
