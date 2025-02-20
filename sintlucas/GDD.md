@@ -60,6 +60,10 @@ Enemys (3D moddels and anims):
 + Cross
 + Thornes
 
+Player:
++ Hands
++ Weapons
+
 
 ## Runtime adjustments
 **Als je TIJDENS development belangrijke aanpassingen maakt aan je concept, schrijf die dan hier op.**
