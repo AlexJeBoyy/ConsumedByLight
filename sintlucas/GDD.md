@@ -7,15 +7,19 @@ Consumed by light
 Game Studio Inc.
 
 ## Introduction
-**Waarom ga je dit project maken? Wat verwacht je dat het doel wordt van je game?(wie gaat het gebruiken)**
+
+We want to make a game where you are the bad and you need to fight against the good. You have to deffent the chuch you've taken over. 
 
 ## Synopsis
+
 Fast pass arena shooter with a intense boss fight.
 It's a horde and first person shooter.
 
 ## USP
+
 Telekenisis
 Unice religion style
+You are the bad guy and need to fight against the good guys
 //add more later
 
 ## Story
