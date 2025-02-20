@@ -7,17 +7,23 @@ Must haves:
 * Shooting
 * Enemies
 * Waves
+* Map Model
+* Base enemy model
+* gun model
 
 
 Should haves:
 * Telekenisis
 * 3 different enemy types
+* different models for the enemy types
 * boss fight
+* boss fight model
 * Killing enemies with collision
 
 
 Could haves:
 * Different guns
+* More gun models
 * Enviourmental hazards
 * Multi-Phase bossfight
 
