@@ -8,10 +8,10 @@ Je bent een demoon die een kerk heeft ingenomen, en engelen buiten moet houden d
 
 
 ## Rolverdeling
-**Alex - scrummaster, developer
-| Vigo - Product owner, developer
-| Milan - stakeholder, lead developer
-| Evan - lead artist**
+**Alex - scrummaster, developer**
+**| Vigo - Product owner, developer**
+**| Milan - stakeholder, lead developer**
+**| Evan - lead artist**
 
 ## Tooling
 **Welke tools ga je gebruiken? Denk aan game engines en versies, teken of 3D software, websites als trello of mixamo, etc**
