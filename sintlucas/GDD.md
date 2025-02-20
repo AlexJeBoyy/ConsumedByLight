@@ -48,7 +48,7 @@ biblically accurte thoug.
 **Zorg ook voor een MoSCoW-table, hier, in je PVA of in de MoSCoW.md file.**
 
 ## Asset list
-**Maak een opsomming van alle specifieke assets die je nodig hebt. Denk aan welke sprites je wilt, maar ook aan 3d models, animaties, textures, audio, etc.*
+**Maak een opsomming van alle specifieke assets die je nodig hebt. Denk aan welke sprites je wilt, maar ook aan 3d models, animaties, textures, audio, etc.**
 
 Enviroment:
 + Church
