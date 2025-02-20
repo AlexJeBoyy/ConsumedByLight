@@ -8,18 +8,21 @@ Game Studio Inc.
 
 ## Introduction
 
-We want to make a game where you are the bad and you need to fight against the good. You have to deffent the chuch you've taken over. 
+We want to make a game where you are the bad guy and you need to fight against the good. You have to deffend the church you've taken over. 
 
 ## Synopsis
 
-Fast pass arena shooter with a intense boss fight.
+Fast paste arena shooter with a intense boss fight.
 It's a horde and first person shooter.
 
 ## USP
 
 Telekenisis
+
 Unice religion style
+
 You are the bad guy and need to fight against the good guys
+
 //add more later
 
 ## Story
@@ -32,7 +35,7 @@ Defend the church from waves of angels with your elekenisis powers and trusty gu
 
 Teens and young adults who like arena boomer shooters. People who like the games 
 Ultrakill and Deep rock galactic. Moslty for people who aren't into christianity or who are into that
-because you get a biblically acurate angel.
+because you get a biblically accurate angel.
 
 ### Inspiration/Competition
 
