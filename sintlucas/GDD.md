@@ -45,10 +45,27 @@ biblically accurte thoug.
 
 ## Discription of the product
 **Schrijf hier de formal elements en je MDA op**
+-	Players – This game is single player and the game sends enemies in waves at the player
+-	Objectives – The objective of the game is to survive in the church while waves of enemies are coming. At the end of the waves a big boss spawns that you have to defeat to win.
+-	Procedures – 
+Starting
+o	You begin in the church with the first wave coming, the first wave is pretty easy and made to get familiar with the mechanics
+o	Progression
+o	After you beat a wave the difficulty increases and more and tougher enemies will spawn
+o	Special
+o	After a few waves the final boss spawns which is a huge biblically accurate angel.
+o	Resolving
+o	After defeating the angel you have defeated everyone and the church is yours
+-	Rules – The player can shoot, have telekinesis abilities, can slide dash, sprint and jump.
+-	Resources – Player health,  Magazines, telekinesis cooldown, range
+-	Conflict – 	Enemies, Waves, Boss
+-	Boundaries – 	Angels and demons are real in this game and telekinesis is able to be used
+-	Outcome – The game ends when you defeat the angel boss fight and when you win you have taken over the church and you stay there.
+
 **Zorg ook voor een MoSCoW-table, hier, in je PVA of in de MoSCoW.md file.**
 
 ## Asset list
-**Maak een opsomming van alle specifieke assets die je nodig hebt. Denk aan welke sprites je wilt, maar ook aan 3d models, animaties, textures, audio, etc.**
+
 
 Enviroment:
 + Church
@@ -59,6 +76,16 @@ Enemys (3D moddels and anims):
 + Priest
 + Cross
 + Thornes
+
+Player:
++ Hands
++ Weapons
+
+Audio:
++ Gun sound
++ Running sound
++ Attack sound
++ Splash sound for enimy wall kill
 
 
 ## Runtime adjustments
