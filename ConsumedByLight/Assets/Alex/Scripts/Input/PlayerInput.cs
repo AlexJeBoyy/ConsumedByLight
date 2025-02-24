@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour
 
     private void OnEnable()
     {
+        
         _input = new InputActions();
         _input.BaseGameplay.Enable();
 
@@ -19,14 +20,14 @@ public class PlayerInput : MonoBehaviour
         _input.BaseGameplay.Move.performed += SetMove;
         _input.BaseGameplay.Move.canceled += SetMove;
 
-        _input.BaseGameplay.Look.performed += SetMove;
-        _input.BaseGameplay.Look.canceled += SetMove;
+        _input.BaseGameplay.Look.performed += SetLook;
+        _input.BaseGameplay.Look.canceled += SetLook;
     }
 
     private void OnDisable()
     {
-        _input.BaseGameplay.Move.performed -= SetLook;
-        _input.BaseGameplay.Move.canceled -= SetLook;
+        _input.BaseGameplay.Move.performed -= SetMove;
+        _input.BaseGameplay.Move.canceled -= SetMove;
 
         _input.BaseGameplay.Look.performed -= SetLook;
         _input.BaseGameplay.Look.canceled -= SetLook;
@@ -37,6 +38,7 @@ public class PlayerInput : MonoBehaviour
     private void SetMove(InputAction.CallbackContext ctx)
     {
        MoveInput = ctx.ReadValue<Vector2>();
+        Debug.Log(ctx);
     }
 
     private void SetLook(InputAction.CallbackContext ctx)
