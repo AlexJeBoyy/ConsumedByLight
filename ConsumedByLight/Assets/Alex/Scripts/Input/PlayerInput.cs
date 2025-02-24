@@ -15,7 +15,7 @@ public class PlayerInput : MonoBehaviour
         _input = new InputActions();
         _input.BaseGameplay.Enable();
 
-        _input.BaseGameplay.Move.started += SetMove;
+        //_input.BaseGameplay.Move.started += SetMove;
         _input.BaseGameplay.Move.performed += SetMove;
         _input.BaseGameplay.Move.canceled += SetMove;
 
