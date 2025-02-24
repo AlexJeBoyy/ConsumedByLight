@@ -35,6 +35,24 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""672ad057-3e75-4498-af17-f6fcb138823f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""79a23bc3-465c-4ec5-966a-a65b5924054d"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -48,6 +66,94 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Telekenisis"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a83b1d04-8ec3-4711-9a1a-b88d3d040c5b"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""ab89593d-5a48-4c39-8e49-6d8e027eeba9"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""2aa890c0-86d5-400b-aac7-b48ed5473b83"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""5c63d8a9-e1b7-4c54-8d97-ab3446a42311"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""0d24beaf-673c-46f5-816a-23996ae9dab2"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""7fba8cd8-2d24-4dbb-a280-58898ad4ff7c"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e60a114b-5f1b-4e60-90c9-a837a2f15fc3"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aed7767b-261b-424b-8d63-8a2d00caaee7"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": ""ScaleVector2(x=0.03,y=0.03)"",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -57,6 +163,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         // BaseGameplay
         m_BaseGameplay = asset.FindActionMap("BaseGameplay", throwIfNotFound: true);
         m_BaseGameplay_Telekenisis = m_BaseGameplay.FindAction("Telekenisis", throwIfNotFound: true);
+        m_BaseGameplay_Move = m_BaseGameplay.FindAction("Move", throwIfNotFound: true);
+        m_BaseGameplay_Look = m_BaseGameplay.FindAction("Look", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -119,11 +227,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_BaseGameplay;
     private List<IBaseGameplayActions> m_BaseGameplayActionsCallbackInterfaces = new List<IBaseGameplayActions>();
     private readonly InputAction m_BaseGameplay_Telekenisis;
+    private readonly InputAction m_BaseGameplay_Move;
+    private readonly InputAction m_BaseGameplay_Look;
     public struct BaseGameplayActions
     {
         private @InputActions m_Wrapper;
         public BaseGameplayActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Telekenisis => m_Wrapper.m_BaseGameplay_Telekenisis;
+        public InputAction @Move => m_Wrapper.m_BaseGameplay_Move;
+        public InputAction @Look => m_Wrapper.m_BaseGameplay_Look;
         public InputActionMap Get() { return m_Wrapper.m_BaseGameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -136,6 +248,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Telekenisis.started += instance.OnTelekenisis;
             @Telekenisis.performed += instance.OnTelekenisis;
             @Telekenisis.canceled += instance.OnTelekenisis;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
         }
 
         private void UnregisterCallbacks(IBaseGameplayActions instance)
@@ -143,6 +261,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Telekenisis.started -= instance.OnTelekenisis;
             @Telekenisis.performed -= instance.OnTelekenisis;
             @Telekenisis.canceled -= instance.OnTelekenisis;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
         }
 
         public void RemoveCallbacks(IBaseGameplayActions instance)
@@ -163,5 +287,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     public interface IBaseGameplayActions
     {
         void OnTelekenisis(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
     }
 }
