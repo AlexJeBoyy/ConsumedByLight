@@ -47,6 +47,17 @@
                 },
                 {
                     "name": "",
+                    "id": "09c289f4-8b61-4476-b112-35e1335e735e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Telekenisis",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "a83b1d04-8ec3-4711-9a1a-b88d3d040c5b",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
