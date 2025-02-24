@@ -38,7 +38,7 @@ public class PlayerInput : MonoBehaviour
     private void SetMove(InputAction.CallbackContext ctx)
     {
        MoveInput = ctx.ReadValue<Vector2>();
-        Debug.Log(ctx);
+       
     }
 
     private void SetLook(InputAction.CallbackContext ctx)
