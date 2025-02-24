@@ -22,9 +22,41 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     {
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""InputActions"",
-    ""maps"": [],
+    ""maps"": [
+        {
+            ""name"": ""BaseGameplay"",
+            ""id"": ""17fa1b33-79a4-4df5-a944-029f5ab7afb1"",
+            ""actions"": [
+                {
+                    ""name"": ""Telekenisis"",
+                    ""type"": ""Button"",
+                    ""id"": ""0142ec01-b3ab-471f-acdc-0f13069480da"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""379c7b60-b07a-4a25-96ee-0192637acbdb"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Telekenisis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        }
+    ],
     ""controlSchemes"": []
 }");
+        // BaseGameplay
+        m_BaseGameplay = asset.FindActionMap("BaseGameplay", throwIfNotFound: true);
+        m_BaseGameplay_Telekenisis = m_BaseGameplay.FindAction("Telekenisis", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -81,5 +113,55 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     public int FindBinding(InputBinding bindingMask, out InputAction action)
     {
         return asset.FindBinding(bindingMask, out action);
+    }
+
+    // BaseGameplay
+    private readonly InputActionMap m_BaseGameplay;
+    private List<IBaseGameplayActions> m_BaseGameplayActionsCallbackInterfaces = new List<IBaseGameplayActions>();
+    private readonly InputAction m_BaseGameplay_Telekenisis;
+    public struct BaseGameplayActions
+    {
+        private @InputActions m_Wrapper;
+        public BaseGameplayActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Telekenisis => m_Wrapper.m_BaseGameplay_Telekenisis;
+        public InputActionMap Get() { return m_Wrapper.m_BaseGameplay; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BaseGameplayActions set) { return set.Get(); }
+        public void AddCallbacks(IBaseGameplayActions instance)
+        {
+            if (instance == null || m_Wrapper.m_BaseGameplayActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_BaseGameplayActionsCallbackInterfaces.Add(instance);
+            @Telekenisis.started += instance.OnTelekenisis;
+            @Telekenisis.performed += instance.OnTelekenisis;
+            @Telekenisis.canceled += instance.OnTelekenisis;
+        }
+
+        private void UnregisterCallbacks(IBaseGameplayActions instance)
+        {
+            @Telekenisis.started -= instance.OnTelekenisis;
+            @Telekenisis.performed -= instance.OnTelekenisis;
+            @Telekenisis.canceled -= instance.OnTelekenisis;
+        }
+
+        public void RemoveCallbacks(IBaseGameplayActions instance)
+        {
+            if (m_Wrapper.m_BaseGameplayActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IBaseGameplayActions instance)
+        {
+            foreach (var item in m_Wrapper.m_BaseGameplayActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_BaseGameplayActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public BaseGameplayActions @BaseGameplay => new BaseGameplayActions(this);
+    public interface IBaseGameplayActions
+    {
+        void OnTelekenisis(InputAction.CallbackContext context);
     }
 }

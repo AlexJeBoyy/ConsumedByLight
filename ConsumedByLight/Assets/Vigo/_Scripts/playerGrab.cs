@@ -7,4 +7,16 @@ public class PlayerGrab : MonoBehaviour
     [SerializeField] Transform objectHolder;
 
     Rigidbody grabbedRB;
+
+    public void Grab()
+    {
+        if (grabbedRB)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
 }
