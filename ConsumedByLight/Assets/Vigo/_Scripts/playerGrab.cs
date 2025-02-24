@@ -53,6 +53,7 @@ public class PlayerGrab : MonoBehaviour
         if (grabbedRB)
         {
             grabbedRB.AddForce(cam.transform.forward * throwForce, ForceMode.VelocityChange);
+            grabbedRB.useGravity = true;
             grabbedRB = null;
         }
     }
