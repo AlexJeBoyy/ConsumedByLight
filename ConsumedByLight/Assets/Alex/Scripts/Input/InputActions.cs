@@ -53,6 +53,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""f73c5595-1d29-4add-914d-349a74a17557"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -154,6 +163,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""09c289f4-8b61-4476-b112-35e1335e735e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -165,6 +185,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_BaseGameplay_Telekenisis = m_BaseGameplay.FindAction("Telekenisis", throwIfNotFound: true);
         m_BaseGameplay_Move = m_BaseGameplay.FindAction("Move", throwIfNotFound: true);
         m_BaseGameplay_Look = m_BaseGameplay.FindAction("Look", throwIfNotFound: true);
+        m_BaseGameplay_Throw = m_BaseGameplay.FindAction("Throw", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,6 +250,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_BaseGameplay_Telekenisis;
     private readonly InputAction m_BaseGameplay_Move;
     private readonly InputAction m_BaseGameplay_Look;
+    private readonly InputAction m_BaseGameplay_Throw;
     public struct BaseGameplayActions
     {
         private @InputActions m_Wrapper;
@@ -236,6 +258,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Telekenisis => m_Wrapper.m_BaseGameplay_Telekenisis;
         public InputAction @Move => m_Wrapper.m_BaseGameplay_Move;
         public InputAction @Look => m_Wrapper.m_BaseGameplay_Look;
+        public InputAction @Throw => m_Wrapper.m_BaseGameplay_Throw;
         public InputActionMap Get() { return m_Wrapper.m_BaseGameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -254,6 +277,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
+            @Throw.started += instance.OnThrow;
+            @Throw.performed += instance.OnThrow;
+            @Throw.canceled += instance.OnThrow;
         }
 
         private void UnregisterCallbacks(IBaseGameplayActions instance)
@@ -267,6 +293,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
+            @Throw.started -= instance.OnThrow;
+            @Throw.performed -= instance.OnThrow;
+            @Throw.canceled -= instance.OnThrow;
         }
 
         public void RemoveCallbacks(IBaseGameplayActions instance)
@@ -289,5 +318,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnTelekenisis(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnThrow(InputAction.CallbackContext context);
     }
 }
