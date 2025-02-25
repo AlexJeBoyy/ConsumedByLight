@@ -35,7 +35,7 @@ public class BaseController : MonoBehaviour
         
         _playerMoveInput = (new Vector3(_playerMoveInput.x * _movementMultiplier * _rigidbody.mass,
                                         _playerMoveInput.y,
-                                        _playerMoveInput.x * _movementMultiplier * _rigidbody.mass));
+                                        _playerMoveInput.z * _movementMultiplier * _rigidbody.mass));
         //Debug.Log(_playerMoveInput);
     }
 }
