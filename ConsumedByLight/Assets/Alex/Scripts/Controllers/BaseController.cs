@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class BaseController : MonoBehaviour
 {
+    public Transform CameraFollow;
+
     Rigidbody _rigidbody = null;
     [SerializeField] PlayerInput _input;
 
     Vector3 _playerMoveInput;
 
+    Vector3 _playerLookInput;
+    Vector3 _previousPlayerLookInput = Vector3.zero;
+    float _cameraPitch = 0f;
+    [SerializeField] float _playerLookInputLerpTime = 0.35f;
+
     [Header("Movement")]
     [SerializeField] float _movementMultiplier = 30f;
-
+    [SerializeField] float _rotationSpeedMultiplier = 180f;
+    [SerializeField] float _pitchSpeedMultiplier = 180f;
     private void Awake()
     {
         _rigidbody= GetComponent<Rigidbody>();
@@ -19,12 +27,33 @@ public class BaseController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _playerLookInput = GetLookInput();
+        PlayerLook();
+        PitchCamera();
+
         _playerMoveInput = GetMoveInput();
         PlayerMove();
 
         _rigidbody.AddRelativeForce(_playerMoveInput, ForceMode.Force);
     }
 
+    private Vector3 GetLookInput()
+    {
+        _previousPlayerLookInput= _playerLookInput;
+        _playerLookInput = new Vector3(_input.LookInput.x, (_input.InvertMouseY ? -_input.LookInput.y : _input.LookInput.y), 0f);
+        return Vector3.Lerp(_previousPlayerLookInput,_playerLookInput*Time.deltaTime,_playerLookInputLerpTime);
+    }
+    private void PlayerLook()
+    {
+        _rigidbody.rotation = Quaternion.Euler(0f,_rigidbody.rotation.eulerAngles.y + (_playerLookInput.x * _rotationSpeedMultiplier),0f);
+    }
+    private void PitchCamera()
+    {
+        Vector3 rotationValue = CameraFollow.rotation.eulerAngles;
+        _cameraPitch += _playerLookInput.y * _pitchSpeedMultiplier;
+        _cameraPitch = Mathf.Clamp(_cameraPitch, -89.9f, 89.9f);
+        CameraFollow.rotation = Quaternion.Euler(_cameraPitch, rotationValue.y, rotationValue.z);
+    }
     private Vector3 GetMoveInput()
     {
         return new Vector3(_input.MoveInput.x, 0.0f, _input.MoveInput.y);

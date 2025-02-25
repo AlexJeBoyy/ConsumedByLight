@@ -7,7 +7,9 @@ public class PlayerInput : MonoBehaviour
 {
     public Vector2 MoveInput { get; private set; } = Vector2.zero;
     public Vector2 LookInput { get; private set; } = Vector2.zero;
+    public bool InvertMouseY { get; private set; } = true;
 
+    bool MoveIsPressed = false;
     InputActions _input = null;
 
     private void OnEnable()
@@ -38,7 +40,7 @@ public class PlayerInput : MonoBehaviour
     private void SetMove(InputAction.CallbackContext ctx)
     {
        MoveInput = ctx.ReadValue<Vector2>();
-       
+        MoveIsPressed = !(MoveInput == Vector2.zero);
     }
 
     private void SetLook(InputAction.CallbackContext ctx)

@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class RandomObjectColor : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        this.GetComponent<MeshRenderer>().material.color = Random.ColorHSV(0f, 1f, 0.75f, 1f, 0.5f, 1f);
     }
 }
