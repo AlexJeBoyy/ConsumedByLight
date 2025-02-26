@@ -41,7 +41,7 @@ public class BaseController : MonoBehaviour
     {
         _previousPlayerLookInput= _playerLookInput;
         _playerLookInput = new Vector3(_input.LookInput.x, (_input.InvertMouseY ? -_input.LookInput.y : _input.LookInput.y), 0f);
-        return Vector3.Lerp(_previousPlayerLookInput,_playerLookInput*Time.deltaTime,_playerLookInputLerpTime);
+        return Vector3.Lerp(_previousPlayerLookInput, _playerLookInput * Time.deltaTime, _playerLookInputLerpTime);
     }
     private void PlayerLook()
     {
@@ -65,6 +65,5 @@ public class BaseController : MonoBehaviour
         _playerMoveInput = (new Vector3(_playerMoveInput.x * _movementMultiplier * _rigidbody.mass,
                                         _playerMoveInput.y,
                                         _playerMoveInput.z * _movementMultiplier * _rigidbody.mass));
-        //Debug.Log(_playerMoveInput);
     }
 }
