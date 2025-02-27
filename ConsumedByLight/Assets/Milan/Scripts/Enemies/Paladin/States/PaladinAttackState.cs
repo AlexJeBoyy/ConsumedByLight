@@ -22,12 +22,9 @@ public class PaladinAttackState : IPaladinBaseState
 
     IEnumerator Attack(PaladinStateMachine paladin)
     {
-        Debug.Log("Attacking...");
-
         paladin.swordAnimator.Play("Swing");
 
         yield return new WaitForSeconds(1);
-        Debug.Log("Done Attacking...");
         paladin.SwitchState(paladin.chaseState);
 
     }

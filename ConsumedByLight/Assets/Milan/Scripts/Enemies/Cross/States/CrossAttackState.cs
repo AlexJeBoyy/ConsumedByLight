@@ -11,11 +11,20 @@ public class CrossAttackState : ICrossBaseState
 
     public void Start(CrossStateMachine cross)
     {
-
+        cross.StartCoroutine(Attack(cross));
     }
 
     public void Update(CrossStateMachine cross)
     {
+
+    }
+
+    IEnumerator Attack(CrossStateMachine cross)
+    {
+        cross.crossAnimator.Play("Swing");
+
+        yield return new WaitForSeconds(2);
+        cross.SwitchState(cross.chaseState);
 
     }
 }
