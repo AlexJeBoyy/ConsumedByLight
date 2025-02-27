@@ -16,6 +16,8 @@ public class PaladinStateMachine : MonoBehaviour
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public GameObject target;
 
+    [SerializeField] public Animator swordAnimator;
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();

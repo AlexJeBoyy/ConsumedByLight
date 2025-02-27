@@ -26,6 +26,11 @@ public class PaladinChaseState : IPaladinBaseState
             timer = refreshtime;
             paladin.agent.SetDestination(paladin.target.transform.position);
         }
+
+        if (paladin.agent.remainingDistance <= paladin.agent.stoppingDistance)
+        {
+            paladin.SwitchState(paladin.attackState);
+        }
     }
 
     void UpdateTimer()
