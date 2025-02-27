@@ -3,8 +3,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerGrab : MonoBehaviour
 {
+
+    [Header("Player Camera")]
     [SerializeField] Camera cam;
-    [SerializeField] float maxGrabDistance = 10f, throwForce = 20f, dropForce = 5f, lerpSpeed = 10f;
+
+
+    [Header("Object Attributes")]
+    [SerializeField] float maxGrabDistance = 10f;
+    [SerializeField] float throwForce = 20f;
+    [SerializeField] float lerpSpeed = 10f;
+
+
+    [Header("Holder Attributes")]
     [SerializeField] Transform objectHolder;
     [SerializeField] float scrollSpeed = 250f;
     [SerializeField] float followDeadzone = 0.1f;
@@ -12,6 +22,7 @@ public class PlayerGrab : MonoBehaviour
     [SerializeField] private float distanceMod;
     [SerializeField] private float maxdist;
 
+    [Header("Charge")]
     [SerializeField] private float chargeSpeed;
     [SerializeField] private float chargeTime;
     [SerializeField] private float maxChargeTime;
