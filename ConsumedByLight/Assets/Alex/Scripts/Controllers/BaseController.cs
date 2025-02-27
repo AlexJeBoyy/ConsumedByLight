@@ -20,6 +20,8 @@ public class BaseController : MonoBehaviour
     [SerializeField] float _movementMultiplier = 30f;
     [SerializeField] float _rotationSpeedMultiplier = 180f;
     [SerializeField] float _pitchSpeedMultiplier = 180f;
+
+    
     private void Awake()
     {
         _rigidbody= GetComponent<Rigidbody>();
