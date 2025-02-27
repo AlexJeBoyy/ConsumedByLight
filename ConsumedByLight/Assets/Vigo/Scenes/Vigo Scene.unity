@@ -1356,7 +1356,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1582930683}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 37840a374d121574bbfcb25ec1bd5e7f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1893,6 +1893,8 @@ MonoBehaviour:
   lerpSpeed: 10
   objectHolder: {fileID: 1450407911}
   scrollSpeed: 250
+  chargeSpeed: 0
+  chargeTime: 0
 --- !u!136 &1657738520
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2047,7 +2049,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1657738519}
         m_TargetAssemblyTypeName: PlayerGrab, Assembly-CSharp
         m_MethodName: Throw
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
