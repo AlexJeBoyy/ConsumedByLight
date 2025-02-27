@@ -9,9 +9,14 @@ public class PlayerInput : MonoBehaviour
     public Vector2 LookInput { get; private set; } = Vector2.zero;
     public bool InvertMouseY { get; private set; } = true;
 
+    public bool CamChangePressed { get; private set; } = false;
     bool MoveIsPressed = false;
     InputActions _input = null;
 
+    private void Update()
+    {
+        CamChangePressed = _input.BaseGameplay.ChangeCam.WasPressedThisFrame();
+    }
     private void OnEnable()
     {
         
