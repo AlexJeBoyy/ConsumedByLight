@@ -7,11 +7,19 @@ public class PlayerGrab : MonoBehaviour
     [SerializeField] float maxGrabDistance = 10f, throwForce = 20f, dropForce = 5f, lerpSpeed = 10f;
     [SerializeField] Transform objectHolder;
     [SerializeField] float scrollSpeed = 250f;
+    [SerializeField] float followDeadzone = 0.1f;
     private Vector3 targetPosistion;
+    [SerializeField] private float distanceMod;
+    [SerializeField] private float maxdist;
+
+    [SerializeField] private float chargeSpeed;
+    [SerializeField] private float chargeTime;
+    [SerializeField] private float maxChargeTime;
+    private bool isCharging;
 
     Rigidbody grabbedRB;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (grabbedRB)
         {
@@ -20,12 +28,35 @@ public class PlayerGrab : MonoBehaviour
             float distanceFromCamera = Vector3.Distance(cam.transform.position, objectHolder.position);
             targetPosistion = cam.transform.position + cam.transform.forward * distanceFromCamera;
 
+            float dist = Vector3.Distance(targetPosistion, grabbedRB.transform.position);
+            if (dist > maxdist)
+            {
+                grabbedRB.useGravity = true;
+                grabbedRB = null;
+                return;
+            }
+            if (dist < followDeadzone)
+            {
+                grabbedRB.velocity = Vector3.zero;
+            }
+            else
+            {
+                Vector3 direction = (targetPosistion - grabbedRB.transform.position).normalized;
+                grabbedRB.velocity = (direction * Time.deltaTime * lerpSpeed * (dist * distanceMod));
+            }
 
-            grabbedRB.transform.position = Vector3.Lerp(grabbedRB.transform.position, targetPosistion, lerpSpeed * Time.deltaTime);
+            // grabbedRB.transform.position = Vector3.Lerp(grabbedRB.transform.position, targetPosistion, lerpSpeed * Time.deltaTime);
+
+
 
 
             objectHolder.transform.position = objectHolder.transform.position + cam.transform.forward * Input.GetAxis("Mouse ScrollWheel") * scrollSpeed * Time.deltaTime;
             distanceFromCamera = Mathf.Clamp(distanceFromCamera, 1f, maxGrabDistance);
+            if (isCharging)
+            {
+                chargeTime += Time.deltaTime * chargeSpeed;
+                chargeTime = Mathf.Clamp(chargeTime, 0f, maxChargeTime);
+            }
         }
     }
     public void Grab()
@@ -54,13 +85,19 @@ public class PlayerGrab : MonoBehaviour
         }
     }
 
-    public void Throw(InputAction.CallbackContext ctx)
+    public void ThrowCharge(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && grabbedRB)
+        if (ctx.performed)
         {
-            grabbedRB.AddForce(cam.transform.forward * throwForce, ForceMode.Impulse);
+            isCharging = true;
+        }
+        else if (ctx.canceled)
+        {
+            Debug.Log(chargeTime);
+            grabbedRB.AddForce(cam.transform.forward * throwForce * chargeTime / maxChargeTime, ForceMode.Impulse);
+            isCharging = false;
+            chargeTime = 0f;
             grabbedRB.useGravity = true;
-            grabbedRB.freezeRotation = false;
             grabbedRB = null;
         }
     }
