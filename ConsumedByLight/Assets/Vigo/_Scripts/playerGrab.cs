@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerGrab : MonoBehaviour
 {
@@ -19,7 +20,6 @@ public class PlayerGrab : MonoBehaviour
             float distanceFromCamera = Vector3.Distance(cam.transform.position, objectHolder.position);
             targetPosistion = cam.transform.position + cam.transform.forward * distanceFromCamera;
 
-            grabbedRB.freezeRotation = true;
 
             grabbedRB.transform.position = Vector3.Lerp(grabbedRB.transform.position, targetPosistion, lerpSpeed * Time.deltaTime);
 
@@ -32,14 +32,6 @@ public class PlayerGrab : MonoBehaviour
     {
         if (grabbedRB)
         {
-            Vector3 horizontalVelocity = new Vector3(grabbedRB.velocity.x, 0, grabbedRB.velocity.z);
-            Vector3 horizontalDirection = horizontalVelocity.normalized;
-            if (horizontalDirection == Vector3.zero)
-            {
-                horizontalDirection = cam.transform.forward;
-            }
-            grabbedRB.AddForce(horizontalDirection * dropForce, ForceMode.VelocityChange);
-            grabbedRB.freezeRotation = false;
             grabbedRB.useGravity = true;
             grabbedRB = null;
         }
@@ -62,11 +54,11 @@ public class PlayerGrab : MonoBehaviour
         }
     }
 
-    public void Throw()
+    public void Throw(InputAction.CallbackContext ctx)
     {
-        if (grabbedRB)
+        if (ctx.performed && grabbedRB)
         {
-            grabbedRB.AddForce(cam.transform.forward * throwForce, ForceMode.VelocityChange);
+            grabbedRB.AddForce(cam.transform.forward * throwForce, ForceMode.Impulse);
             grabbedRB.useGravity = true;
             grabbedRB.freezeRotation = false;
             grabbedRB = null;
