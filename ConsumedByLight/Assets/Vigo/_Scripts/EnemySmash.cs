@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemySmash : MonoBehaviour
@@ -21,7 +22,14 @@ public class EnemySmash : MonoBehaviour
 
         if (speedOfObject >= destroySpeedThreshold)
         {
-            Destroy(gameObject);
+            StartCoroutine(DestroyObject());
         }
+    }
+
+    IEnumerator DestroyObject()
+    {
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
+
     }
 }
