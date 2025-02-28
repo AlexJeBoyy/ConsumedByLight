@@ -37,6 +37,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""f73c5595-1d29-4add-914d-349a74a17557"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""672ad057-3e75-4498-af17-f6fcb138823f"",
@@ -53,15 +62,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Throw"",
-                    ""type"": ""Button"",
-                    ""id"": ""f73c5595-1d29-4add-914d-349a74a17557"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""ChangeCam"",
@@ -195,28 +195,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""09c289f4-8b61-4476-b112-35e1335e735e"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Throw"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""656e3df3-f0ed-417e-b7dc-92d970fa4251"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Throw"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""fa06c00d-85e2-4e34-b302-3ca1e79109e4"",
                     ""path"": ""<Gamepad>/rightStickPress"",
                     ""interactions"": """",
@@ -258,6 +236,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""09c289f4-8b61-4476-b112-35e1335e735e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""656e3df3-f0ed-417e-b7dc-92d970fa4251"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -267,9 +267,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         // BaseGameplay
         m_BaseGameplay = asset.FindActionMap("BaseGameplay", throwIfNotFound: true);
         m_BaseGameplay_Telekenisis = m_BaseGameplay.FindAction("Telekenisis", throwIfNotFound: true);
+        m_BaseGameplay_Throw = m_BaseGameplay.FindAction("Throw", throwIfNotFound: true);
         m_BaseGameplay_Move = m_BaseGameplay.FindAction("Move", throwIfNotFound: true);
         m_BaseGameplay_Look = m_BaseGameplay.FindAction("Look", throwIfNotFound: true);
-        m_BaseGameplay_Throw = m_BaseGameplay.FindAction("Throw", throwIfNotFound: true);
         m_BaseGameplay_ChangeCam = m_BaseGameplay.FindAction("ChangeCam", throwIfNotFound: true);
         m_BaseGameplay_Jump = m_BaseGameplay.FindAction("Jump", throwIfNotFound: true);
     }
@@ -334,9 +334,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_BaseGameplay;
     private List<IBaseGameplayActions> m_BaseGameplayActionsCallbackInterfaces = new List<IBaseGameplayActions>();
     private readonly InputAction m_BaseGameplay_Telekenisis;
+    private readonly InputAction m_BaseGameplay_Throw;
     private readonly InputAction m_BaseGameplay_Move;
     private readonly InputAction m_BaseGameplay_Look;
-    private readonly InputAction m_BaseGameplay_Throw;
     private readonly InputAction m_BaseGameplay_ChangeCam;
     private readonly InputAction m_BaseGameplay_Jump;
     public struct BaseGameplayActions
@@ -344,9 +344,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         private @InputActions m_Wrapper;
         public BaseGameplayActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Telekenisis => m_Wrapper.m_BaseGameplay_Telekenisis;
+        public InputAction @Throw => m_Wrapper.m_BaseGameplay_Throw;
         public InputAction @Move => m_Wrapper.m_BaseGameplay_Move;
         public InputAction @Look => m_Wrapper.m_BaseGameplay_Look;
-        public InputAction @Throw => m_Wrapper.m_BaseGameplay_Throw;
         public InputAction @ChangeCam => m_Wrapper.m_BaseGameplay_ChangeCam;
         public InputAction @Jump => m_Wrapper.m_BaseGameplay_Jump;
         public InputActionMap Get() { return m_Wrapper.m_BaseGameplay; }
@@ -361,15 +361,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Telekenisis.started += instance.OnTelekenisis;
             @Telekenisis.performed += instance.OnTelekenisis;
             @Telekenisis.canceled += instance.OnTelekenisis;
+            @Throw.started += instance.OnThrow;
+            @Throw.performed += instance.OnThrow;
+            @Throw.canceled += instance.OnThrow;
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @Throw.started += instance.OnThrow;
-            @Throw.performed += instance.OnThrow;
-            @Throw.canceled += instance.OnThrow;
             @ChangeCam.started += instance.OnChangeCam;
             @ChangeCam.performed += instance.OnChangeCam;
             @ChangeCam.canceled += instance.OnChangeCam;
@@ -383,15 +383,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Telekenisis.started -= instance.OnTelekenisis;
             @Telekenisis.performed -= instance.OnTelekenisis;
             @Telekenisis.canceled -= instance.OnTelekenisis;
+            @Throw.started -= instance.OnThrow;
+            @Throw.performed -= instance.OnThrow;
+            @Throw.canceled -= instance.OnThrow;
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @Throw.started -= instance.OnThrow;
-            @Throw.performed -= instance.OnThrow;
-            @Throw.canceled -= instance.OnThrow;
             @ChangeCam.started -= instance.OnChangeCam;
             @ChangeCam.performed -= instance.OnChangeCam;
             @ChangeCam.canceled -= instance.OnChangeCam;
@@ -418,9 +418,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     public interface IBaseGameplayActions
     {
         void OnTelekenisis(InputAction.CallbackContext context);
+        void OnThrow(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnThrow(InputAction.CallbackContext context);
         void OnChangeCam(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
     }
