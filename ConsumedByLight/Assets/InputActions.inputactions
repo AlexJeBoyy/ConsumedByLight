@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "05f672eb-3c44-4761-b1ad-24676be6ccb9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -56,6 +65,17 @@
                     "name": "",
                     "id": "379c7b60-b07a-4a25-96ee-0192637acbdb",
                     "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Telekenisis",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43f11196-391f-4203-9ea6-1106c9fc2a62",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -164,6 +184,17 @@
                 },
                 {
                     "name": "",
+                    "id": "656e3df3-f0ed-417e-b7dc-92d970fa4251",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "fa06c00d-85e2-4e34-b302-3ca1e79109e4",
                     "path": "<Gamepad>/rightStickPress",
                     "interactions": "",
@@ -181,6 +212,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "ChangeCam",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bec87f60-5884-44d8-8f9a-fc8d01e5b060",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "349d0ccd-c09f-429c-8c4e-4f96a6ac645c",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
