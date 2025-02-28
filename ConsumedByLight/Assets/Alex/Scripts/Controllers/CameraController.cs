@@ -21,39 +21,49 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        ChangeCam();
+        c1Person.Priority += _activeCamPriorityModifer;
+        _activeCam = c1Person;
+        FirstPerson();
     }
 
-    private void Update()
-    {
-        if (_input.CamChangePressed) 
-        {
-            ChangeCam();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (_input.CamChangePressed)
+    //    {
+    //        ChangeCam();
+    //    }
+    //}
 
     private void ChangeCam()
     {
         if (c3Person == _activeCam)
         {
             SetCameraPriorities(c3Person, c1Person);
-            UsingOrbidCam = false;
+            UsingOrbidCam = false; //un needed but handy if you add more cams
+            FirstPerson();
         }
         else if (c1Person == _activeCam)
         {
             SetCameraPriorities(c1Person, orbitCam);
             UsingOrbidCam = true;
+            MainCam.cullingMask |= (1 << LayerMask.NameToLayer("Player"));
         }
         else if (orbitCam == _activeCam)
         {
             SetCameraPriorities(orbitCam, c3Person);
             _activeCam = c3Person;
+            UsingOrbidCam = false;
         }
         else
         {
             c1Person.Priority += _activeCamPriorityModifer;
             _activeCam = c1Person;
         }
+    }
+    private void FirstPerson()
+    {
+        MainCam.cullingMask &= ~(1 << LayerMask.NameToLayer("Player"));
+        //MainCam.cullingMask | = (1 << LayerMask.NameToLayer("Player")); to undo
     }
 
     private void SetCameraPriorities(CinemachineVirtualCamera CurrentCam, CinemachineVirtualCamera NewCam)

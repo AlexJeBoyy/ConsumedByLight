@@ -207,7 +207,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 0
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 0.5
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -500,7 +500,7 @@ Transform:
   m_GameObject: {fileID: 4461132744888687277}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.683, y: 0.427, z: 0.85}
+  m_LocalPosition: {x: 0.683, y: 0.427, z: 4.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -553,6 +553,7 @@ GameObject:
   - component: {fileID: 3384050600636649088}
   - component: {fileID: 6031702188948295679}
   - component: {fileID: 7014865108197199107}
+  - component: {fileID: 5408829981628473495}
   m_Layer: 3
   m_Name: BasePlayer
   m_TagString: Untagged
@@ -659,7 +660,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 7028436515386940747}
   maxGrabDistance: 2
-  throwForce: 25
+  throwForce: 250
   lerpSpeed: 250
   objectHolder: {fileID: 5041715646341353539}
   scrollSpeed: 100
@@ -669,6 +670,85 @@ MonoBehaviour:
   chargeSpeed: 1
   chargeTime: 0
   maxChargeTime: 2
+--- !u!114 &5408829981628473495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401073755604383703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: e208727bb84ec894fba0ad5cd5e1a748,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7014865108197199107}
+        m_TargetAssemblyTypeName: PlayerGrab, Assembly-CSharp
+        m_MethodName: Grab
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0142ec01-b3ab-471f-acdc-0f13069480da
+    m_ActionName: BaseGameplay/Telekenisis[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 672ad057-3e75-4498-af17-f6fcb138823f
+    m_ActionName: BaseGameplay/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 79a23bc3-465c-4ec5-966a-a65b5924054d
+    m_ActionName: BaseGameplay/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7014865108197199107}
+        m_TargetAssemblyTypeName: PlayerGrab, Assembly-CSharp
+        m_MethodName: ThrowCharge
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f73c5595-1d29-4add-914d-349a74a17557
+    m_ActionName: BaseGameplay/Throw[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a33bb426-d101-4419-9f75-2567f885a7ef
+    m_ActionName: BaseGameplay/ChangeCam[/DualSenseGamepadHID/rightStickPress,/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 05f672eb-3c44-4761-b1ad-24676be6ccb9
+    m_ActionName: BaseGameplay/Jump[/Keyboard/space,/DualSenseGamepadHID/buttonSouth]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: BaseGameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 7028436515386940747}
 --- !u!1 &5754057948243353444
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,7 +759,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7300786779533281195}
   m_Layer: 0
-  m_Name: Camera's
+  m_Name: ---Camera---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class BaseController : MonoBehaviour
 {
-    public Transform CameraFollow;
-
-    Rigidbody _rigidbody = null;
+    [SerializeField] Transform CameraFollow;
     [SerializeField] PlayerInput _input;
+    Rigidbody _rigidbody = null;
+    CapsuleCollider _capsuleCollider = null;
 
     Vector3 _playerMoveInput;
 
     Vector3 _playerLookInput;
     Vector3 _previousPlayerLookInput = Vector3.zero;
-    float _cameraPitch = 0f;
+    [SerializeField] float _cameraPitch = 0f;
     [SerializeField] float _playerLookInputLerpTime = 0.35f;
 
     [Header("Movement")]
@@ -21,7 +21,20 @@ public class BaseController : MonoBehaviour
     [SerializeField] float _rotationSpeedMultiplier = 180f;
     [SerializeField] float _pitchSpeedMultiplier = 180f;
 
-    
+    [Header("Ground Check")]
+    [SerializeField] bool _playerIsGrounded = true;
+    [SerializeField][Range(0f, 1.8f)] float _groundCheckRaduisMultiplier = .9f;
+    [SerializeField][Range(-.95f, 1.05f)] float _groundCheckDistance = .05f;
+    RaycastHit _groundCheck = new RaycastHit();
+
+    [Header("Gravity")]
+    [SerializeField] float _gravityFallCurrent = -100f;
+    [SerializeField] float _gravityFallMin = -100f;
+    [SerializeField] float _gravityFallMax = -500f;
+    [SerializeField][Range(-5f, -35f)] float _gravityFallIncrementAmount = -20f;
+    [SerializeField] float _gravityFallIncrementTime = -.05f;
+    [SerializeField] float _gravityFallTimer = -0f;
+    [SerializeField] float _gravity = -0f;
     private void Awake()
     {
         _rigidbody= GetComponent<Rigidbody>();
