@@ -15,6 +15,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Throw",
+                    "type": "Button",
+                    "id": "f73c5595-1d29-4add-914d-349a74a17557",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Move",
                     "type": "Value",
                     "id": "672ad057-3e75-4498-af17-f6fcb138823f",
@@ -33,18 +42,36 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Throw",
+                    "name": "ChangeCam",
                     "type": "Button",
-                    "id": "f73c5595-1d29-4add-914d-349a74a17557",
+                    "id": "a33bb426-d101-4419-9f75-2567f885a7ef",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ChangeCam",
+                    "name": "Jump",
                     "type": "Button",
-                    "id": "a33bb426-d101-4419-9f75-2567f885a7ef",
+                    "id": "05f672eb-3c44-4761-b1ad-24676be6ccb9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "936398e6-d3dd-42c4-b67f-979789de1e9b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "d20ad938-95d7-4cd0-905d-e0f199f0f213",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -56,6 +83,17 @@
                     "name": "",
                     "id": "379c7b60-b07a-4a25-96ee-0192637acbdb",
                     "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Telekenisis",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43f11196-391f-4203-9ea6-1106c9fc2a62",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -153,17 +191,6 @@
                 },
                 {
                     "name": "",
-                    "id": "09c289f4-8b61-4476-b112-35e1335e735e",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throw",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "fa06c00d-85e2-4e34-b302-3ca1e79109e4",
                     "path": "<Gamepad>/rightStickPress",
                     "interactions": "",
@@ -181,6 +208,72 @@
                     "processors": "",
                     "groups": "",
                     "action": "ChangeCam",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bec87f60-5884-44d8-8f9a-fc8d01e5b060",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "349d0ccd-c09f-429c-8c4e-4f96a6ac645c",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "09c289f4-8b61-4476-b112-35e1335e735e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "656e3df3-f0ed-417e-b7dc-92d970fa4251",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "96c15d73-139e-4dc6-91a8-97c82d83ae3a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e48b8c8d-0db0-4c97-ab6e-c0487fb37e42",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
