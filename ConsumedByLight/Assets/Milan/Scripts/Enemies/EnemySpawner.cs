@@ -10,6 +10,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject crossEnemyPrefab;
     [SerializeField] int numOfCrossEnemies;
 
+    [SerializeField] GameObject priestEnemyPrefab;
+    [SerializeField] int numOfPriestEnemies;
+
     [SerializeField] float maxRange, minRange;
 
     private void Start()
@@ -24,6 +27,12 @@ public class EnemySpawner : MonoBehaviour
         {
             Vector3 randomPos = new Vector3(Random.Range(minRange, maxRange), 5, Random.Range(minRange, maxRange));
             Instantiate(crossEnemyPrefab, randomPos, Quaternion.identity);
+        }
+
+        for (int i = 0; i < numOfPriestEnemies; i++)
+        {
+            Vector3 randomPos = new Vector3(Random.Range(minRange, maxRange), 5, Random.Range(minRange, maxRange));
+            Instantiate(priestEnemyPrefab, randomPos, Quaternion.identity);
         }
     }
 
