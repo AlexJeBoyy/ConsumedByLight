@@ -80,6 +80,24 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""936398e6-d3dd-42c4-b67f-979789de1e9b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""d20ad938-95d7-4cd0-905d-e0f199f0f213"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -258,6 +276,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Throw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""96c15d73-139e-4dc6-91a8-97c82d83ae3a"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e48b8c8d-0db0-4c97-ab6e-c0487fb37e42"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -272,6 +312,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_BaseGameplay_Look = m_BaseGameplay.FindAction("Look", throwIfNotFound: true);
         m_BaseGameplay_ChangeCam = m_BaseGameplay.FindAction("ChangeCam", throwIfNotFound: true);
         m_BaseGameplay_Jump = m_BaseGameplay.FindAction("Jump", throwIfNotFound: true);
+        m_BaseGameplay_Shoot = m_BaseGameplay.FindAction("Shoot", throwIfNotFound: true);
+        m_BaseGameplay_Reload = m_BaseGameplay.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -339,6 +381,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_BaseGameplay_Look;
     private readonly InputAction m_BaseGameplay_ChangeCam;
     private readonly InputAction m_BaseGameplay_Jump;
+    private readonly InputAction m_BaseGameplay_Shoot;
+    private readonly InputAction m_BaseGameplay_Reload;
     public struct BaseGameplayActions
     {
         private @InputActions m_Wrapper;
@@ -349,6 +393,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_BaseGameplay_Look;
         public InputAction @ChangeCam => m_Wrapper.m_BaseGameplay_ChangeCam;
         public InputAction @Jump => m_Wrapper.m_BaseGameplay_Jump;
+        public InputAction @Shoot => m_Wrapper.m_BaseGameplay_Shoot;
+        public InputAction @Reload => m_Wrapper.m_BaseGameplay_Reload;
         public InputActionMap Get() { return m_Wrapper.m_BaseGameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -376,6 +422,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
         }
 
         private void UnregisterCallbacks(IBaseGameplayActions instance)
@@ -398,6 +450,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
         }
 
         public void RemoveCallbacks(IBaseGameplayActions instance)
@@ -423,5 +481,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnChangeCam(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }
