@@ -631,7 +631,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5401073755604383703}
   serializedVersion: 4
-  m_Mass: 1000
+  m_Mass: 6
   m_Drag: 4
   m_AngularDrag: 4
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -657,7 +657,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5401073755604383703}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6200b05cbcd19d84aa23b3f0bee7c3f2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -688,19 +688,19 @@ MonoBehaviour:
   CameraFollow: {fileID: 6316824878199742984}
   _input: {fileID: 3538303779231498312}
   _cameraPitch: 0
-  _playerLookInputLerpTime: 0.75
+  _playerLookInputLerpTime: 0.35
   _movementMultiplier: 120
   _rotationSpeedMultiplier: 500
   _pitchSpeedMultiplier: 500
   _playerIsGrounded: 1
   _groundCheckRaduisMultiplier: 0.9
   _groundCheckDistance: 0.05
-  _gravityFallCurrent: -100
-  _gravityFallMin: -100
-  _gravityFallMax: -500
+  _gravityFallCurrent: -10
+  _gravityFallMin: -10
+  _gravityFallMax: -100
   _gravityFallIncrementAmount: -20
   _gravityFallIncrementTime: -0.05
-  _gravityFallTimer: -0
+  _playerFallTimer: -0
   _gravity: -0
 --- !u!114 &7014865108197199107
 MonoBehaviour:
@@ -715,9 +715,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 7028436515386940747}
-  maxGrabDistance: 2
-  throwForce: 250
-  lerpSpeed: 250
+  maxGrabDistance: 5
+  throwForce: 50
+  lerpSpeed: 249.7
   objectHolder: {fileID: 5041715646341353539}
   scrollSpeed: 100
   followDeadzone: 0.1
