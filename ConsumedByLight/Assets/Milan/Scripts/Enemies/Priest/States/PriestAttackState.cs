@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PriestAttackState : IPriestBaseState
@@ -11,11 +12,26 @@ public class PriestAttackState : IPriestBaseState
 
     public void Start(PriestStateMachine priest)
     {
-
+        priest.transform.LookAt(priest.target.transform.position);
+        priest.StartCoroutine(Attack(priest));
     }
 
     public void Update(PriestStateMachine priest)
     {
 
+    }
+    IEnumerator Attack(PriestStateMachine priest)
+    {
+        Shoot(priest);
+        yield return new WaitForSeconds(2);
+        priest.SwitchState(priest.chaseState);
+
+    }
+
+    void Shoot(PriestStateMachine priest)
+    {
+        GameObject water = Object.Instantiate(priest.holyWater, priest.transform.position, Quaternion.identity);
+        water.GetComponent<Rigidbody>().AddForce(priest.transform.forward.normalized * priest.force, ForceMode.Impulse);
+        water.GetComponent<Rigidbody>().AddForce(priest.transform.up.normalized * priest.force, ForceMode.Impulse);
     }
 }
