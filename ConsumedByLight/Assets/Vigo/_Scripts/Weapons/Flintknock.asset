@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13aaaa5564cae254f8c386163b5a6e80, type: 3}
   m_Name: Flintknock
   m_EditorClassIdentifier: 
-  gunName: 
-  shootingRange: 0
-  fireRate: 0
-  magazineSize: 0
-  reloadTime: 0
+  gunName: Flintknock
+  shootingRange: 25
+  fireRate: 5
+  magazineSize: 1
+  reloadTime: 1.5
+  recoilAmount: 0
+  maxRecoil: {x: 0, y: 0}
+  recoilSpeed: 0
+  resetRecoilSpeed: 0
