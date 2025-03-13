@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedOfObject: 0
-  destroySpeedThreshold: 10
+  destroySpeedThreshold: 50
 --- !u!1 &120222846
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,7 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedOfObject: 0
-  destroySpeedThreshold: 10
+  destroySpeedThreshold: 50
 --- !u!1 &312296567
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedOfObject: 0
-  destroySpeedThreshold: 10
+  destroySpeedThreshold: 50
 --- !u!1 &314611666
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,7 +1353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedOfObject: 0
-  destroySpeedThreshold: 10
+  destroySpeedThreshold: 50
 --- !u!1 &802396806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,7 +1514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedOfObject: 0
-  destroySpeedThreshold: 10
+  destroySpeedThreshold: 50
 --- !u!1 &942050516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1740,7 +1740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedOfObject: 0
-  destroySpeedThreshold: 10
+  destroySpeedThreshold: 50
 --- !u!1 &1180185515
 GameObject:
   m_ObjectHideFlags: 0
@@ -1941,7 +1941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedOfObject: 0
-  destroySpeedThreshold: 10
+  destroySpeedThreshold: 50
 --- !u!1 &1644385599
 GameObject:
   m_ObjectHideFlags: 0
@@ -2207,7 +2207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedOfObject: 0
-  destroySpeedThreshold: 10
+  destroySpeedThreshold: 50
 --- !u!1 &1927969749
 GameObject:
   m_ObjectHideFlags: 0
@@ -2473,7 +2473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedOfObject: 0
-  destroySpeedThreshold: 10
+  destroySpeedThreshold: 50
 --- !u!1001 &7408397007391055181
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2482,6 +2482,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1542708578182382962, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
+      propertyPath: m_Drag
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1542708578182382962, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
+      propertyPath: m_Mass
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1542708578182382962, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2202071186890228922, guid: d8732a589c0a7f345ae5a5a99154eaaa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2536,6 +2551,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ---Player---
+      objectReference: {fileID: 0}
+    - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
+      propertyPath: _movementMultiplier
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
