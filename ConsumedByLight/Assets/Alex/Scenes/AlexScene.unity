@@ -2426,11 +2426,6 @@ PrefabInstance:
       propertyPath: _input
       value: 
       objectReference: {fileID: 1193236608}
-    - target: {fileID: 1542708578182382962, guid: d8732a589c0a7f345ae5a5a99154eaaa,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2202071186890228922, guid: d8732a589c0a7f345ae5a5a99154eaaa,
         type: 3}
       propertyPath: m_LocalPosition.x
