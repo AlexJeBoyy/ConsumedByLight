@@ -38,6 +38,7 @@ public class BaseController : MonoBehaviour
     private void Awake()
     {
         _rigidbody= GetComponent<Rigidbody>();
+        _capsuleCollider = GetComponent<CapsuleCollider>(); 
     }
 
     private void FixedUpdate()
@@ -72,6 +73,11 @@ public class BaseController : MonoBehaviour
     private Vector3 GetMoveInput()
     {
         return new Vector3(_input.MoveInput.x, 0.0f, _input.MoveInput.y);
+    }
+
+    private bool PlayerIsGrounded()
+    {
+        return true;
     }
 
     private void PlayerMove()
