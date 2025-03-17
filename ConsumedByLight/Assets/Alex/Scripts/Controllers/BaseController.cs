@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class BaseController : MonoBehaviour
 {
     [SerializeField] Transform CameraFollow;
     [SerializeField] PlayerInput _input;
+    [SerializeField] CameraController _cameraController;
     Rigidbody _rigidbody = null;
     CapsuleCollider _capsuleCollider = null;
 
@@ -20,9 +22,11 @@ public class BaseController : MonoBehaviour
     [SerializeField] float _movementMultiplier = 30f;
     [SerializeField] float _rotationSpeedMultiplier = 180f;
     [SerializeField] float _pitchSpeedMultiplier = 180f;
+    [SerializeField] float _runMultiplier = 2.5f;
+    [SerializeField] float _runSpeed = 120;
 
     [Header("Ground Check")]
-    [SerializeField] bool _playerIsGrounded = true;
+    public bool _playerIsGrounded = true;
     [SerializeField][Range(0f, 1.8f)] float _groundCheckRaduisMultiplier = .9f;
     [SerializeField][Range(-.95f, 1.05f)] float _groundCheckDistance = .05f;
     RaycastHit _groundCheckHit = new RaycastHit();
@@ -34,37 +38,45 @@ public class BaseController : MonoBehaviour
     [SerializeField][Range(-5f, -35f)] float _gravityFallIncrementAmount = -20f;
     [SerializeField] float _gravityFallIncrementTime = -.05f;
     [SerializeField] float _playerFallTimer = -0f;
-    [SerializeField] float _gravity = -0f;
+    [SerializeField] float _gravityGrounded = -1f;
+    [SerializeField] float _maxSlopeAngle = -47.5f;
     private void Awake()
     {
-        _rigidbody= GetComponent<Rigidbody>();
-        _capsuleCollider = GetComponent<CapsuleCollider>(); 
+        _rigidbody = GetComponent<Rigidbody>();
+        _capsuleCollider = GetComponent<CapsuleCollider>();
     }
 
     private void FixedUpdate()
     {
         _playerLookInput = GetLookInput();
         PlayerLook();
+
+        PlayerFOV();
+
         PitchCamera();
 
         _playerMoveInput = GetMoveInput();
         _playerIsGrounded = PlayerIsGroundedCheck();
-        _playerMoveInput.y = PlayerGravity();
 
         _playerMoveInput = PlayerMove();
+        _playerMoveInput = PlayerSlope();
+        _playerMoveInput = PlayerRun();
+        _playerMoveInput.y = PlayerFallGravity();
+
+        _playerMoveInput *= _rigidbody.mass; //Note: Dev purposes
 
         _rigidbody.AddRelativeForce(_playerMoveInput, ForceMode.Force);
     }
 
     private Vector3 GetLookInput()
     {
-        _previousPlayerLookInput= _playerLookInput;
+        _previousPlayerLookInput = _playerLookInput;
         _playerLookInput = new Vector3(_input.LookInput.x, (_input.InvertMouseY ? -_input.LookInput.y : _input.LookInput.y), 0f);
         return Vector3.Lerp(_previousPlayerLookInput, _playerLookInput * Time.deltaTime, _playerLookInputLerpTime);
     }
     private void PlayerLook()
     {
-        _rigidbody.rotation = Quaternion.Euler(0f,_rigidbody.rotation.eulerAngles.y + (_playerLookInput.x * _rotationSpeedMultiplier),0f);
+        _rigidbody.rotation = Quaternion.Euler(0f, _rigidbody.rotation.eulerAngles.y + (_playerLookInput.x * _rotationSpeedMultiplier), 0f);
     }
     private void PitchCamera()
     {
@@ -77,42 +89,99 @@ public class BaseController : MonoBehaviour
     {
         return new Vector3(_input.MoveInput.x, 0.0f, _input.MoveInput.y);
     }
+    private Vector3 PlayerMove()
+    {
 
+        return new Vector3(_playerMoveInput.x * _movementMultiplier,
+                            _playerMoveInput.y,
+                            _playerMoveInput.z * _movementMultiplier);
+
+    }
     private bool PlayerIsGroundedCheck()
     {
         float sphereCastRadius = _capsuleCollider.radius * _groundCheckRaduisMultiplier;
         float sphereCastTravelDistance = _capsuleCollider.bounds.extents.y - sphereCastRadius + _groundCheckDistance;
         return Physics.SphereCast(_rigidbody.position, sphereCastRadius, Vector3.down, out _groundCheckHit, sphereCastTravelDistance);
     }
-
-    private float PlayerGravity()
+    private Vector3 PlayerSlope()
     {
+        Vector3 calculatePlayerMovement = _playerMoveInput;
+
         if (_playerIsGrounded)
         {
-            _gravity = 0.0f;
-            _gravityFallCurrent = _gravityFallMin;
+            Vector3 localGroundCheckHitNormal = _rigidbody.transform.InverseTransformDirection(_groundCheckHit.normal);
+
+            float groundSlopeAngle = Vector3.Angle(localGroundCheckHitNormal, _rigidbody.transform.up);
+            if (groundSlopeAngle != 0.0f)
+            {
+                Quaternion slopeAngleRotation = Quaternion.FromToRotation(_rigidbody.transform.up, localGroundCheckHitNormal);
+                calculatePlayerMovement = slopeAngleRotation * calculatePlayerMovement;
+            }
+#if UNITY_EDITOR
+            Debug.DrawRay(_rigidbody.position, _rigidbody.transform.TransformDirection(calculatePlayerMovement), Color.red, 0.5f);
+#endif
+        }
+        return calculatePlayerMovement;
+    }
+
+    private Vector3 PlayerRun()
+    {
+        float runTransitionTime = .2f;
+        float walkToRunLerp;
+        
+        Vector3 calculatePlayerRunSpeed = _playerMoveInput;
+        if (_input.RunIsPressed && _input.MoveIsPressed)
+        {
+            walkToRunLerp = Mathf.Lerp(_movementMultiplier, runTransitionTime * Time.deltaTime, _runMultiplier );
+            Debug.Log(walkToRunLerp);
+            calculatePlayerRunSpeed *= walkToRunLerp;
+
+        }
+        return calculatePlayerRunSpeed;
+    }
+    private void PlayerFOV()
+    {
+        CinemachineVirtualCamera playerCam = _cameraController.c1Person;
+        float endFOV;
+        float transitionTime = 7f;
+        float minFOV = 60;
+        float maxFOV = 90;
+        if (_input.RunIsPressed && _input.MoveIsPressed)
+        {
+            endFOV = 90;
+            _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
+        }
+        else
+        {
+            endFOV = 60;
+            _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
+        }
+    }
+
+    private float PlayerFallGravity()
+    {
+        float gravity = _playerMoveInput.y;
+        if (_playerIsGrounded)
+        {
+            _gravityFallCurrent = _gravityFallMin; // Reset
         }
         else
         {
             _playerFallTimer -= Time.fixedDeltaTime;
             if (_playerFallTimer < 0.0f)
             {
-                if(_gravityFallCurrent > _gravityFallMax)
+                if (_gravityFallCurrent > _gravityFallMax)
                 {
                     _gravityFallCurrent += _gravityFallIncrementAmount;
                 }
                 _playerFallTimer = _gravityFallIncrementTime;
-                _gravity = _gravityFallCurrent;
+
             }
+            gravity = _gravityFallCurrent;
         }
-        return _gravity;
+        return gravity;
     }
-    private Vector3 PlayerMove()
-    {
-        
-        Vector3 calcPlayerMovement = (new Vector3(_playerMoveInput.x * _movementMultiplier * _rigidbody.mass,
-                                        _playerMoveInput.y * _rigidbody.mass,
-                                        _playerMoveInput.z * _movementMultiplier * _rigidbody.mass));
-        return calcPlayerMovement;
-    }
+
+
+
 }

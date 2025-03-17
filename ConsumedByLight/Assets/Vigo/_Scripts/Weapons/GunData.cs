@@ -13,10 +13,4 @@ public class GunData : ScriptableObject
     public float magazineSize;
     public float reloadTime;
 
-    [Header("Recoil Settings")]
-    public float recoilAmount;
-    public Vector2 maxRecoil;
-    public float recoilSpeed;
-    public float resetRecoilSpeed;
-
 }

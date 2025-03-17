@@ -6,6 +6,9 @@ public abstract class Gun : MonoBehaviour
     public GunData gunData;
     public BaseController controller;
     public Transform cameraTransform;
+    //public Recoil recoil;
+
+    WeaponAnim weaponanim;
 
     private float currentAmmo = 0f;
     private float nextTimeToFire = 0f;
@@ -16,7 +19,14 @@ public abstract class Gun : MonoBehaviour
     {
         currentAmmo = gunData.magazineSize;
 
+        weaponanim = GetComponent<WeaponAnim>();
+
         controller = transform.root.GetComponent<BaseController>();
+
+    }
+
+    private void Update()
+    {
 
     }
 
@@ -61,7 +71,9 @@ public abstract class Gun : MonoBehaviour
     {
         currentAmmo--;
         Debug.Log("shoot");
+        weaponanim.isRecoiling = true;
         Shoot();
+
     }
 
     public abstract void Shoot();

@@ -98,6 +98,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Value"",
+                    ""id"": ""0678a85d-0cc0-4439-89b2-350078e360b6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -298,6 +307,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06b77ddf-4eb9-4eaf-b23c-9d0762c904f2"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4df84364-a013-49be-b1ba-ee6fae397513"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -314,6 +345,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_BaseGameplay_Jump = m_BaseGameplay.FindAction("Jump", throwIfNotFound: true);
         m_BaseGameplay_Shoot = m_BaseGameplay.FindAction("Shoot", throwIfNotFound: true);
         m_BaseGameplay_Reload = m_BaseGameplay.FindAction("Reload", throwIfNotFound: true);
+        m_BaseGameplay_Run = m_BaseGameplay.FindAction("Run", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -383,6 +415,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_BaseGameplay_Jump;
     private readonly InputAction m_BaseGameplay_Shoot;
     private readonly InputAction m_BaseGameplay_Reload;
+    private readonly InputAction m_BaseGameplay_Run;
     public struct BaseGameplayActions
     {
         private @InputActions m_Wrapper;
@@ -395,6 +428,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_BaseGameplay_Jump;
         public InputAction @Shoot => m_Wrapper.m_BaseGameplay_Shoot;
         public InputAction @Reload => m_Wrapper.m_BaseGameplay_Reload;
+        public InputAction @Run => m_Wrapper.m_BaseGameplay_Run;
         public InputActionMap Get() { return m_Wrapper.m_BaseGameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -428,6 +462,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
+            @Run.started += instance.OnRun;
+            @Run.performed += instance.OnRun;
+            @Run.canceled += instance.OnRun;
         }
 
         private void UnregisterCallbacks(IBaseGameplayActions instance)
@@ -456,6 +493,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
+            @Run.started -= instance.OnRun;
+            @Run.performed -= instance.OnRun;
+            @Run.canceled -= instance.OnRun;
         }
 
         public void RemoveCallbacks(IBaseGameplayActions instance)
@@ -483,5 +523,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
     }
 }

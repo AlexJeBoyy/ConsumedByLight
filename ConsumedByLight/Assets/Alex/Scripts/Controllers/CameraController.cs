@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Unity.VisualScripting;
+using UnityEngine.ProBuilder.Shapes;
 
 public class CameraController : MonoBehaviour
 {
@@ -73,4 +74,22 @@ public class CameraController : MonoBehaviour
         NewCam.Priority -= _activeCamPriorityModifer;
         _activeCam = NewCam;
     }
+
+    public void ChangeFOV(CinemachineVirtualCamera cam, float endFOV, float duration, float minFOV, float maxFOV)
+    {
+        cam.m_Lens.FieldOfView = Mathf.Clamp(Mathf.Lerp(cam.m_Lens.FieldOfView, endFOV, duration * Time.deltaTime), minFOV, maxFOV);
+    }
+    //public IEnumerator ChangeFOV(CinemachineVirtualCamera cam, float endFOV, float duration)
+    //{
+    //    float startFOV = cam.m_Lens.FieldOfView;
+    //    float time = 0;
+    //    while (time < duration)
+    //    {
+    //        cam.m_Lens.FieldOfView = Mathf.Lerp(cam.m_Lens.FieldOfView, endFOV, Time.deltaTime * 5);
+    //        cam.m_Lens.FieldOfView = Mathf.Lerp(startFOV, endFOV, time / duration);
+    //        yield return null;
+    //        time += Time.deltaTime;
+    //    }
+        
+    //}
 }
