@@ -27,6 +27,7 @@ public class WeaponAnim : MonoBehaviour
     private void Update()
     {
         ApplySway();
+        ApplyBobbing();
     }
 
     private void ApplySway()
