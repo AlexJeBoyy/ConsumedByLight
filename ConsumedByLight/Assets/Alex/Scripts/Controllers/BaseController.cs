@@ -25,7 +25,7 @@ public class BaseController : MonoBehaviour
     [SerializeField] float _runMultiplier = 2.5f;
 
     [Header("Ground Check")]
-    [SerializeField] bool _playerIsGrounded = true;
+    public bool _playerIsGrounded = true;
     [SerializeField][Range(0f, 1.8f)] float _groundCheckRaduisMultiplier = .9f;
     [SerializeField][Range(-.95f, 1.05f)] float _groundCheckDistance = .05f;
     RaycastHit _groundCheckHit = new RaycastHit();
