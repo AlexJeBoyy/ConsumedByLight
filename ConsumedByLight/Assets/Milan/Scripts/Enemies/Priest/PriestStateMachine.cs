@@ -1,19 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PriestStateMachine : MonoBehaviour
 {
     [HideInInspector] public IPriestBaseState currentState;
 
-    [HideInInspector] public PriestSpawnState spawnState;
-    [HideInInspector] public PriestChaseState chaseState;
-    [HideInInspector] public PriestAttackState attackState;
-    [HideInInspector] public PriestDieState dieState;
-    [HideInInspector] public PriestInactiveState inactiveState;
+    [HideInInspector] public PriestSpawnState spawnState = new();
+    [HideInInspector] public PriestChaseState chaseState = new();
+    [HideInInspector] public PriestAttackState attackState = new();
+    [HideInInspector] public PriestDieState dieState = new();
+    [HideInInspector] public PriestInactiveState inactiveState = new();
+
+    [HideInInspector] public NavMeshAgent agent;
+    [HideInInspector] public GameObject target;
+
+    [SerializeField] public GameObject holyWater;
+    [SerializeField] public float force;
     private void Start()
     {
-        currentState = spawnState;
+        agent = GetComponent<NavMeshAgent>();
+        target = GameObject.FindGameObjectWithTag("Player");
+
+        currentState = chaseState;
         currentState.Start(this);
     }
 

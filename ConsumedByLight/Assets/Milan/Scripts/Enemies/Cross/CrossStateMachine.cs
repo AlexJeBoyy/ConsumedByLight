@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CrossStateMachine : MonoBehaviour
 {
@@ -12,9 +13,16 @@ public class CrossStateMachine : MonoBehaviour
     [HideInInspector] public CrossDieState dieState = new();
     [HideInInspector] public CrossInactiveState inactiveState = new();
 
+    [HideInInspector] public NavMeshAgent agent;
+    [HideInInspector] public GameObject target;
+
+    [SerializeField] public Animator crossAnimator;
     private void Start()
     {
-        currentState = spawnState;
+        agent = GetComponent<NavMeshAgent>();
+        target = GameObject.FindGameObjectWithTag("Player");
+
+        currentState = chaseState;
         currentState.Start(this);
     }
 
