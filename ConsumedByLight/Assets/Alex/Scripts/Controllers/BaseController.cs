@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -133,14 +134,20 @@ public class BaseController : MonoBehaviour
     }
     private void PlayerFOV()
     {
-        if (_input.RunIsPressed //&& _input.MoveIsPressed
-                                )
+        CinemachineVirtualCamera playerCam = _cameraController.c1Person;
+        float endFOV;
+        float transitionTime = 7f;
+        float minFOV = 60;
+        float maxFOV = 90;
+        if (_input.RunIsPressed && _input.MoveIsPressed)
         {
-            _cameraController.ChangeFOV(_cameraController.c1Person, 80, 2f, 60, 80);
+            endFOV = 90;
+            _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
         }
-        else if (!_input.RunIsPressed)
+        else
         {
-            _cameraController.ChangeFOV(_cameraController.c1Person, 60f, 3f, 60, 80);
+            endFOV = 60;
+            _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
         }
     }
 
