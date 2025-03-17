@@ -115,7 +115,7 @@ public class BaseController : MonoBehaviour
             {
                 Quaternion slopeAngleRotation = Quaternion.FromToRotation(_rigidbody.transform.up, localGroundCheckHitNormal);
                 calculatePlayerMovement = slopeAngleRotation * calculatePlayerMovement;
-            } 
+            }
 #if UNITY_EDITOR
             Debug.DrawRay(_rigidbody.position, _rigidbody.transform.TransformDirection(calculatePlayerMovement), Color.red, 0.5f);
 #endif
@@ -125,11 +125,13 @@ public class BaseController : MonoBehaviour
 
     private Vector3 PlayerRun()
     {
+        float toRunTime = 2;
+        float walkToRunLerp;
         Vector3 calculatePlayerRunSpeed = _playerMoveInput;
         if (_input.RunIsPressed && _input.MoveIsPressed)
         {
-            calculatePlayerRunSpeed *= _runMultiplier;
-            //calculatePlayerRunSpeed = Mathf.Clamp(Mathf.Lerp(_movementMultiplier, _runMultiplier, 10f));
+            walkToRunLerp = Mathf.Lerp(_movementMultiplier, _runMultiplier, toRunTime * Time.deltaTime);
+            calculatePlayerRunSpeed *= walkToRunLerp;
 
         }
         return calculatePlayerRunSpeed;
