@@ -47,5 +47,16 @@ public class WeaponAnim : MonoBehaviour
         float bobOffset = 0f;
 
         if (moveSpeed > 0.1f && player._playerIsGrounded)
+        {
+            bobTimer += Time.deltaTime * bobbingSpeed;
+            bobOffset = Mathf.Sin(bobTimer) * bobbingAmount;
+        }
+        else
+        {
+            bobTimer = 0f;
+            bobOffset = Mathf.Lerp(bobTimer, 0, Time.deltaTime * swaySmoothness);
+        }
+
+        transform.localPosition += new Vector3(0, bobOffset, 0);
     }
 }
