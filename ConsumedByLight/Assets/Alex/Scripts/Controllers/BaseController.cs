@@ -23,6 +23,7 @@ public class BaseController : MonoBehaviour
     [SerializeField] float _rotationSpeedMultiplier = 180f;
     [SerializeField] float _pitchSpeedMultiplier = 180f;
     [SerializeField] float _runMultiplier = 2.5f;
+    [SerializeField] float _runSpeed = 120;
 
     [Header("Ground Check")]
     public bool _playerIsGrounded = true;
@@ -125,12 +126,14 @@ public class BaseController : MonoBehaviour
 
     private Vector3 PlayerRun()
     {
-        float toRunTime = 2;
+        float toRunTime = 10000f;
         float walkToRunLerp;
+        
         Vector3 calculatePlayerRunSpeed = _playerMoveInput;
         if (_input.RunIsPressed && _input.MoveIsPressed)
         {
             walkToRunLerp = Mathf.Lerp(_movementMultiplier, _runMultiplier, toRunTime * Time.deltaTime);
+            Debug.Log(walkToRunLerp);
             calculatePlayerRunSpeed *= walkToRunLerp;
 
         }
