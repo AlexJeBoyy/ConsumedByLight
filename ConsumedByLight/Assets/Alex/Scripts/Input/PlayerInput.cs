@@ -12,9 +12,10 @@ public class PlayerInput : MonoBehaviour
     public bool InvertScroll { get; private set; } = true;
     public bool RunIsPressed { get; private set; } = false;
     public bool CamChangePressed { get; private set; } = false;
-    bool MoveIsPressed = false;
+    public bool MoveIsPressed = false;
 
     InputActions _input = null;
+    [SerializeField] CameraController _cameraController;
 
     private void Update()
     {

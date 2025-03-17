@@ -6,6 +6,7 @@ public class BaseController : MonoBehaviour
 {
     [SerializeField] Transform CameraFollow;
     [SerializeField] PlayerInput _input;
+    [SerializeField] CameraController _cameraController;
     Rigidbody _rigidbody = null;
     CapsuleCollider _capsuleCollider = null;
 
@@ -47,14 +48,17 @@ public class BaseController : MonoBehaviour
     {
         _playerLookInput = GetLookInput();
         PlayerLook();
+
+        PlayerFOV();
+
         PitchCamera();
 
         _playerMoveInput = GetMoveInput();
         _playerIsGrounded = PlayerIsGroundedCheck();
 
         _playerMoveInput = PlayerMove();
-        _playerMoveInput = PlayerRun();
         _playerMoveInput = PlayerSlope();
+        _playerMoveInput = PlayerRun();
         _playerMoveInput.y = PlayerFallGravity();
 
         _playerMoveInput *= _rigidbody.mass; //Note: Dev purposes
@@ -86,10 +90,10 @@ public class BaseController : MonoBehaviour
     private Vector3 PlayerMove()
     {
 
-        return new Vector3 (_playerMoveInput.x * _movementMultiplier,
+        return new Vector3(_playerMoveInput.x * _movementMultiplier,
                             _playerMoveInput.y * _rigidbody.mass,
                             _playerMoveInput.z * _movementMultiplier);
-        
+
     }
     private bool PlayerIsGroundedCheck()
     {
@@ -117,12 +121,35 @@ public class BaseController : MonoBehaviour
         return calculatePlayerMovement;
     }
 
+    private Vector3 PlayerRun()
+    {
+        Vector3 calculatePlayerRunSpeed = _playerMoveInput;
+        if (_input.RunIsPressed && _input.MoveIsPressed)
+        {
+            calculatePlayerRunSpeed.x *= _runMultiplier;
+            calculatePlayerRunSpeed.z *= _runMultiplier;
+        }
+        return calculatePlayerRunSpeed;
+    }
+    private void PlayerFOV()
+    {
+        if (_input.RunIsPressed //&& _input.MoveIsPressed
+                                )
+        {
+            _cameraController.ChangeFOV(_cameraController.c1Person, 80, 2f, 60, 80);
+        }
+        else if (!_input.RunIsPressed)
+        {
+            _cameraController.ChangeFOV(_cameraController.c1Person, 60f, 3f, 60, 80);
+        }
+    }
+
     private float PlayerFallGravity()
     {
         float gravity = _playerMoveInput.y;
         if (_playerIsGrounded)
         {
-            _gravityFallCurrent = _gravityFallMin;// Reset
+            _gravityFallCurrent = _gravityFallMin; // Reset
         }
         else
         {
@@ -134,23 +161,13 @@ public class BaseController : MonoBehaviour
                     _gravityFallCurrent += _gravityFallIncrementAmount;
                 }
                 _playerFallTimer = _gravityFallIncrementTime;
-               
+
             }
             gravity = _gravityFallCurrent;
         }
         return gravity;
     }
 
-    private Vector3 PlayerRun()
-    {
-        Vector3 calculatePlayerRunSpeed = _playerMoveInput;
-        if (_input.RunIsPressed //*&& _input.MoveIsPressed*//
-                                )
-        {
-            calculatePlayerRunSpeed.x *= _runMultiplier;
-            calculatePlayerRunSpeed.z *= _runMultiplier;
-        }
-        return calculatePlayerRunSpeed;
-    }
-  
+
+
 }
