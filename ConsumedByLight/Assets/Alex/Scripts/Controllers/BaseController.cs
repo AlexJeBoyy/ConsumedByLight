@@ -129,7 +129,7 @@ public class BaseController : MonoBehaviour
         if (_input.RunIsPressed && _input.MoveIsPressed)
         {
             calculatePlayerRunSpeed *= _runMultiplier;
-            calculatePlayerRunSpeed = Mathf.Clamp(Mathf.Lerp(_movementMultiplier, _runMultiplier, 10f));
+            //calculatePlayerRunSpeed = Mathf.Clamp(Mathf.Lerp(_movementMultiplier, _runMultiplier, 10f));
 
         }
         return calculatePlayerRunSpeed;
