@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PriestChaseState : IPriestBaseState
 {
+    private enum EnemyState { Attack, Heal }
+    private EnemyState curState;
     float refreshtime = 0.5f;
     float timer;
     public void Exit(PriestStateMachine priest)
@@ -32,6 +34,14 @@ public class PriestChaseState : IPriestBaseState
             priest.SwitchState(priest.attackState);
         }
     }
+
+    private void DecideNextAction(PriestStateMachine priest)
+    {
+        curState = Random.Range(0, 2) == 0 ? EnemyState.Attack : EnemyState.Heal;
+        if (curState == EnemyState.Attack) priest.SwitchState(priest.attackState);
+        else priest.SwitchState(priest.healState);
+    }
+
     void UpdateTimer()
     {
         timer -= Time.deltaTime;

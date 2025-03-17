@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,18 +7,26 @@ public class HolyWaterBehaviour : MonoBehaviour
 {
     [SerializeField] GameObject hitParticle;
     [SerializeField] GameObject impactCheck;
+    [SerializeField] float explosiveRadius;
+    [SerializeField] LayerMask layerMask;
+    [SerializeField] GameObject healVfx;
 
     private void OnCollisionEnter(Collision collision)
     {
         Instantiate(hitParticle, transform.position, Quaternion.Euler(-90, 0 ,0));
-        StartCoroutine(CheckCol());
+        CheckHit();
     }
 
-    IEnumerator CheckCol()
+    private void CheckHit()
     {
-        impactCheck.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        impactCheck.SetActive(false);
+        Collider[] hitObjects = Physics.OverlapSphere(transform.position, explosiveRadius, layerMask);
+
+        foreach (Collider hit in hitObjects)
+        {
+            //hit.GetComponent<Enemy>().TakeDamage();
+            Instantiate(healVfx, new Vector3(hit.transform.position.x, hit.transform.position.y - 1.2f, hit.transform.position.z), Quaternion.Euler(-90, 0, 0));
+        }
+
         Destroy(gameObject);
     }
 }
