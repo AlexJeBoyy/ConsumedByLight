@@ -126,17 +126,18 @@ public class BaseController : MonoBehaviour
 
     private Vector3 PlayerRun()
     {
-        float runTransitionTime = .2f;
-        float walkToRunLerp;
-        
         Vector3 calculatePlayerRunSpeed = _playerMoveInput;
+
         if (_input.RunIsPressed && _input.MoveIsPressed)
         {
-            walkToRunLerp = Mathf.Lerp(_movementMultiplier, runTransitionTime * Time.deltaTime, _runMultiplier );
-            Debug.Log(walkToRunLerp);
-            calculatePlayerRunSpeed *= walkToRunLerp;
-
+            float runSpeed = Mathf.Lerp(_movementMultiplier, _runMultiplier, Time.deltaTime * 10f); // Smooth transition
+            calculatePlayerRunSpeed *= runSpeed;
         }
+        else
+        {
+            calculatePlayerRunSpeed *= _movementMultiplier;
+        }
+
         return calculatePlayerRunSpeed;
     }
     private void PlayerFOV()
