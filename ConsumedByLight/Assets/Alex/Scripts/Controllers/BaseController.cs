@@ -92,7 +92,7 @@ public class BaseController : MonoBehaviour
     {
 
         return new Vector3(_playerMoveInput.x * _movementMultiplier,
-                            _playerMoveInput.y * _rigidbody.mass,
+                            _playerMoveInput.y,
                             _playerMoveInput.z * _movementMultiplier);
 
     }
@@ -105,16 +105,17 @@ public class BaseController : MonoBehaviour
     private Vector3 PlayerSlope()
     {
         Vector3 calculatePlayerMovement = _playerMoveInput;
+
         if (_playerIsGrounded)
         {
             Vector3 localGroundCheckHitNormal = _rigidbody.transform.InverseTransformDirection(_groundCheckHit.normal);
 
             float groundSlopeAngle = Vector3.Angle(localGroundCheckHitNormal, _rigidbody.transform.up);
-            if (groundSlopeAngle == 0.0f)
+            if (groundSlopeAngle != 0.0f)
             {
                 Quaternion slopeAngleRotation = Quaternion.FromToRotation(_rigidbody.transform.up, localGroundCheckHitNormal);
                 calculatePlayerMovement = slopeAngleRotation * calculatePlayerMovement;
-            }
+            } 
 #if UNITY_EDITOR
             Debug.DrawRay(_rigidbody.position, _rigidbody.transform.TransformDirection(calculatePlayerMovement), Color.red, 0.5f);
 #endif
@@ -127,8 +128,9 @@ public class BaseController : MonoBehaviour
         Vector3 calculatePlayerRunSpeed = _playerMoveInput;
         if (_input.RunIsPressed && _input.MoveIsPressed)
         {
-            calculatePlayerRunSpeed.x *= _runMultiplier;
-            calculatePlayerRunSpeed.z *= _runMultiplier;
+            calculatePlayerRunSpeed *= _runMultiplier;
+            calculatePlayerRunSpeed = Mathf.Clamp(Mathf.Lerp(_movementMultiplier, _runMultiplier, 10f));
+
         }
         return calculatePlayerRunSpeed;
     }
