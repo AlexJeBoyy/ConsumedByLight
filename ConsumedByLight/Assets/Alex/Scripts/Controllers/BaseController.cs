@@ -19,11 +19,11 @@ public class BaseController : MonoBehaviour
     [SerializeField] float _playerLookInputLerpTime = 0.35f;
 
     [Header("Movement")]
+    [SerializeField] private float _currentSpeed; //Shown for debugging
     [SerializeField] float _movementMultiplier = 30f;
-    [SerializeField] float _rotationSpeedMultiplier = 180f;
-    [SerializeField] float _pitchSpeedMultiplier = 180f;
-    [SerializeField] float _runMultiplier = 2.5f;
-    [SerializeField] float _runSpeed = 120;
+    [SerializeField] float _rotationSpeedMultiplier = 500;
+    [SerializeField] float _pitchSpeedMultiplier = 500;
+    [SerializeField] float _runMultiplier = 10f;
 
     [Header("Ground Check")]
     public bool _playerIsGrounded = true;
@@ -32,14 +32,14 @@ public class BaseController : MonoBehaviour
     RaycastHit _groundCheckHit = new RaycastHit();
 
     [Header("Gravity")]
-    [SerializeField] float _gravityFallCurrent = -100f;
-    [SerializeField] float _gravityFallMin = -100f;
-    [SerializeField] float _gravityFallMax = -500f;
+    [SerializeField] float _gravityFallCurrent = -10f;
+    [SerializeField] float _gravityFallMin = -10f;
+    [SerializeField] float _gravityFallMax = -100f;
     [SerializeField][Range(-5f, -35f)] float _gravityFallIncrementAmount = -20f;
     [SerializeField] float _gravityFallIncrementTime = -.05f;
     [SerializeField] float _playerFallTimer = -0f;
     [SerializeField] float _gravityGrounded = -1f;
-    [SerializeField] float _maxSlopeAngle = -47.5f;
+    [SerializeField] float _maxSlopeAngle = 47.5f;
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -66,6 +66,11 @@ public class BaseController : MonoBehaviour
         _playerMoveInput *= _rigidbody.mass; //Note: Dev purposes
 
         _rigidbody.AddRelativeForce(_playerMoveInput, ForceMode.Force);
+
+        //Showing speed
+        _currentSpeed = _rigidbody.velocity.magnitude;
+        Debug.Log("Current Speed: " + _currentSpeed.ToString("F2") + " units/sec");
+
     }
 
     private Vector3 GetLookInput()
@@ -105,23 +110,28 @@ public class BaseController : MonoBehaviour
     }
     private Vector3 PlayerSlope()
     {
-        Vector3 calculatePlayerMovement = _playerMoveInput;
+        Vector3 calculatedPlayerMovement = _playerMoveInput;
+
 
         if (_playerIsGrounded)
         {
             Vector3 localGroundCheckHitNormal = _rigidbody.transform.InverseTransformDirection(_groundCheckHit.normal);
 
             float groundSlopeAngle = Vector3.Angle(localGroundCheckHitNormal, _rigidbody.transform.up);
-            if (groundSlopeAngle != 0.0f)
+
+            if (!(groundSlopeAngle == 0.0f))
             {
                 Quaternion slopeAngleRotation = Quaternion.FromToRotation(_rigidbody.transform.up, localGroundCheckHitNormal);
-                calculatePlayerMovement = slopeAngleRotation * calculatePlayerMovement;
+                calculatedPlayerMovement = slopeAngleRotation * calculatedPlayerMovement;
+
+                float relativeSlopeAngle = Vector3.Angle(calculatedPlayerMovement, _rigidbody.transform.up) - 90.0f;
+                calculatedPlayerMovement += calculatedPlayerMovement * (relativeSlopeAngle / _maxSlopeAngle);
             }
 #if UNITY_EDITOR
-            Debug.DrawRay(_rigidbody.position, _rigidbody.transform.TransformDirection(calculatePlayerMovement), Color.red, 0.5f);
+            Debug.DrawRay(_rigidbody.position, _rigidbody.transform.TransformDirection(calculatedPlayerMovement), Color.red, 0.5f);
 #endif
         }
-        return calculatePlayerMovement;
+        return calculatedPlayerMovement;
     }
 
     private Vector3 PlayerRun()
@@ -130,7 +140,7 @@ public class BaseController : MonoBehaviour
 
         if (_input.RunIsPressed && _input.MoveIsPressed)
         {
-            float runSpeed = Mathf.Lerp(_movementMultiplier, _runMultiplier, Time.deltaTime * 10f); // Smooth transition
+            float runSpeed = Mathf.Lerp(_movementMultiplier, _runMultiplier, Time.deltaTime * 5f); // Smooth transition
             calculatePlayerRunSpeed *= runSpeed;
         }
         else

@@ -519,6 +519,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e32be20fbb1f15c4799edcc14eed7aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveIsPressed: 0
+  _cameraController: {fileID: 0}
 --- !u!1 &4461132744888687277
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +633,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5401073755604383703}
   serializedVersion: 4
-  m_Mass: 6
+  m_Mass: 60
   m_Drag: 4
   m_AngularDrag: 4
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -687,11 +689,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraFollow: {fileID: 6316824878199742984}
   _input: {fileID: 3538303779231498312}
+  _cameraController: {fileID: 1214823117128132990}
   _cameraPitch: 0
   _playerLookInputLerpTime: 0.35
-  _movementMultiplier: 120
+  _currentSpeed: 0
+  _movementMultiplier: 10
   _rotationSpeedMultiplier: 500
   _pitchSpeedMultiplier: 500
+  _runMultiplier: 40
   _playerIsGrounded: 1
   _groundCheckRaduisMultiplier: 0.9
   _groundCheckDistance: 0.05
@@ -701,7 +706,8 @@ MonoBehaviour:
   _gravityFallIncrementAmount: -20
   _gravityFallIncrementTime: -0.05
   _playerFallTimer: -0
-  _gravity: -0
+  _gravityGrounded: -1
+  _maxSlopeAngle: -47.5
 --- !u!114 &7014865108197199107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -894,7 +900,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 6316824878199742984}
   m_Follow: {fileID: 6316824878199742984}
   m_Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
