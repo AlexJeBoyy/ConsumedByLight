@@ -15,11 +15,18 @@ public class WeaponAnim : MonoBehaviour
     [SerializeField] private float bobbingAmount = 5f;
 
     private float bobTimer = 0f;
-    private BaseController player;
+    public BaseController player;
+
+    [Header("Weapon Recoil")]
+
+    [SerializeField] private float recoilAmount = 0.2f;
+    [SerializeField] private float recoilSmoothness = 5f;
+
+    [HideInInspector] public bool isRecoiling = false;
+    private Vector3 currentrecoil = Vector3.zero;
 
     private void Start()
     {
-        player = transform.root.GetComponent<BaseController>();
         initialPosistion = transform.localPosition;
         initialRotation = transform.localRotation;
     }
@@ -28,6 +35,7 @@ public class WeaponAnim : MonoBehaviour
     {
         ApplySway();
         ApplyBobbing();
+        ApplyRecoil();
     }
 
     private void ApplySway()
@@ -59,5 +67,23 @@ public class WeaponAnim : MonoBehaviour
         }
 
         transform.localPosition += new Vector3(0, bobOffset, 0);
+    }
+
+    private void ApplyRecoil()
+    {
+        Vector3 targetRecoil = Vector3.zero;
+
+        if (isRecoiling)
+        {
+            targetRecoil = new Vector3(0, 0, -recoilAmount);
+
+            if (Vector3.Distance(currentrecoil, targetRecoil) < 0.1f)
+            {
+                isRecoiling = false;
+            }
+        }
+
+        currentrecoil = Vector3.Lerp(currentrecoil, targetRecoil, Time.deltaTime * recoilSmoothness);
+        transform.localPosition -= currentrecoil;
     }
 }
