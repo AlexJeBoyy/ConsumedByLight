@@ -6,7 +6,7 @@ public abstract class Gun : MonoBehaviour
     public GunData gunData;
     public BaseController controller;
     public Transform cameraTransform;
-    public Recoil recoil;
+    //public Recoil recoil;
 
     private float currentAmmo = 0f;
     private float nextTimeToFire = 0f;
@@ -23,7 +23,7 @@ public abstract class Gun : MonoBehaviour
 
     private void Update()
     {
-        recoil.ResetRecoil(gunData);
+
     }
 
     public void TryReloading()
@@ -69,7 +69,6 @@ public abstract class Gun : MonoBehaviour
         Debug.Log("shoot");
         Shoot();
 
-        recoil.ApplyRecoil(gunData);
     }
 
     public abstract void Shoot();
