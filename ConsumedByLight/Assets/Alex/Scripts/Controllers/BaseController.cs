@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class BaseController : MonoBehaviour
 {
     [SerializeField] Transform CameraFollow;
     [SerializeField] PlayerInput _input;
+    [SerializeField] CameraController _cameraController;
     Rigidbody _rigidbody = null;
     CapsuleCollider _capsuleCollider = null;
 
@@ -47,14 +49,17 @@ public class BaseController : MonoBehaviour
     {
         _playerLookInput = GetLookInput();
         PlayerLook();
+
+        PlayerFOV();
+
         PitchCamera();
 
         _playerMoveInput = GetMoveInput();
         _playerIsGrounded = PlayerIsGroundedCheck();
 
         _playerMoveInput = PlayerMove();
-        _playerMoveInput = PlayerRun();
         _playerMoveInput = PlayerSlope();
+        _playerMoveInput = PlayerRun();
         _playerMoveInput.y = PlayerFallGravity();
 
         _playerMoveInput *= _rigidbody.mass; //Note: Dev purposes
@@ -86,10 +91,10 @@ public class BaseController : MonoBehaviour
     private Vector3 PlayerMove()
     {
 
-        return new Vector3 (_playerMoveInput.x * _movementMultiplier,
-                            _playerMoveInput.y * _rigidbody.mass,
+        return new Vector3(_playerMoveInput.x * _movementMultiplier,
+                            _playerMoveInput.y,
                             _playerMoveInput.z * _movementMultiplier);
-        
+
     }
     private bool PlayerIsGroundedCheck()
     {
@@ -100,16 +105,17 @@ public class BaseController : MonoBehaviour
     private Vector3 PlayerSlope()
     {
         Vector3 calculatePlayerMovement = _playerMoveInput;
+
         if (_playerIsGrounded)
         {
             Vector3 localGroundCheckHitNormal = _rigidbody.transform.InverseTransformDirection(_groundCheckHit.normal);
 
             float groundSlopeAngle = Vector3.Angle(localGroundCheckHitNormal, _rigidbody.transform.up);
-            if (groundSlopeAngle == 0.0f)
+            if (groundSlopeAngle != 0.0f)
             {
                 Quaternion slopeAngleRotation = Quaternion.FromToRotation(_rigidbody.transform.up, localGroundCheckHitNormal);
                 calculatePlayerMovement = slopeAngleRotation * calculatePlayerMovement;
-            }
+            } 
 #if UNITY_EDITOR
             Debug.DrawRay(_rigidbody.position, _rigidbody.transform.TransformDirection(calculatePlayerMovement), Color.red, 0.5f);
 #endif
@@ -117,12 +123,42 @@ public class BaseController : MonoBehaviour
         return calculatePlayerMovement;
     }
 
+    private Vector3 PlayerRun()
+    {
+        Vector3 calculatePlayerRunSpeed = _playerMoveInput;
+        if (_input.RunIsPressed && _input.MoveIsPressed)
+        {
+            calculatePlayerRunSpeed *= _runMultiplier;
+            calculatePlayerRunSpeed = Mathf.Clamp(Mathf.Lerp(_movementMultiplier, _runMultiplier, 10f));
+
+        }
+        return calculatePlayerRunSpeed;
+    }
+    private void PlayerFOV()
+    {
+        CinemachineVirtualCamera playerCam = _cameraController.c1Person;
+        float endFOV;
+        float transitionTime = 7f;
+        float minFOV = 60;
+        float maxFOV = 90;
+        if (_input.RunIsPressed && _input.MoveIsPressed)
+        {
+            endFOV = 90;
+            _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
+        }
+        else
+        {
+            endFOV = 60;
+            _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
+        }
+    }
+
     private float PlayerFallGravity()
     {
         float gravity = _playerMoveInput.y;
         if (_playerIsGrounded)
         {
-            _gravityFallCurrent = _gravityFallMin;// Reset
+            _gravityFallCurrent = _gravityFallMin; // Reset
         }
         else
         {
@@ -134,23 +170,13 @@ public class BaseController : MonoBehaviour
                     _gravityFallCurrent += _gravityFallIncrementAmount;
                 }
                 _playerFallTimer = _gravityFallIncrementTime;
-               
+
             }
             gravity = _gravityFallCurrent;
         }
         return gravity;
     }
 
-    private Vector3 PlayerRun()
-    {
-        Vector3 calculatePlayerRunSpeed = _playerMoveInput;
-        if (_input.RunIsPressed //*&& _input.MoveIsPressed*//
-                                )
-        {
-            calculatePlayerRunSpeed.x *= _runMultiplier;
-            calculatePlayerRunSpeed.z *= _runMultiplier;
-        }
-        return calculatePlayerRunSpeed;
-    }
-  
+
+
 }
