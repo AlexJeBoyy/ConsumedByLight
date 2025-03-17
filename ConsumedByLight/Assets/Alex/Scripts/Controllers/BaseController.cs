@@ -126,13 +126,13 @@ public class BaseController : MonoBehaviour
 
     private Vector3 PlayerRun()
     {
-        float toRunTime = 10000f;
+        float runTransitionTime = .2f;
         float walkToRunLerp;
         
         Vector3 calculatePlayerRunSpeed = _playerMoveInput;
         if (_input.RunIsPressed && _input.MoveIsPressed)
         {
-            walkToRunLerp = Mathf.Lerp(_movementMultiplier, _runMultiplier, toRunTime * Time.deltaTime);
+            walkToRunLerp = Mathf.Lerp(_movementMultiplier, runTransitionTime * Time.deltaTime, _runMultiplier );
             Debug.Log(walkToRunLerp);
             calculatePlayerRunSpeed *= walkToRunLerp;
 
