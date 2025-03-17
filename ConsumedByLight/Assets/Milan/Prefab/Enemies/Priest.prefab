@@ -52,6 +52,10 @@ MonoBehaviour:
   holyWater: {fileID: 1365618720640335308, guid: f152e5f4a7bc9b540aaf23cfa923f6e8,
     type: 3}
   force: 300
+  explosiveRadius: 6
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!195 &2858509421888779818
 NavMeshAgent:
   m_ObjectHideFlags: 0

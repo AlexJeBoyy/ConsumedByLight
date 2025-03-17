@@ -976,13 +976,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paladinPrefab: {fileID: 1852166891334221325, guid: efa47c400662e63479c1792df648a407,
     type: 3}
-  numOfPaladins: 3
+  numOfPaladins: 0
   crossEnemyPrefab: {fileID: 3163014841623921996, guid: 41de9785a6b0f504cac3f19867be1400,
     type: 3}
-  numOfCrossEnemies: 2
+  numOfCrossEnemies: 0
   priestEnemyPrefab: {fileID: 1852166891334221325, guid: 9f30133f6149e7242a19d20f1bba0500,
     type: 3}
-  numOfPriestEnemies: 1
+  numOfPriestEnemies: 4
   maxRange: 40
   minRange: 10
 --- !u!4 &1434667777

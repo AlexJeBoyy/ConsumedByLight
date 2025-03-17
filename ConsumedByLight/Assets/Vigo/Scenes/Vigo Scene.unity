@@ -149,7 +149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 93509339}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.516, y: -0.31, z: 0.657}
   m_LocalScale: {x: 0.060502, y: 0.25431, z: 0.68312}
   m_ConstrainProportionsScale: 0
@@ -749,6 +749,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e32be20fbb1f15c4799edcc14eed7aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveIsPressed: 0
+  _cameraController: {fileID: 0}
 --- !u!4 &580079358
 Transform:
   m_ObjectHideFlags: 0
@@ -1572,6 +1574,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d20ad938-95d7-4cd0-905d-e0f199f0f213
     m_ActionName: BaseGameplay/Reload[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0678a85d-0cc0-4439-89b2-350078e360b6
+    m_ActionName: BaseGameplay/Run[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: BaseGameplay
@@ -2063,7 +2069,6 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: 8b485975786af8e48bfddf4b8b345661, type: 2}
   controller: {fileID: 966390072}
   cameraTransform: {fileID: 678934605}
-  recoil: {fileID: 0}
 --- !u!114 &1481922213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2073,11 +2078,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1481922210}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c6a5842cb06c884787aca9cae5b071a, type: 3}
+  m_Script: {fileID: 11500000, guid: 484747fdfb1959445beaeb6b6f2448a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smooth: 3
-  swayMultiplier: 4
+  posistionalSway: 0.2
+  rotationalSway: 5
+  swaySmoothness: 5
+  bobbingSpeed: 15
+  bobbingAmount: 0.0005
+  player: {fileID: 966390072}
+  recoilAmount: 2
+  recoilSmoothness: 15
+  isRecoiling: 0
 --- !u!1 &1486039430
 GameObject:
   m_ObjectHideFlags: 0
@@ -3161,8 +3173,18 @@ PrefabInstance:
       objectReference: {fileID: 580079357}
     - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
         type: 3}
+      propertyPath: _runMultiplier
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
+      propertyPath: _cameraController
+      value: 
+      objectReference: {fileID: 1852406819}
+    - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
       propertyPath: _movementMultiplier
-      value: 50
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
         type: 3}
@@ -3613,6 +3635,18 @@ Transform:
   - {fileID: 1481922211}
   m_Father: {fileID: 678934605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1852406819 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1214823117128132990, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1788668563}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52bcc8b86075c948b933c2c30feb00b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2128215764
 GameObject:
   m_ObjectHideFlags: 0

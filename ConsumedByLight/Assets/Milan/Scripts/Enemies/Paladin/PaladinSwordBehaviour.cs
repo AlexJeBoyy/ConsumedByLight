@@ -19,11 +19,9 @@ public class PaladinSwordBehaviour : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Hit something..");
         if (collision.gameObject.CompareTag("Player") && cooldownTime <= 0)
         {
             cooldownTime = cooldownTimer;
-            Debug.Log("Hitted the player :)");
             Vector3 collisionPoint = collision.contacts[0].point;
             Instantiate(contactVFX, collisionPoint, Quaternion.identity);
             //Deal damage to player
