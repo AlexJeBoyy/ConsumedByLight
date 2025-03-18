@@ -74,12 +74,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Jump"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""05f672eb-3c44-4761-b1ad-24676be6ccb9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Shoot"",
@@ -107,6 +107,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SlideDash"",
+                    ""type"": ""Button"",
+                    ""id"": ""b51bf0f3-7d65-401e-ab65-636edc2d2714"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -329,6 +338,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80c5a47b-f313-46a4-80d7-6c609694841a"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SlideDash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -346,6 +366,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_BaseGameplay_Shoot = m_BaseGameplay.FindAction("Shoot", throwIfNotFound: true);
         m_BaseGameplay_Reload = m_BaseGameplay.FindAction("Reload", throwIfNotFound: true);
         m_BaseGameplay_Run = m_BaseGameplay.FindAction("Run", throwIfNotFound: true);
+        m_BaseGameplay_SlideDash = m_BaseGameplay.FindAction("SlideDash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -416,6 +437,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_BaseGameplay_Shoot;
     private readonly InputAction m_BaseGameplay_Reload;
     private readonly InputAction m_BaseGameplay_Run;
+    private readonly InputAction m_BaseGameplay_SlideDash;
     public struct BaseGameplayActions
     {
         private @InputActions m_Wrapper;
@@ -429,6 +451,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_BaseGameplay_Shoot;
         public InputAction @Reload => m_Wrapper.m_BaseGameplay_Reload;
         public InputAction @Run => m_Wrapper.m_BaseGameplay_Run;
+        public InputAction @SlideDash => m_Wrapper.m_BaseGameplay_SlideDash;
         public InputActionMap Get() { return m_Wrapper.m_BaseGameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -465,6 +488,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
+            @SlideDash.started += instance.OnSlideDash;
+            @SlideDash.performed += instance.OnSlideDash;
+            @SlideDash.canceled += instance.OnSlideDash;
         }
 
         private void UnregisterCallbacks(IBaseGameplayActions instance)
@@ -496,6 +522,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
+            @SlideDash.started -= instance.OnSlideDash;
+            @SlideDash.performed -= instance.OnSlideDash;
+            @SlideDash.canceled -= instance.OnSlideDash;
         }
 
         public void RemoveCallbacks(IBaseGameplayActions instance)
@@ -524,5 +553,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnSlideDash(InputAction.CallbackContext context);
     }
 }

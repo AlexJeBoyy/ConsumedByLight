@@ -707,7 +707,17 @@ MonoBehaviour:
   _gravityFallIncrementTime: -0.05
   _playerFallTimer: -0
   _gravityGrounded: -1
-  _maxSlopeAngle: -47.5
+  _maxSlopeAngle: 47.5
+  _initialJumpForce: 750
+  _continualJumpForceMultiplier: 0.1
+  _jumpTime: 0.175
+  _jumpTimeCounter: 0
+  _coyoteTime: 0.15
+  _coyoteTimeCounter: 0
+  _jumpBufferTime: 0.2
+  _jumpBufferTimeCounter: 0
+  _playerIsJumping: 0
+  _jumpWasPressedLastFrame: 0
 --- !u!114 &7014865108197199107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,6 +816,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 05f672eb-3c44-4761-b1ad-24676be6ccb9
     m_ActionName: BaseGameplay/Jump[/Keyboard/space,/DualSenseGamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 936398e6-d3dd-42c4-b67f-979789de1e9b
+    m_ActionName: BaseGameplay/Shoot[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d20ad938-95d7-4cd0-905d-e0f199f0f213
+    m_ActionName: BaseGameplay/Reload[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0678a85d-0cc0-4439-89b2-350078e360b6
+    m_ActionName: BaseGameplay/Run[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: BaseGameplay

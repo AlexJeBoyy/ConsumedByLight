@@ -11,6 +11,8 @@ public class PlayerInput : MonoBehaviour
     public float ZoomCameraInput { get; private set; } = 0f;
     public bool InvertScroll { get; private set; } = true;
     public bool RunIsPressed { get; private set; } = false;
+    public bool JumpIsPressed { get; private set; } = false;
+    public bool DashIsPressed { get; private set; } = false;
     public bool CamChangePressed { get; private set; } = false;
     public bool MoveIsPressed = false;
 
@@ -34,6 +36,12 @@ public class PlayerInput : MonoBehaviour
         _input.BaseGameplay.Run.started += SetRun;
         _input.BaseGameplay.Run.canceled += SetRun;
 
+        _input.BaseGameplay.Jump.started += SetJump;
+        _input.BaseGameplay.Jump.canceled += SetJump;
+
+        _input.BaseGameplay.SlideDash.started += SetDash;
+        _input.BaseGameplay.SlideDash.canceled += SetDash;
+
         _input.BaseGameplay.Look.performed += SetLook;
         _input.BaseGameplay.Look.canceled += SetLook;
     }
@@ -45,6 +53,12 @@ public class PlayerInput : MonoBehaviour
 
         _input.BaseGameplay.Run.started -= SetRun;
         _input.BaseGameplay.Run.canceled -= SetRun;
+
+        _input.BaseGameplay.Jump.started -= SetJump;
+        _input.BaseGameplay.Jump.canceled -= SetJump;
+
+        _input.BaseGameplay.SlideDash.started -= SetDash;
+        _input.BaseGameplay.SlideDash.canceled -= SetDash;
 
         _input.BaseGameplay.Look.performed -= SetLook;
         _input.BaseGameplay.Look.canceled -= SetLook;
@@ -66,5 +80,15 @@ public class PlayerInput : MonoBehaviour
     private void SetRun(InputAction.CallbackContext ctx)
     {
         RunIsPressed = ctx.started;
+    }
+
+    private void SetJump(InputAction.CallbackContext ctx)
+    {
+        JumpIsPressed = ctx.started;
+    }
+
+    private void SetDash(InputAction.CallbackContext ctx)
+    {
+        DashIsPressed = ctx.started;
     }
 }

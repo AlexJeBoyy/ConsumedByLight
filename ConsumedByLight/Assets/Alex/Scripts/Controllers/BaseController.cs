@@ -1,6 +1,8 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Drawing;
 using UnityEngine;
 
 public class BaseController : MonoBehaviour
@@ -21,6 +23,7 @@ public class BaseController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float _currentSpeed; //Shown for debugging
     [SerializeField] float _movementMultiplier = 30f;
+    [SerializeField] float _notGroundedMultiplier = 1.25f;
     [SerializeField] float _rotationSpeedMultiplier = 500;
     [SerializeField] float _pitchSpeedMultiplier = 500;
     [SerializeField] float _runMultiplier = 10f;
@@ -40,10 +43,34 @@ public class BaseController : MonoBehaviour
     [SerializeField] float _playerFallTimer = -0f;
     [SerializeField] float _gravityGrounded = -1f;
     [SerializeField] float _maxSlopeAngle = 47.5f;
+
+    [Header("Jumping")]
+    [SerializeField] float _initialJumpForce = 1000f;
+    [SerializeField] float _continualJumpForceMultiplier = .1f;
+    [SerializeField] float _jumpTime = .175f;
+    [SerializeField] float _jumpTimeCounter = 0f;
+    [SerializeField] float _coyoteTime = 0.15f;
+    [SerializeField] float _coyoteTimeCounter = 0f;
+    [SerializeField] float _jumpBufferTime = .2f;
+    [SerializeField] float _jumpBufferTimeCounter = 0f;
+    [SerializeField] bool _playerIsJumping = false;
+    [SerializeField] bool _jumpWasPressedLastFrame = false;
+
+    [Header("Slide-Dash")]
+    [SerializeField] private bool _isSlideDashing = false; 
+    [SerializeField] private float _slideDashInitialSpeed = 20f;
+    [SerializeField] private float _slideDashDeceleration = 5f; 
+    [SerializeField] private float _slideDashDuration = 1.5f; 
+    [SerializeField] private float _slideDashTimer = 0f; 
+    [SerializeField] private float _slideDashColliderHeight = 1f; 
+    private float _originalColliderHeight; 
+    private Vector3 _slideDashDirection; 
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _capsuleCollider = GetComponent<CapsuleCollider>();
+        _originalColliderHeight = _capsuleCollider.height; 
     }
 
     private void FixedUpdate()
@@ -61,13 +88,26 @@ public class BaseController : MonoBehaviour
         _playerMoveInput = PlayerMove();
         _playerMoveInput = PlayerSlope();
         _playerMoveInput = PlayerRun();
-        _playerMoveInput.y = PlayerFallGravity();
 
-        _playerMoveInput *= _rigidbody.mass; //Note: Dev purposes
+        
+        if (_input.DashIsPressed && _playerIsGrounded && !_isSlideDashing && _input.MoveIsPressed)
+        {
+            StartSlideDash();
+        }
+
+        if (_isSlideDashing)
+        {
+            SlideDash();
+        }
+
+        _playerMoveInput.y = PlayerFallGravity();
+        _playerMoveInput.y = PlayerJump();
+
+        _playerMoveInput *= _rigidbody.mass; // Note: Dev purposes
 
         _rigidbody.AddRelativeForce(_playerMoveInput, ForceMode.Force);
 
-        //Showing speed
+        // Showing speed
         _currentSpeed = _rigidbody.velocity.magnitude;
         Debug.Log("Current Speed: " + _currentSpeed.ToString("F2") + " units/sec");
 
@@ -92,21 +132,27 @@ public class BaseController : MonoBehaviour
     }
     private Vector3 GetMoveInput()
     {
+        //if (_isSlideDashing)
+        //{
+        //    return Vector3.zero; // Ignore movement input during slide dash
+        //}
         return new Vector3(_input.MoveInput.x, 0.0f, _input.MoveInput.y);
     }
-    private Vector3 PlayerMove()
-    {
-
-        return new Vector3(_playerMoveInput.x * _movementMultiplier,
-                            _playerMoveInput.y,
-                            _playerMoveInput.z * _movementMultiplier);
-
-    }
+  
     private bool PlayerIsGroundedCheck()
     {
         float sphereCastRadius = _capsuleCollider.radius * _groundCheckRaduisMultiplier;
         float sphereCastTravelDistance = _capsuleCollider.bounds.extents.y - sphereCastRadius + _groundCheckDistance;
         return Physics.SphereCast(_rigidbody.position, sphereCastRadius, Vector3.down, out _groundCheckHit, sphereCastTravelDistance);
+    } 
+    private Vector3 PlayerMove()
+    {
+        
+        return ((_playerIsGrounded) ? (_playerMoveInput * _movementMultiplier) : (_playerMoveInput * _movementMultiplier * _notGroundedMultiplier));
+        //return new Vector3(_playerMoveInput.x * _movementMultiplier,
+        //                    _playerMoveInput.y,
+        //                    _playerMoveInput.z * _movementMultiplier);
+
     }
     private Vector3 PlayerSlope()
     {
@@ -119,13 +165,53 @@ public class BaseController : MonoBehaviour
 
             float groundSlopeAngle = Vector3.Angle(localGroundCheckHitNormal, _rigidbody.transform.up);
 
-            if (!(groundSlopeAngle == 0.0f))
+            if (groundSlopeAngle == 0.0f)
+            {
+                if (_input.MoveIsPressed)
+                {
+                    RaycastHit rayHit;
+                    float rayHeightFromGround = .1f;
+                    float rayCalculatedRayHeight = _rigidbody.position.y - _capsuleCollider.bounds.extents.y + rayHeightFromGround;
+                    Vector3 rayOrgin = new Vector3(_rigidbody.position.x, rayCalculatedRayHeight, _rigidbody.position.z);
+                    if (Physics.Raycast(rayOrgin, _rigidbody.transform.TransformDirection(calculatedPlayerMovement), out rayHit, .75f))
+                    {
+                        if (Vector3.Angle(rayHit.normal, _rigidbody.transform.up) > _maxSlopeAngle)
+                        {
+                            calculatedPlayerMovement.y = -_movementMultiplier;
+                        }
+                    }
+                    Debug.DrawRay(rayOrgin, _rigidbody.transform.TransformDirection(calculatedPlayerMovement), Color.green, 1f);
+                }
+
+                if (calculatedPlayerMovement.y == 0f)
+                {
+                    calculatedPlayerMovement.y = _gravityGrounded;
+                }
+            }
+            else
             {
                 Quaternion slopeAngleRotation = Quaternion.FromToRotation(_rigidbody.transform.up, localGroundCheckHitNormal);
                 calculatedPlayerMovement = slopeAngleRotation * calculatedPlayerMovement;
 
                 float relativeSlopeAngle = Vector3.Angle(calculatedPlayerMovement, _rigidbody.transform.up) - 90.0f;
-                calculatedPlayerMovement += calculatedPlayerMovement * (relativeSlopeAngle / _maxSlopeAngle);
+                calculatedPlayerMovement += calculatedPlayerMovement * (relativeSlopeAngle / 90f);
+
+                if (groundSlopeAngle < _maxSlopeAngle)
+                {
+                    if (_input.MoveIsPressed)
+                    {
+                        calculatedPlayerMovement.y += _gravityGrounded;
+                    }
+                }
+                else
+                {
+                    float calculateSlopeGravity = groundSlopeAngle * -.2f;
+                    if (calculateSlopeGravity < calculatedPlayerMovement.y)
+                    {
+                        calculatedPlayerMovement.y = calculateSlopeGravity;
+                    }
+
+                }
             }
 #if UNITY_EDITOR
             Debug.DrawRay(_rigidbody.position, _rigidbody.transform.TransformDirection(calculatedPlayerMovement), Color.red, 0.5f);
@@ -157,7 +243,7 @@ public class BaseController : MonoBehaviour
         float transitionTime = 7f;
         float minFOV = 60;
         float maxFOV = 90;
-        if (_input.RunIsPressed && _input.MoveIsPressed)
+        if (_input.RunIsPressed && _input.MoveIsPressed || _isSlideDashing)
         {
             endFOV = 90;
             _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
@@ -167,6 +253,7 @@ public class BaseController : MonoBehaviour
             endFOV = 60;
             _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
         }
+
     }
 
     private float PlayerFallGravity()
@@ -193,6 +280,125 @@ public class BaseController : MonoBehaviour
         return gravity;
     }
 
+    private float PlayerJump()
+    {
+        float calculateJumpInput = _playerMoveInput.y;
+
+        SetJumpTimeCounter();
+        SetCoyoteTimeCounter();
+        SetJumpBufferTimeCounter();
+
+        if (_jumpBufferTimeCounter > 0f && !_playerIsJumping && _coyoteTimeCounter > 0f)
+        {
+            ////Cant jump when you're on a slope greater than the slope angle
+            //if (Vector3.Angle(_rigidbody.transform.up, _groundCheckHit.normal) < _maxSlopeAngle) 
+            //{
+                calculateJumpInput = _initialJumpForce;
+                _playerIsJumping = true;
+                _jumpBufferTimeCounter = 0f;
+                _coyoteTimeCounter = 0f;
+            //}
+
+            if (_isSlideDashing)
+            {
+                EndSlideDash();
+            }
+        }
+        else if (_input.JumpIsPressed && _playerIsJumping && !_playerIsGrounded && _jumpTimeCounter > 0f)
+        {
+            calculateJumpInput = _initialJumpForce * _continualJumpForceMultiplier;
+        }
+        else if (_playerIsGrounded && _playerIsJumping)
+        {
+            _playerIsJumping = false;
+        }
+        return calculateJumpInput;
+    }
+
+    private void SetJumpBufferTimeCounter()
+    {
+        if (_playerIsJumping)
+        {
+            _jumpTimeCounter -= Time.fixedDeltaTime;
+        }
+        else
+        {
+            _jumpTimeCounter = _jumpTime;
+        }
+    }
+
+    private void SetCoyoteTimeCounter()
+    {
+        if (_playerIsGrounded)
+        {
+            _coyoteTimeCounter = _coyoteTime;
+        }
+        else
+        {
+            _coyoteTimeCounter -= Time.fixedDeltaTime;
+        }
+    }
+
+    private void SetJumpTimeCounter()
+    {
+        if (!_jumpWasPressedLastFrame && _input.JumpIsPressed)
+        {
+            _jumpBufferTimeCounter = _jumpBufferTime;
+        }
+        else if (_jumpBufferTimeCounter > 0f)
+        {
+            _jumpBufferTimeCounter -= Time.fixedDeltaTime;
+        }
+        _jumpWasPressedLastFrame = _input.JumpIsPressed;
+    }
+
+    private void StartSlideDash()
+    {
+        _slideDashInitialSpeed = _currentSpeed;
+        _isSlideDashing = true;
+        _slideDashTimer = _slideDashDuration;
+
+        
+        _capsuleCollider.height = _slideDashColliderHeight;
+        _capsuleCollider.center = new Vector3(0f, _slideDashColliderHeight / 2f, 0f);
+
+       
+        _slideDashDirection = _rigidbody.transform.forward; 
+        if (_input.MoveInput != Vector2.zero)
+        {
+            _slideDashDirection = new Vector3(_input.MoveInput.x, 0f, _input.MoveInput.y).normalized;
+            _slideDashDirection = _rigidbody.transform.TransformDirection(_slideDashDirection);
+        }
+
+        _rigidbody.AddForce(_slideDashDirection * _slideDashInitialSpeed, ForceMode.Impulse);
+    }
+
+    private void SlideDash()
+    {
+        if (_slideDashTimer > 0f)
+        {
+            _slideDashTimer -= Time.fixedDeltaTime;
+
+            float speedReduction = Mathf.Lerp(_slideDashInitialSpeed, 0f, 1 - (_slideDashTimer / _slideDashDuration));
+            _rigidbody.AddForce(_slideDashDirection * speedReduction * Time.fixedDeltaTime, ForceMode.Acceleration);
 
 
+            if (_rigidbody.velocity.magnitude < 0.1f)
+            {
+                EndSlideDash();
+            }
+        }
+        else
+        {
+            EndSlideDash(); 
+        }
+    }
+
+    private void EndSlideDash()
+    {
+        _isSlideDashing = false;
+
+        _capsuleCollider.height = _originalColliderHeight;
+        _capsuleCollider.center = new Vector3(0f, 0f, 0f); 
+    }
 }
