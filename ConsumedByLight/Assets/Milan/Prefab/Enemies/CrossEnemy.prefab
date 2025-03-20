@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7184964761698016408}
   - component: {fileID: 8246285404769053550}
   - component: {fileID: 6386447819271843492}
-  - component: {fileID: 2000852152055007331}
   m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
@@ -86,29 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2000852152055007331
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 661009262933965745}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1207716194592261016
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,6 +276,9 @@ GameObject:
   - component: {fileID: 6618313192169714906}
   - component: {fileID: 5595760368025079913}
   - component: {fileID: 2655629624358791479}
+  - component: {fileID: 2766328766353343911}
+  - component: {fileID: 2990895790268990717}
+  - component: {fileID: 2423127069206173247}
   m_Layer: 6
   m_Name: CrossEnemy
   m_TagString: Untagged
@@ -368,8 +347,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3163014841623921996}
   serializedVersion: 4
-  m_Mass: 100
-  m_Drag: 4
+  m_Mass: 2
+  m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -386,7 +365,60 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
+--- !u!114 &2766328766353343911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3163014841623921996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56b07363a8af2484baf31847df08ca31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedOfObject: 0
+  destroySpeedThreshold: 60
+  bloodVfx: {fileID: 2650629519272455120, guid: 70023bff5b422e945a8244f48cf2896b,
+    type: 3}
+--- !u!136 &2990895790268990717
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3163014841623921996}
+  m_Material: {fileID: 13400000, guid: 37840a374d121574bbfcb25ec1bd5e7f, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.53
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2423127069206173247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3163014841623921996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b1a596d3703d8a4cbb4ebb085a73ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodVfx: {fileID: 2650629519272455120, guid: 70023bff5b422e945a8244f48cf2896b,
+    type: 3}
 --- !u!1 &3629663668959752858
 GameObject:
   m_ObjectHideFlags: 0

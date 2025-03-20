@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CrossChaseState : ICrossBaseState
 {
@@ -13,12 +14,15 @@ public class CrossChaseState : ICrossBaseState
 
     public void Start(CrossStateMachine cross)
     {
+        if (!cross.agent.enabled) { return; }
         timer = refreshtime;
         cross.agent.SetDestination(cross.target.transform.position);
     }
 
     public void Update(CrossStateMachine cross)
     {
+        if (!cross.agent.enabled) { return; }
+
         UpdateTimer();
 
         if (timer <= 0)

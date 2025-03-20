@@ -6,6 +6,7 @@ public class EnemySmash : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private float speedOfObject;
     [SerializeField] private float destroySpeedThreshold = 10f;
+    [SerializeField] GameObject bloodVfx;
 
     private void Start()
     {
@@ -22,14 +23,8 @@ public class EnemySmash : MonoBehaviour
 
         if (speedOfObject >= destroySpeedThreshold)
         {
-            StartCoroutine(DestroyObject());
+            Instantiate(bloodVfx, collision.contacts[0].point, Quaternion.identity);
+            Destroy(gameObject);
         }
-    }
-
-    IEnumerator DestroyObject()
-    {
-        yield return new WaitForSeconds(1);
-        Destroy(gameObject);
-
     }
 }

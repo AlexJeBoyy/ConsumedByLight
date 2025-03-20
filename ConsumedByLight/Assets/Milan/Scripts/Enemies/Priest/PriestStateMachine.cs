@@ -34,6 +34,7 @@ public class PriestStateMachine : MonoBehaviour
     private void Update()
     {
         currentState.Update(this);
+        Debug.Log(currentState.ToString());
     }
 
     public void SwitchState(IPriestBaseState newState)

@@ -23,8 +23,15 @@ public class HolyWaterBehaviour : MonoBehaviour
 
         foreach (Collider hit in hitObjects)
         {
-            //hit.GetComponent<Enemy>().TakeDamage();
-            Instantiate(healVfx, new Vector3(hit.transform.position.x, hit.transform.position.y - 1.2f, hit.transform.position.z), Quaternion.Euler(-90, 0, 0));
+            if (hit.gameObject.CompareTag("Player"))
+            {
+                //hit.GetComponent<Enemy>().TakeDamage();
+                hit.gameObject.GetComponentInChildren<Animator>().Play("pushed");
+            }
+            else
+            {
+                Instantiate(healVfx, new Vector3(hit.transform.position.x, hit.transform.position.y - 1.2f, hit.transform.position.z), Quaternion.Euler(-90, 0, 0));
+            }
         }
 
         Destroy(gameObject);
