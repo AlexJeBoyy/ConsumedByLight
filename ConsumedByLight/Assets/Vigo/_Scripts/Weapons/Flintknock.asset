@@ -16,8 +16,7 @@ MonoBehaviour:
   shootingRange: 25
   fireRate: 5
   magazineSize: 1
-  reloadTime: 1.5
-  recoilAmount: 0
-  maxRecoil: {x: 0, y: 0}
-  recoilSpeed: 0
-  resetRecoilSpeed: 0
+  reloadTime: 0.5
+  bulletTrialPrefab: {fileID: 5830053583707791753, guid: ea8530ec0041a244fa6ae8b9aee26fba,
+    type: 3}
+  bulletSpeed: 100

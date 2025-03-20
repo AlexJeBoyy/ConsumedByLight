@@ -405,7 +405,8 @@ Transform:
   m_LocalPosition: {x: -0.503, y: -0.377, z: 0.623}
   m_LocalScale: {x: 3.15, y: 3.15, z: 3.15}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 8471397830910151973}
   m_Father: {fileID: 7407700007196970468}
   m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
 --- !u!33 &171363636289175083
@@ -637,6 +638,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1490702503925927679}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4688004479670530455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8471397830910151973}
+  m_Layer: 9
+  m_Name: GunMuzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8471397830910151973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688004479670530455}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0.028, y: 0, z: 0.031}
+  m_LocalScale: {x: 0.3174603, y: 0.3174603, z: 0.3174603}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7809583256794813831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5285643123321975891
 GameObject:
@@ -1294,7 +1326,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: 8b485975786af8e48bfddf4b8b345661, type: 2}
   controller: {fileID: 6031702188948295679}
+  GunMuzzle: {fileID: 8471397830910151973}
   cameraTransform: {fileID: 4342013979772156105}
+  AmmoCount: {fileID: 0}
 --- !u!114 &4529119502833425763
 MonoBehaviour:
   m_ObjectHideFlags: 0
