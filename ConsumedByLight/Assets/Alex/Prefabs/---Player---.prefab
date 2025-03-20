@@ -774,7 +774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraFollow: {fileID: 6316824878199742984}
-  _input: {fileID: 0}
+  _input: {fileID: 3538303779231498312}
   _cameraController: {fileID: 1214823117128132990}
   _cameraPitch: 0
   _playerLookInputLerpTime: 1
