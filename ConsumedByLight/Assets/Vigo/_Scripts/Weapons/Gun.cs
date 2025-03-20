@@ -1,16 +1,20 @@
 using Cinemachine;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public abstract class Gun : MonoBehaviour
 {
     public GunData gunData;
     public BaseController controller;
+    public Transform GunMuzzle;
     public Transform cameraTransform;
     //public Recoil recoil;
 
     WeaponAnim weaponanim;
     private CinemachineImpulseSource recoilShakeImpulseSource;
+
+    [SerializeField] private TextMeshProUGUI AmmoCount;
 
     private float currentAmmo = 0f;
     private float nextTimeToFire = 0f;
@@ -30,6 +34,15 @@ public abstract class Gun : MonoBehaviour
 
     private void Update()
     {
+
+        if (!isReloading)
+        {
+            AmmoCount.text = currentAmmo.ToString() + " / " + gunData.magazineSize.ToString();
+        }
+        else
+        {
+            AmmoCount.text = "Reloading...";
+        }
 
     }
 

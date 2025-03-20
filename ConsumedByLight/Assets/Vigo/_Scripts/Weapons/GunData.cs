@@ -13,4 +13,8 @@ public class GunData : ScriptableObject
     public float magazineSize;
     public float reloadTime;
 
+    [Header("VFX")]
+    public GameObject bulletTrialPrefab;
+    public float bulletSpeed;
+
 }
