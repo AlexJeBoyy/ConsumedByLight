@@ -777,13 +777,13 @@ MonoBehaviour:
   _input: {fileID: 3538303779231498312}
   _cameraController: {fileID: 1214823117128132990}
   _cameraPitch: 0
-  _playerLookInputLerpTime: 1
+  _playerLookInputLerpTime: 0.35
   _currentSpeed: 0
-  _movementMultiplier: 5
+  _movementMultiplier: 10
   _notGroundedMultiplier: 1.25
   _rotationSpeedMultiplier: 500
   _pitchSpeedMultiplier: 500
-  _runMultiplier: 3
+  _runMultiplier: 40
   _playerIsGrounded: 1
   _groundCheckRaduisMultiplier: 0.9
   _groundCheckDistance: 0.05
@@ -1206,7 +1206,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
-    NearClipPlane: 0.3
+    NearClipPlane: 0.01
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
