@@ -75,7 +75,7 @@ public class WeaponAnim : MonoBehaviour
 
         if (isRecoiling)
         {
-            targetRecoil = new Vector3(0, 0, -recoilAmount);
+            targetRecoil = new Vector3(0, 0, recoilAmount);
 
             if (Vector3.Distance(currentrecoil, targetRecoil) < 0.1f)
             {

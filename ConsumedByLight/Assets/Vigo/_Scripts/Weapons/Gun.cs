@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public abstract class Gun : MonoBehaviour
     //public Recoil recoil;
 
     WeaponAnim weaponanim;
+    private CinemachineImpulseSource recoilShakeImpulseSource;
 
     private float currentAmmo = 0f;
     private float nextTimeToFire = 0f;
@@ -22,6 +24,7 @@ public abstract class Gun : MonoBehaviour
         weaponanim = GetComponent<WeaponAnim>();
 
         controller = transform.root.GetComponent<BaseController>();
+        recoilShakeImpulseSource = GetComponent<CinemachineImpulseSource>();
 
     }
 
@@ -73,6 +76,7 @@ public abstract class Gun : MonoBehaviour
         Debug.Log("shoot");
         weaponanim.isRecoiling = true;
         Shoot();
+        recoilShakeImpulseSource.GenerateImpulse();
 
     }
 

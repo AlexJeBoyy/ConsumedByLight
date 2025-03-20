@@ -2087,8 +2087,8 @@ MonoBehaviour:
   bobbingSpeed: 15
   bobbingAmount: 0.0005
   player: {fileID: 966390072}
-  recoilAmount: 2
-  recoilSmoothness: 15
+  recoilAmount: 0.1
+  recoilSmoothness: 50
   isRecoiling: 0
 --- !u!1 &1486039430
 GameObject:
@@ -3174,7 +3174,7 @@ PrefabInstance:
     - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
         type: 3}
       propertyPath: _runMultiplier
-      value: 1.1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
         type: 3}
