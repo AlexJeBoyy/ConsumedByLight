@@ -9,7 +9,13 @@ public class FlintKnock : Gun
         Vector3 target = Vector3.zero;
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, gunData.shootingRange))
         {
-            Debug.Log(hit.collider.name);
+            if (hit.collider.gameObject.layer == 6)
+            {
+                //if (hit.collider.gameObject.GetComponent<Health> == null)
+                // {
+
+                // }
+            }
             target = hit.point;
         }
         else
