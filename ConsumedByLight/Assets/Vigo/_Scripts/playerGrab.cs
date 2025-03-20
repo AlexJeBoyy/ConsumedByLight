@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class PlayerGrab : MonoBehaviour
@@ -74,7 +75,12 @@ public class PlayerGrab : MonoBehaviour
     {
         if (grabbedRB)
         {
+            if (grabbedRB.gameObject.GetComponent<NavMeshAgent>() != null)
+            {
+                grabbedRB.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            }
             grabbedRB.useGravity = true;
+            grabbedRB.freezeRotation = false;
             grabbedRB = null;
         }
         else

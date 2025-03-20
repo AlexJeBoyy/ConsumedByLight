@@ -152,5 +152,5 @@ MonoBehaviour:
   explosiveRadius: 3
   layerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 72
   healVfx: {fileID: 4202865256639373493, guid: d4f1355d5c36a1b479e9aa8af789a4d0, type: 3}

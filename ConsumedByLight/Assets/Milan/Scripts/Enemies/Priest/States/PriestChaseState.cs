@@ -31,15 +31,21 @@ public class PriestChaseState : IPriestBaseState
 
         if (priest.agent.remainingDistance <= priest.agent.stoppingDistance)
         {
-            priest.SwitchState(priest.attackState);
+            DecideNextAction(priest);
         }
     }
 
     private void DecideNextAction(PriestStateMachine priest)
     {
         curState = Random.Range(0, 2) == 0 ? EnemyState.Attack : EnemyState.Heal;
-        if (curState == EnemyState.Attack) priest.SwitchState(priest.attackState);
-        else priest.SwitchState(priest.healState);
+        if (curState == EnemyState.Attack)
+        {
+            priest.SwitchState(priest.attackState);
+        }
+        else
+        {
+            priest.SwitchState(priest.healState);
+        }
     }
 
     void UpdateTimer()

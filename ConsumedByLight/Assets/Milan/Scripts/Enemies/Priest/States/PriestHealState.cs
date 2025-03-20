@@ -13,11 +13,11 @@ public class PriestHealState : IPriestBaseState
     {
         Collider[] hitObjects = Physics.OverlapSphere(priest.transform.position, priest.explosiveRadius, priest.enemyLayer);
 
-        if (hitObjects.Length > 0)
+        if (hitObjects.Length > 1)
         {
-            int randomindex = Random.Range(0, hitObjects.Length);
+            int randomindex = Random.Range(1, hitObjects.Length);
 
-            priest.transform.LookAt(hitObjects[randomindex].gameObject.transform.position);
+            priest.transform.LookAt(hitObjects[randomindex + 0].gameObject.transform.position);
         }
         else
         {
@@ -28,6 +28,7 @@ public class PriestHealState : IPriestBaseState
     public void Start(PriestStateMachine priest)
     {
         CheckHit(priest);
+        priest.StartCoroutine(Attack(priest));
     }
 
     public void Update(PriestStateMachine priest)
