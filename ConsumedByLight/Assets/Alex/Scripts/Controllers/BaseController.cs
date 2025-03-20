@@ -22,11 +22,11 @@ public class BaseController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float _currentSpeed; //Shown for debugging
-    [SerializeField] float _movementMultiplier = 30f;
+    [SerializeField] float _movementMultiplier = 10f;
     [SerializeField] float _notGroundedMultiplier = 1.25f;
     [SerializeField] float _rotationSpeedMultiplier = 500;
     [SerializeField] float _pitchSpeedMultiplier = 500;
-    [SerializeField] float _runMultiplier = 10f;
+    [SerializeField] float _runMultiplier = 40f;
 
     [Header("Ground Check")]
     public bool _playerIsGrounded = true;
@@ -57,20 +57,20 @@ public class BaseController : MonoBehaviour
     [SerializeField] bool _jumpWasPressedLastFrame = false;
 
     [Header("Slide-Dash")]
-    [SerializeField] private bool _isSlideDashing = false; 
+    [SerializeField] private bool _isSlideDashing = false;
     [SerializeField] private float _slideDashInitialSpeed = 20f;
-    [SerializeField] private float _slideDashDeceleration = 5f; 
-    [SerializeField] private float _slideDashDuration = 1.5f; 
-    [SerializeField] private float _slideDashTimer = 0f; 
-    [SerializeField] private float _slideDashColliderHeight = 1f; 
-    private float _originalColliderHeight; 
-    private Vector3 _slideDashDirection; 
+    [SerializeField] private float _slideDashDeceleration = 5f;
+    [SerializeField] private float _slideDashDuration = 1.5f;
+    [SerializeField] private float _slideDashTimer = 0f;
+    [SerializeField] private float _slideDashColliderHeight = 1f;
+    private float _originalColliderHeight;
+    private Vector3 _slideDashDirection;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _capsuleCollider = GetComponent<CapsuleCollider>();
-        _originalColliderHeight = _capsuleCollider.height; 
+        _originalColliderHeight = _capsuleCollider.height;
     }
 
     private void FixedUpdate()
@@ -89,7 +89,7 @@ public class BaseController : MonoBehaviour
         _playerMoveInput = PlayerSlope();
         _playerMoveInput = PlayerRun();
 
-        
+
         if (_input.DashIsPressed && _playerIsGrounded && !_isSlideDashing && _input.MoveIsPressed)
         {
             StartSlideDash();
@@ -108,8 +108,11 @@ public class BaseController : MonoBehaviour
         _rigidbody.AddRelativeForce(_playerMoveInput, ForceMode.Force);
 
         // Showing speed
-        _currentSpeed = _rigidbody.velocity.magnitude;
-        Debug.Log("Current Speed: " + _currentSpeed.ToString("F2") + " units/sec");
+        if (!_isSlideDashing)
+        {
+            _currentSpeed = _rigidbody.velocity.magnitude;
+        }
+        // Debug.Log("Current Speed: " + _currentSpeed.ToString("F2") + " units/sec");
 
     }
 
@@ -121,7 +124,14 @@ public class BaseController : MonoBehaviour
     }
     private void PlayerLook()
     {
-        _rigidbody.rotation = Quaternion.Euler(0f, _rigidbody.rotation.eulerAngles.y + (_playerLookInput.x * _rotationSpeedMultiplier), 0f);
+        //if (!_isSlideDashing)
+        //{
+            _rigidbody.rotation = Quaternion.Euler(0f, _rigidbody.rotation.eulerAngles.y + (_playerLookInput.x * _rotationSpeedMultiplier), 0f);
+        //}
+        //else
+        //{
+            //_rigidbody.rotation = Quaternion.Euler(0f, 0f, 0f);
+        //}
     }
     private void PitchCamera()
     {
@@ -132,26 +142,28 @@ public class BaseController : MonoBehaviour
     }
     private Vector3 GetMoveInput()
     {
-        //if (_isSlideDashing)
-        //{
-        //    return Vector3.zero; // Ignore movement input during slide dash
-        //}
         return new Vector3(_input.MoveInput.x, 0.0f, _input.MoveInput.y);
     }
-  
+
     private bool PlayerIsGroundedCheck()
     {
         float sphereCastRadius = _capsuleCollider.radius * _groundCheckRaduisMultiplier;
         float sphereCastTravelDistance = _capsuleCollider.bounds.extents.y - sphereCastRadius + _groundCheckDistance;
         return Physics.SphereCast(_rigidbody.position, sphereCastRadius, Vector3.down, out _groundCheckHit, sphereCastTravelDistance);
-    } 
+    }
     private Vector3 PlayerMove()
     {
-        
-        return ((_playerIsGrounded) ? (_playerMoveInput * _movementMultiplier) : (_playerMoveInput * _movementMultiplier * _notGroundedMultiplier));
-        //return new Vector3(_playerMoveInput.x * _movementMultiplier,
-        //                    _playerMoveInput.y,
-        //                    _playerMoveInput.z * _movementMultiplier);
+        //if (_isSlideDashing)
+        //{
+        //    return new Vector3(_currentSpeed, 0f, _currentSpeed);
+        //}
+        //else
+        //{
+            return ((_playerIsGrounded) ? (_playerMoveInput * _movementMultiplier) : (_playerMoveInput * _movementMultiplier * _notGroundedMultiplier));
+            //return new Vector3(_playerMoveInput.x * _movementMultiplier,
+            //                    _playerMoveInput.y,
+            //                    _playerMoveInput.z * _movementMultiplier);
+        //}
 
     }
     private Vector3 PlayerSlope()
@@ -219,7 +231,6 @@ public class BaseController : MonoBehaviour
         }
         return calculatedPlayerMovement;
     }
-
     private Vector3 PlayerRun()
     {
         Vector3 calculatePlayerRunSpeed = _playerMoveInput;
@@ -293,10 +304,10 @@ public class BaseController : MonoBehaviour
             ////Cant jump when you're on a slope greater than the slope angle
             //if (Vector3.Angle(_rigidbody.transform.up, _groundCheckHit.normal) < _maxSlopeAngle) 
             //{
-                calculateJumpInput = _initialJumpForce;
-                _playerIsJumping = true;
-                _jumpBufferTimeCounter = 0f;
-                _coyoteTimeCounter = 0f;
+            calculateJumpInput = _initialJumpForce;
+            _playerIsJumping = true;
+            _jumpBufferTimeCounter = 0f;
+            _coyoteTimeCounter = 0f;
             //}
 
             if (_isSlideDashing)
@@ -354,7 +365,19 @@ public class BaseController : MonoBehaviour
 
     private void StartSlideDash()
     {
+        _slideDashDirection = new Vector3(_input.MoveInput.x, 0f, _input.MoveInput.y).normalized;
+
+        if (_slideDashDirection == Vector3.zero)
+        {
+            _slideDashDirection = _rigidbody.transform.forward;
+        }
+        else
+        {
+            _slideDashDirection = _rigidbody.transform.TransformDirection(_slideDashDirection);
+        }
+
         _slideDashInitialSpeed = _currentSpeed;
+
         _isSlideDashing = true;
         _slideDashTimer = _slideDashDuration;
 
@@ -362,26 +385,25 @@ public class BaseController : MonoBehaviour
         _capsuleCollider.height = _slideDashColliderHeight;
         _capsuleCollider.center = new Vector3(0f, _slideDashColliderHeight / 2f, 0f);
 
-       
-        _slideDashDirection = _rigidbody.transform.forward; 
-        if (_input.MoveInput != Vector2.zero)
-        {
-            _slideDashDirection = new Vector3(_input.MoveInput.x, 0f, _input.MoveInput.y).normalized;
-            _slideDashDirection = _rigidbody.transform.TransformDirection(_slideDashDirection);
-        }
-
         _rigidbody.AddForce(_slideDashDirection * _slideDashInitialSpeed, ForceMode.Impulse);
     }
 
     private void SlideDash()
     {
+
         if (_slideDashTimer > 0f)
         {
             _slideDashTimer -= Time.fixedDeltaTime;
 
+            Vector3 movementInput = new Vector3(_input.MoveInput.x, 0f, _input.MoveInput.y).normalized;
+            if (movementInput != Vector3.zero)
+            {
+                Vector3 adjustedDirection = _rigidbody.transform.TransformDirection(movementInput);
+                _rigidbody.AddForce(adjustedDirection * _slideDashDeceleration * Time.fixedDeltaTime, ForceMode.Acceleration);
+            }
+
             float speedReduction = Mathf.Lerp(_slideDashInitialSpeed, 0f, 1 - (_slideDashTimer / _slideDashDuration));
             _rigidbody.AddForce(_slideDashDirection * speedReduction * Time.fixedDeltaTime, ForceMode.Acceleration);
-
 
             if (_rigidbody.velocity.magnitude < 0.1f)
             {
@@ -390,7 +412,7 @@ public class BaseController : MonoBehaviour
         }
         else
         {
-            EndSlideDash(); 
+            EndSlideDash();
         }
     }
 
@@ -399,6 +421,6 @@ public class BaseController : MonoBehaviour
         _isSlideDashing = false;
 
         _capsuleCollider.height = _originalColliderHeight;
-        _capsuleCollider.center = new Vector3(0f, 0f, 0f); 
+        _capsuleCollider.center = new Vector3(0f, 0f, 0f);
     }
 }

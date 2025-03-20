@@ -694,6 +694,7 @@ MonoBehaviour:
   _playerLookInputLerpTime: 0.35
   _currentSpeed: 0
   _movementMultiplier: 10
+  _notGroundedMultiplier: 1.25
   _rotationSpeedMultiplier: 500
   _pitchSpeedMultiplier: 500
   _runMultiplier: 40
@@ -708,7 +709,7 @@ MonoBehaviour:
   _playerFallTimer: -0
   _gravityGrounded: -1
   _maxSlopeAngle: 47.5
-  _initialJumpForce: 750
+  _initialJumpForce: 1000
   _continualJumpForceMultiplier: 0.1
   _jumpTime: 0.175
   _jumpTimeCounter: 0
@@ -718,6 +719,12 @@ MonoBehaviour:
   _jumpBufferTimeCounter: 0
   _playerIsJumping: 0
   _jumpWasPressedLastFrame: 0
+  _isSlideDashing: 0
+  _slideDashInitialSpeed: 20
+  _slideDashDeceleration: 5
+  _slideDashDuration: 1.5
+  _slideDashTimer: 0
+  _slideDashColliderHeight: 1
 --- !u!114 &7014865108197199107
 MonoBehaviour:
   m_ObjectHideFlags: 0
