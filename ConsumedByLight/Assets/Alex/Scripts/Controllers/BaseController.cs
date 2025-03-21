@@ -121,17 +121,20 @@ public class BaseController : MonoBehaviour
         _previousPlayerLookInput = _playerLookInput;
         _playerLookInput = new Vector3(_input.LookInput.x, (_input.InvertMouseY ? -_input.LookInput.y : _input.LookInput.y), 0f);
         return Vector3.Lerp(_previousPlayerLookInput, _playerLookInput * Time.deltaTime, _playerLookInputLerpTime);
+
     }
     private void PlayerLook()
     {
-        //if (!_isSlideDashing)
-        //{
+        if (!_isSlideDashing)
+        {
             _rigidbody.rotation = Quaternion.Euler(0f, _rigidbody.rotation.eulerAngles.y + (_playerLookInput.x * _rotationSpeedMultiplier), 0f);
-        //}
-        //else
-        //{
-            //_rigidbody.rotation = Quaternion.Euler(0f, 0f, 0f);
-        //}
+        }
+        else
+        {
+            float yaw = _playerLookInput.x * _rotationSpeedMultiplier;
+            CameraFollow.rotation = Quaternion.Euler(CameraFollow.rotation.eulerAngles.x, CameraFollow.rotation.eulerAngles.y + yaw, CameraFollow.rotation.eulerAngles.z);
+            
+        }
     }
     private void PitchCamera()
     {
@@ -153,18 +156,7 @@ public class BaseController : MonoBehaviour
     }
     private Vector3 PlayerMove()
     {
-        //if (_isSlideDashing)
-        //{
-        //    return new Vector3(_currentSpeed, 0f, _currentSpeed);
-        //}
-        //else
-        //{
-            return ((_playerIsGrounded) ? (_playerMoveInput * _movementMultiplier) : (_playerMoveInput * _movementMultiplier * _notGroundedMultiplier));
-            //return new Vector3(_playerMoveInput.x * _movementMultiplier,
-            //                    _playerMoveInput.y,
-            //                    _playerMoveInput.z * _movementMultiplier);
-        //}
-
+        return ((_playerIsGrounded) ? (_playerMoveInput * _movementMultiplier) : (_playerMoveInput * _movementMultiplier * _notGroundedMultiplier));
     }
     private Vector3 PlayerSlope()
     {
@@ -365,23 +357,21 @@ public class BaseController : MonoBehaviour
 
     private void StartSlideDash()
     {
-        _slideDashDirection = new Vector3(_input.MoveInput.x, 0f, _input.MoveInput.y).normalized;
+
+
+        _slideDashDirection = _rigidbody.transform.forward;
+        _slideDashInitialSpeed = _currentSpeed;
 
         if (_slideDashDirection == Vector3.zero)
         {
-            _slideDashDirection = _rigidbody.transform.forward;
+            Vector3 moveInputDirection = new Vector3(_input.MoveInput.x, 0f, _input.MoveInput.y).normalized;
+            _slideDashDirection = _rigidbody.transform.TransformDirection(moveInputDirection);
         }
-        else
-        {
-            _slideDashDirection = _rigidbody.transform.TransformDirection(_slideDashDirection);
-        }
-
-        _slideDashInitialSpeed = _currentSpeed;
 
         _isSlideDashing = true;
         _slideDashTimer = _slideDashDuration;
 
-        
+
         _capsuleCollider.height = _slideDashColliderHeight;
         _capsuleCollider.center = new Vector3(0f, _slideDashColliderHeight / 2f, 0f);
 
@@ -395,15 +385,12 @@ public class BaseController : MonoBehaviour
         {
             _slideDashTimer -= Time.fixedDeltaTime;
 
-            Vector3 movementInput = new Vector3(_input.MoveInput.x, 0f, _input.MoveInput.y).normalized;
-            if (movementInput != Vector3.zero)
-            {
-                Vector3 adjustedDirection = _rigidbody.transform.TransformDirection(movementInput);
-                _rigidbody.AddForce(adjustedDirection * _slideDashDeceleration * Time.fixedDeltaTime, ForceMode.Acceleration);
-            }
+            _rigidbody.AddForce(_slideDashDirection * _slideDashDeceleration * Time.fixedDeltaTime, ForceMode.Acceleration);
 
             float speedReduction = Mathf.Lerp(_slideDashInitialSpeed, 0f, 1 - (_slideDashTimer / _slideDashDuration));
+
             _rigidbody.AddForce(_slideDashDirection * speedReduction * Time.fixedDeltaTime, ForceMode.Acceleration);
+
 
             if (_rigidbody.velocity.magnitude < 0.1f)
             {
@@ -418,8 +405,14 @@ public class BaseController : MonoBehaviour
 
     private void EndSlideDash()
     {
+        //Quaternion currentRotation;
+        //Vector3 currentEulerAngles= 1f,1f,1f;
+        //currentEulerAngles += new Vector3(_playerLookInput.x, _playerLookInput.y, _playerLookInput.z);
+        //currentRotation.eulerAngles = currentEulerAngles;
         _isSlideDashing = false;
 
+        //transform.rotation += new Quaternion(_playerLookInput.x, _playerLookInput.y, _playerLookInput.z);
+       // new Quaternion(_playerLookInput.x, 0f, 0f,0f);
         _capsuleCollider.height = _originalColliderHeight;
         _capsuleCollider.center = new Vector3(0f, 0f, 0f);
     }
