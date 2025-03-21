@@ -52,7 +52,8 @@ public class WeaponAnim : MonoBehaviour
 
     private void ApplyBobbing()
     {
-        float moveSpeed = Input.GetAxis("Horizontal") + Input.GetAxis("Vertical");
+        Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        float moveSpeed = moveInput.magnitude;
         float bobOffset = 0f;
 
         if (moveSpeed > 0.1f && player._playerIsGrounded)
@@ -68,6 +69,7 @@ public class WeaponAnim : MonoBehaviour
 
         transform.localPosition += new Vector3(0, bobOffset, 0);
     }
+
 
     private void ApplyRecoil()
     {
