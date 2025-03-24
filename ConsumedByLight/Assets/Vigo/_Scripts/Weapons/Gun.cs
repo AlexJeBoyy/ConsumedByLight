@@ -25,7 +25,7 @@ public abstract class Gun : MonoBehaviour
     private void Start()
     {
         currentAmmo = gunData.magazineSize;
-        Reloadanim = GetComponentInChildren<Animator>(); ;
+        Reloadanim = GetComponent<Animator>(); ;
         weaponanim = GetComponent<WeaponAnim>();
 
         controller = transform.root.GetComponent<BaseController>();
