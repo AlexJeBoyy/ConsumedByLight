@@ -866,7 +866,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 987756538}
+  - {fileID: 2202071186512014889}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &750798494
@@ -1311,12 +1311,6 @@ Transform:
   - {fileID: 1594288171}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &987756538 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2202071186890228922, guid: d8732a589c0a7f345ae5a5a99154eaaa,
-    type: 3}
-  m_PrefabInstance: {fileID: 1788668563}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &991192687
 GameObject:
   m_ObjectHideFlags: 0
@@ -3295,6 +3289,12 @@ MonoBehaviour:
   destroySpeedThreshold: 10
   bloodVfx: {fileID: 2650629519272455120, guid: 70023bff5b422e945a8244f48cf2896b,
     type: 3}
+--- !u!4 &2202071186512014889 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2202071186890228922, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1788668563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
