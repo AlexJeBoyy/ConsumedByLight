@@ -26,7 +26,10 @@ public class PriestChaseState : IPriestBaseState
         if (timer <= 0)
         {
             timer = refreshtime;
-            priest.agent.SetDestination(priest.target.transform.position);
+            if (priest.agent != null)
+            {
+                priest.agent.SetDestination(priest.target.transform.position);
+            }
         }
 
         if (priest.agent.remainingDistance <= priest.agent.stoppingDistance)

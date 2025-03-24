@@ -24,8 +24,7 @@ public class PaladinSwordBehaviour : MonoBehaviour
             cooldownTime = cooldownTimer;
             Vector3 collisionPoint = collision.contacts[0].point;
             Instantiate(contactVFX, collisionPoint, Quaternion.identity);
-            //Deal damage to player
-            collision.gameObject.GetComponentInChildren<Animator>().Play("pushed");
+            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(1);
         }
     }
 }
