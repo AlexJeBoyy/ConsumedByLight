@@ -2,7 +2,6 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Drawing;
 using UnityEngine;
 
 public class BaseController : MonoBehaviour
@@ -63,6 +62,7 @@ public class BaseController : MonoBehaviour
     [SerializeField] private float _slideDashDuration = 1.5f;
     [SerializeField] private float _slideDashTimer = 0f;
     [SerializeField] private float _slideDashColliderHeight = 1f;
+
     private float _originalColliderHeight;
     private Vector3 _slideDashDirection;
 
@@ -111,9 +111,10 @@ public class BaseController : MonoBehaviour
         if (!_isSlideDashing)
         {
             _currentSpeed = _rigidbody.velocity.magnitude;
+
         }
         // Debug.Log("Current Speed: " + _currentSpeed.ToString("F2") + " units/sec");
-
+        //Debug.Log(_playerLookInput);
     }
 
     private Vector3 GetLookInput()
@@ -125,16 +126,17 @@ public class BaseController : MonoBehaviour
     }
     private void PlayerLook()
     {
-        if (!_isSlideDashing)
-        {
+        ////Node: the commented out stuff maes it so that if the player is slide dashing you can rotate the came without rotating the player 
+        //if (!_isSlideDashing)
+        //{
             _rigidbody.rotation = Quaternion.Euler(0f, _rigidbody.rotation.eulerAngles.y + (_playerLookInput.x * _rotationSpeedMultiplier), 0f);
-        }
-        else
-        {
-            float yaw = _playerLookInput.x * _rotationSpeedMultiplier;
-            CameraFollow.rotation = Quaternion.Euler(CameraFollow.rotation.eulerAngles.x, CameraFollow.rotation.eulerAngles.y + yaw, CameraFollow.rotation.eulerAngles.z);
-            
-        }
+        //}
+        //else
+        //{
+        //    float yaw = _playerLookInput.x * _rotationSpeedMultiplier;
+        //    CameraFollow.rotation = Quaternion.Euler(CameraFollow.rotation.eulerAngles.x, CameraFollow.rotation.eulerAngles.y + yaw, CameraFollow.rotation.eulerAngles.z);
+        //}
+
     }
     private void PitchCamera()
     {
@@ -405,15 +407,32 @@ public class BaseController : MonoBehaviour
 
     private void EndSlideDash()
     {
-        //Quaternion currentRotation;
-        //Vector3 currentEulerAngles= 1f,1f,1f;
-        //currentEulerAngles += new Vector3(_playerLookInput.x, _playerLookInput.y, _playerLookInput.z);
-        //currentRotation.eulerAngles = currentEulerAngles;
-        _isSlideDashing = false;
 
-        //transform.rotation += new Quaternion(_playerLookInput.x, _playerLookInput.y, _playerLookInput.z);
-       // new Quaternion(_playerLookInput.x, 0f, 0f,0f);
+        //ResetRotation();
+
         _capsuleCollider.height = _originalColliderHeight;
         _capsuleCollider.center = new Vector3(0f, 0f, 0f);
+        _isSlideDashing = false;
     }
+
+    //Note: the reset rotation function does not work because if you rotate the player the camera rotates with the player instead of staying loose from it and not rotating with it
+    private void ResetRotation()
+    {
+        float camTargetRotationX = _cameraController.MainCam.transform.rotation.y;
+        float camTargetRotationY = _cameraController.MainCam.transform.rotation.y; 
+        float camTargetRotationZ = _cameraController.MainCam.transform.rotation.y;
+
+        float myTargetRotationX = 0f; 
+        float myTargetRotationY = _cameraController.MainCam.transform.rotation.y; 
+        float myTargetRotationZ = 0f; 
+        Vector3 myEulerAngleRotation = new Vector3(myTargetRotationX, myTargetRotationY, myTargetRotationZ);
+        _rigidbody.transform.rotation = Quaternion.Euler(myEulerAngleRotation);
+
+        Vector3 camEulerAngleRotation = new Vector3(camTargetRotationX, camTargetRotationY, camTargetRotationZ);
+        _cameraController.MainCam.transform.rotation = Quaternion.Euler(camEulerAngleRotation);
+        Debug.Log("reset rotation" + camEulerAngleRotation);
+
+    }
+
+  
 }

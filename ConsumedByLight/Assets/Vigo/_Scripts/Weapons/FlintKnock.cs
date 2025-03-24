@@ -11,10 +11,10 @@ public class FlintKnock : Gun
         {
             if (hit.collider.gameObject.layer == 6)
             {
-                //if (hit.collider.gameObject.GetComponent<Health> == null)
-                // {
-
-                // }
+                if (hit.collider.gameObject.GetComponent<EnemyHealth>() != null)
+                {
+                    hit.collider.gameObject.GetComponent<EnemyHealth>().TakeDamage(hit.point);
+                }
             }
             target = hit.point;
         }
