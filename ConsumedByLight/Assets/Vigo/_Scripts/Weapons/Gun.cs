@@ -12,6 +12,7 @@ public abstract class Gun : MonoBehaviour
     //public Recoil recoil;
 
     WeaponAnim weaponanim;
+    Animator Reloadanim;
     private CinemachineImpulseSource recoilShakeImpulseSource;
 
     [SerializeField] private TextMeshProUGUI AmmoCount;
@@ -24,7 +25,7 @@ public abstract class Gun : MonoBehaviour
     private void Start()
     {
         currentAmmo = gunData.magazineSize;
-
+        Reloadanim = GetComponentInChildren<Animator>(); ;
         weaponanim = GetComponent<WeaponAnim>();
 
         controller = transform.root.GetComponent<BaseController>();
@@ -57,12 +58,14 @@ public abstract class Gun : MonoBehaviour
     private IEnumerator Reload()
     {
         isReloading = true;
+        Reloadanim.SetBool("Reloading", true);
 
         Debug.Log(gunData.gunName + " is reloading");
 
         yield return new WaitForSeconds(gunData.reloadTime);
 
         currentAmmo = gunData.magazineSize;
+        Reloadanim.SetBool("Reloading", false);
         isReloading = false;
 
         Debug.Log(gunData.gunName + " is reloaded");
