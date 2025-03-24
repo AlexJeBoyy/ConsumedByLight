@@ -26,6 +26,7 @@ public class CameraController : MonoBehaviour
         _activeCam = c1Person;
         FirstPerson();
         Cursor.lockState = CursorLockMode.Locked;
+        
     }
 
     //private void Update()
