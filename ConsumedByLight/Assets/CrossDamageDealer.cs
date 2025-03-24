@@ -8,7 +8,7 @@ public class CrossDamageDealer : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponentInChildren<Animator>().Play("pushed");
+            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(2);
         }
     }
 }

@@ -26,7 +26,7 @@ public class HolyWaterBehaviour : MonoBehaviour
             if (hit.gameObject.CompareTag("Player"))
             {
                 //hit.GetComponent<Enemy>().TakeDamage();
-                hit.gameObject.GetComponentInChildren<Animator>().Play("pushed");
+                hit.gameObject.GetComponent<PlayerHealth>().TakeDamage(1);
             }
             else
             {
