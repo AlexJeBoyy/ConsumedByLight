@@ -34,6 +34,9 @@ public class PlayerInput : MonoBehaviour
         _input.BaseGameplay.Move.performed += SetMove;
         _input.BaseGameplay.Move.canceled += SetMove;
 
+        _input.BaseGameplay.Look.performed += SetLook;
+        _input.BaseGameplay.Look.canceled += SetLook;
+
         _input.BaseGameplay.Run.started += SetRun;
         _input.BaseGameplay.Run.canceled += SetRun;
 
@@ -46,8 +49,7 @@ public class PlayerInput : MonoBehaviour
         _input.BaseGameplay.Dash.started += SetDash;
         _input.BaseGameplay.Dash.canceled += SetDash;
 
-        _input.BaseGameplay.Look.performed += SetLook;
-        _input.BaseGameplay.Look.canceled += SetLook;
+
     }
 
     private void OnDisable()
@@ -55,7 +57,10 @@ public class PlayerInput : MonoBehaviour
         _input.BaseGameplay.Move.performed -= SetMove;
         _input.BaseGameplay.Move.canceled -= SetMove;
 
-        _input.BaseGameplay.Run.started -= SetRun; 
+        _input.BaseGameplay.Look.performed -= SetLook;
+        _input.BaseGameplay.Look.canceled -= SetLook;
+
+        _input.BaseGameplay.Run.started -= SetRun;
         _input.BaseGameplay.Run.canceled -= SetRun;
 
         _input.BaseGameplay.Jump.started -= SetJump;
@@ -67,8 +72,7 @@ public class PlayerInput : MonoBehaviour
         _input.BaseGameplay.Dash.started -= SetDash;
         _input.BaseGameplay.Dash.canceled -= SetDash;
 
-        _input.BaseGameplay.Look.performed -= SetLook;
-        _input.BaseGameplay.Look.canceled -= SetLook;
+
 
         _input.BaseGameplay.Disable();
     }

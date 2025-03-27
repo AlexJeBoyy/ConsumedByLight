@@ -126,7 +126,7 @@ public class BaseController : MonoBehaviour
         {
             SlideDash();
         }
-        
+
         if (_input.DashIsPressed && _canDash && !_isSlideDashing)
         {
             PlayerDash();
@@ -182,7 +182,7 @@ public class BaseController : MonoBehaviour
     {
         CinemachineVirtualCamera playerCam = _cameraController.c1Person;
         float endFOV;
-        float transitionTime = 6f;
+        float transitionTime = 8f;
         float minFOV = 60;
         float maxFOV = 100;
         if (_input.MoveIsPressed)
@@ -489,7 +489,7 @@ public class BaseController : MonoBehaviour
     void PlayerDash()
     {
 
-        if (!_isDashing  && _canDash) // Prevent overlapping dashes
+        if (!_isDashing && _canDash) // Prevent overlapping dashes
         {
             StartCoroutine(DashCoroutine());
         }
@@ -505,9 +505,10 @@ public class BaseController : MonoBehaviour
         while (Time.time < startTime + _dashTime)
         {
             _rb.AddForce(_dashDirection * _dashSpeed, ForceMode.Impulse);
+
             yield return null; // Wait for next frame
         }
-
         _isDashing = false;
+
     }
 }
