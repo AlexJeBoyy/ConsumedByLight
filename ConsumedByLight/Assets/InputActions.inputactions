@@ -87,9 +87,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "SlideDash",
+                    "name": "Slide",
                     "type": "Button",
                     "id": "b51bf0f3-7d65-401e-ab65-636edc2d2714",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "3c26b733-e334-4b78-b74d-c017c3d1042e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -324,7 +333,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SlideDash",
+                    "action": "Slide",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -335,7 +344,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SlideDash",
+                    "action": "Slide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fdd004a8-2925-4eb8-adf0-9516ed6122ab",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "baafc268-3d1a-4761-ab89-1ecee1801d61",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour
     public bool InvertScroll { get; private set; } = true;
     public bool RunIsPressed { get; private set; } = false;
     public bool JumpIsPressed { get; private set; } = false;
+    public bool SlideIsPressed { get; private set; } = false;
     public bool DashIsPressed { get; private set; } = false;
     public bool CamChangePressed { get; private set; } = false;
     public bool MoveIsPressed = false;
@@ -39,8 +40,11 @@ public class PlayerInput : MonoBehaviour
         _input.BaseGameplay.Jump.started += SetJump;
         _input.BaseGameplay.Jump.canceled += SetJump;
 
-        _input.BaseGameplay.SlideDash.started += SetDash;
-        _input.BaseGameplay.SlideDash.canceled += SetDash;
+        _input.BaseGameplay.Slide.started += SetSlide;
+        _input.BaseGameplay.Slide.canceled += SetSlide;
+
+        _input.BaseGameplay.Dash.started += SetDash;
+        _input.BaseGameplay.Dash.canceled += SetDash;
 
         _input.BaseGameplay.Look.performed += SetLook;
         _input.BaseGameplay.Look.canceled += SetLook;
@@ -51,14 +55,17 @@ public class PlayerInput : MonoBehaviour
         _input.BaseGameplay.Move.performed -= SetMove;
         _input.BaseGameplay.Move.canceled -= SetMove;
 
-        _input.BaseGameplay.Run.started -= SetRun;
+        _input.BaseGameplay.Run.started -= SetRun; 
         _input.BaseGameplay.Run.canceled -= SetRun;
 
         _input.BaseGameplay.Jump.started -= SetJump;
         _input.BaseGameplay.Jump.canceled -= SetJump;
 
-        _input.BaseGameplay.SlideDash.started -= SetDash;
-        _input.BaseGameplay.SlideDash.canceled -= SetDash;
+        _input.BaseGameplay.Dash.started -= SetSlide;
+        _input.BaseGameplay.Dash.canceled -= SetSlide;
+
+        _input.BaseGameplay.Dash.started -= SetDash;
+        _input.BaseGameplay.Dash.canceled -= SetDash;
 
         _input.BaseGameplay.Look.performed -= SetLook;
         _input.BaseGameplay.Look.canceled -= SetLook;
@@ -87,6 +94,10 @@ public class PlayerInput : MonoBehaviour
         JumpIsPressed = ctx.started;
     }
 
+    private void SetSlide(InputAction.CallbackContext ctx)
+    {
+        SlideIsPressed = ctx.started;
+    }
     private void SetDash(InputAction.CallbackContext ctx)
     {
         DashIsPressed = ctx.started;

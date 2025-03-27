@@ -1196,6 +1196,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 469040630}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &498021702 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3538303779231498312, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+    type: 3}
+  m_PrefabInstance: {fileID: 7408397007391055181}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32be20fbb1f15c4799edcc14eed7aee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &690779986
 GameObject:
   m_ObjectHideFlags: 0
@@ -1792,6 +1804,18 @@ Transform:
   - {fileID: 87062832}
   m_Father: {fileID: 942050517}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1260463576 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1214823117128132990, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+    type: 3}
+  m_PrefabInstance: {fileID: 7408397007391055181}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52bcc8b86075c948b933c2c30feb00b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1365909756
 GameObject:
   m_ObjectHideFlags: 0
@@ -2221,6 +2245,12 @@ MonoBehaviour:
   speedOfObject: 0
   destroySpeedThreshold: 50
   bloodVfx: {fileID: 0}
+--- !u!4 &1927105708 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6316824878199742984, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+    type: 3}
+  m_PrefabInstance: {fileID: 7408397007391055181}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1927969749
 GameObject:
   m_ObjectHideFlags: 0
@@ -2550,6 +2580,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ---Player---
+      objectReference: {fileID: 0}
+    - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
+      propertyPath: _input
+      value: 
+      objectReference: {fileID: 498021702}
+    - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
+      propertyPath: _dashTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
+      propertyPath: _dashSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
+      propertyPath: CameraFollow
+      value: 
+      objectReference: {fileID: 1927105708}
+    - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
+      propertyPath: _cameraController
+      value: 
+      objectReference: {fileID: 1260463576}
+    - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
+      propertyPath: _gravityFallCurrent
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6031702188948295679, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
+      propertyPath: _movementMultiplier
+      value: 150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
