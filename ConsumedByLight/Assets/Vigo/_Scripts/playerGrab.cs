@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerGrab : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class PlayerGrab : MonoBehaviour
     [SerializeField] private float chargeTime;
     [SerializeField] private float maxChargeTime;
     private bool isCharging;
+
+    [Header("Stamina")]
+    [SerializeField] private Slider staminaSlide;
 
     Rigidbody grabbedRB;
 
