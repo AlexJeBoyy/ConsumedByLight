@@ -50,7 +50,7 @@ public class PlayerGrab : MonoBehaviour
     {
         if (grabbedRB)
         {
-            usingStamina = true;
+
             float distanceFromCamera = Vector3.Distance(cam.transform.position, objectHolder.position);
             targetPosistion = cam.transform.position + cam.transform.forward * distanceFromCamera;
 
@@ -87,12 +87,21 @@ public class PlayerGrab : MonoBehaviour
             {
                 chargeTime += Time.deltaTime * chargeSpeed;
                 chargeTime = Mathf.Clamp(chargeTime, 0f, maxChargeTime);
+                usingStamina = false;
             }
         }
     }
 
     private void Update()
     {
+        if (grabbedRB != null)
+        {
+            usingStamina = true;
+        }
+        else
+        {
+            usingStamina = false;
+        }
         staminaGrab.value = currentStamina;
         staminaGrab2.value = currentStamina;
 
@@ -159,6 +168,7 @@ public class PlayerGrab : MonoBehaviour
         if (ctx.performed && grabbedRB != null)
         {
             isCharging = true;
+            usingStamina = false;
         }
         else if (ctx.canceled && grabbedRB != null)
         {
