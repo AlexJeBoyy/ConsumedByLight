@@ -435,7 +435,7 @@ Transform:
   m_GameObject: {fileID: 1521029750530687047}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5980763, z: -10}
+  m_LocalPosition: {x: 0, y: 2.5980759, z: -10}
   m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -945,7 +945,7 @@ Transform:
   m_GameObject: {fileID: 3793235797118777718}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5980763, z: -10}
+  m_LocalPosition: {x: 0, y: 2.5980759, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1102,9 +1102,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 0.601
+  m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1415,7 +1415,10 @@ MonoBehaviour:
   chargeSpeed: 1
   chargeTime: 0
   maxChargeTime: 2
-  staminaSlide: {fileID: 0}
+  staminaGrab: {fileID: 7355178265282160331}
+  staminaGrab2: {fileID: 4208213457380936485}
+  maxStamina: 100
+  currentStamina: 0
 --- !u!114 &1144098854034502496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1723,8 +1726,8 @@ RectTransform:
   m_GameObject: {fileID: 6130630660451662662}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.0212158, y: 1.0212158, z: 1.0212158}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 430173792974347016}
   - {fileID: 5117741139224055590}
@@ -1734,7 +1737,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -207.99998, y: -222}
+  m_AnchoredPosition: {x: -217.96, y: -222}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6227919223313967021
@@ -1924,7 +1927,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
   m_Value: 0.601
   m_OnValueChanged:
