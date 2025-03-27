@@ -63,6 +63,8 @@ public class BaseController : MonoBehaviour
     [SerializeField] private float _slideDashTimer = 0f;
     [SerializeField] private float _slideDashColliderHeight = 1f;
 
+    [Header("Dash")]
+
     private float _originalColliderHeight;
     private Vector3 _slideDashDirection;
 
@@ -87,7 +89,7 @@ public class BaseController : MonoBehaviour
 
         _playerMoveInput = PlayerMove();
         _playerMoveInput = PlayerSlope();
-        _playerMoveInput = PlayerRun();
+        //_playerMoveInput = PlayerRun();
 
 
         if (_input.DashIsPressed && _playerIsGrounded && !_isSlideDashing && _input.MoveIsPressed)
@@ -225,22 +227,22 @@ public class BaseController : MonoBehaviour
         }
         return calculatedPlayerMovement;
     }
-    private Vector3 PlayerRun()
-    {
-        Vector3 calculatePlayerRunSpeed = _playerMoveInput;
+    //private Vector3 PlayerRun()
+    //{
+    //    Vector3 calculatePlayerRunSpeed = _playerMoveInput;
 
-        if (_input.RunIsPressed && _input.MoveIsPressed)
-        {
-            float runSpeed = Mathf.Lerp(_movementMultiplier, _runMultiplier, Time.deltaTime * 5f); // Smooth transition
-            calculatePlayerRunSpeed *= runSpeed;
-        }
-        else
-        {
-            calculatePlayerRunSpeed *= _movementMultiplier;
-        }
+    //    if (_input.RunIsPressed && _input.MoveIsPressed)
+    //    {
+    //        float runSpeed = Mathf.Lerp(_movementMultiplier, _runMultiplier, Time.deltaTime * 5f); // Smooth transition
+    //        calculatePlayerRunSpeed *= runSpeed;
+    //    }
+    //    else
+    //    {
+    //        calculatePlayerRunSpeed *= _movementMultiplier;
+    //    }
 
-        return calculatePlayerRunSpeed;
-    }
+    //    return calculatePlayerRunSpeed;
+    //}
     private void PlayerFOV()
     {
         CinemachineVirtualCamera playerCam = _cameraController.c1Person;
