@@ -21,7 +21,7 @@ public class BaseController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float _currentSpeed; //Shown for debugging
-    [SerializeField] float _movementMultiplier = 10f;
+    [SerializeField] float _movementMultiplier = 40f;
     [SerializeField] float _notGroundedMultiplier = 1.25f;
     [SerializeField] float _rotationSpeedMultiplier = 500;
     [SerializeField] float _pitchSpeedMultiplier = 500;
@@ -34,9 +34,9 @@ public class BaseController : MonoBehaviour
     RaycastHit _groundCheckHit = new RaycastHit();
 
     [Header("Gravity")]
-    [SerializeField] float _gravityFallCurrent = -10f;
-    [SerializeField] float _gravityFallMin = -10f;
-    [SerializeField] float _gravityFallMax = -100f;
+    [SerializeField] float _gravityFallCurrent = -5f;
+    [SerializeField] float _gravityFallMin = -5f;
+    [SerializeField] float _gravityFallMax = -75f;
     [SerializeField][Range(-5f, -35f)] float _gravityFallIncrementAmount = -20f;
     [SerializeField] float _gravityFallIncrementTime = -.05f;
     [SerializeField] float _playerFallTimer = -0f;
