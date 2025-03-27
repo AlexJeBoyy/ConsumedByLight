@@ -1368,8 +1368,8 @@ MonoBehaviour:
   _groundCheckRaduisMultiplier: 0.9
   _groundCheckDistance: 0.05
   _gravityFallCurrent: -10
-  _gravityFallMin: -10
-  _gravityFallMax: -100
+  _gravityFallMin: -5
+  _gravityFallMax: -75
   _gravityFallIncrementAmount: -20
   _gravityFallIncrementTime: -0.05
   _playerFallTimer: -0
