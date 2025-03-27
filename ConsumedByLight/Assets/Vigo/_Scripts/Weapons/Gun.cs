@@ -10,6 +10,7 @@ public abstract class Gun : MonoBehaviour
     public Transform GunMuzzle;
     public Transform cameraTransform;
 
+    
     WeaponAnim weaponanim;
     Animator Reloadanim;
     private CinemachineImpulseSource recoilShakeImpulseSource;
@@ -19,7 +20,7 @@ public abstract class Gun : MonoBehaviour
     private float currentAmmo = 0f;
     private float nextTimeToFire = 0f;
 
-    private bool isReloading = false;
+    public bool isReloading = false;
 
 
 
@@ -59,6 +60,7 @@ public abstract class Gun : MonoBehaviour
 
     private IEnumerator Reload()
     {
+       
         isReloading = true;
         Reloadanim.SetBool("Reloading", true);
 
