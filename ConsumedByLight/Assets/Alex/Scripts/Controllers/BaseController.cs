@@ -70,10 +70,11 @@ public class BaseController : MonoBehaviour
     [Header("Dash")]
     [SerializeField] private bool _isDashing = false;
     [SerializeField] private bool _canDash = true;
-    [SerializeField] private float _dashSpeed = 50f;
+    [SerializeField] private float _dashSpeed = 150f;
     [SerializeField] private float _startDashTimer = 0f;
-    [SerializeField] private float _dashTime = 2f;
-    [SerializeField] private float _dashCooldown = 5;
+    [SerializeField] private float _dashTime = .4f;
+    [SerializeField] private float _dashCooldown = 4;
+
     private Vector3 _dashDirection;
 
     #endregion
@@ -94,6 +95,7 @@ public class BaseController : MonoBehaviour
             if (_dashCooldown <= 0.0f)
             {
                 _canDash = true;
+                _dashCooldown = 4f;
             }
         }
     }
@@ -180,17 +182,17 @@ public class BaseController : MonoBehaviour
     {
         CinemachineVirtualCamera playerCam = _cameraController.c1Person;
         float endFOV;
-        float transitionTime = 8f;
+        float transitionTime = 6f;
         float minFOV = 60;
-        float maxFOV = 90;
+        float maxFOV = 100;
         if (_input.MoveIsPressed)
         {
-            endFOV = 80;
+            endFOV = 75;
             _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
         }
         else if (_isSlideDashing || _isDashing)
         {
-            endFOV = 90;
+            endFOV = 100;
             _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
         }
         else
@@ -487,7 +489,7 @@ public class BaseController : MonoBehaviour
     void PlayerDash()
     {
 
-        if (!_isDashing  ) // Prevent overlapping dashes
+        if (!_isDashing  && _canDash) // Prevent overlapping dashes
         {
             StartCoroutine(DashCoroutine());
         }
@@ -495,6 +497,7 @@ public class BaseController : MonoBehaviour
 
     IEnumerator DashCoroutine()
     {
+        _canDash = false;
         _isDashing = true;
         _dashDirection = _rb.transform.forward;
         float startTime = Time.time;
