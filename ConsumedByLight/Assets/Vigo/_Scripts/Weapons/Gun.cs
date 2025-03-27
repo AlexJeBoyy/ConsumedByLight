@@ -9,7 +9,6 @@ public abstract class Gun : MonoBehaviour
     public BaseController controller;
     public Transform GunMuzzle;
     public Transform cameraTransform;
-    //public Recoil recoil;
 
     WeaponAnim weaponanim;
     Animator Reloadanim;
@@ -22,10 +21,13 @@ public abstract class Gun : MonoBehaviour
 
     private bool isReloading = false;
 
+
+
+
     private void Start()
     {
         currentAmmo = gunData.magazineSize;
-        Reloadanim = GetComponent<Animator>(); ;
+        Reloadanim = GetComponentInChildren<Animator>(); ;
         weaponanim = GetComponent<WeaponAnim>();
 
         controller = transform.root.GetComponent<BaseController>();
@@ -81,6 +83,7 @@ public abstract class Gun : MonoBehaviour
         if (Time.time >= nextTimeToFire)
         {
             nextTimeToFire = Time.time + (1 / gunData.fireRate);
+
             HandleShoot();
         }
 

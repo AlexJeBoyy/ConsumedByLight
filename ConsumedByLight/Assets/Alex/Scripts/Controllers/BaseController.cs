@@ -1,7 +1,5 @@
 using Cinemachine;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseController : MonoBehaviour
@@ -12,16 +10,18 @@ public class BaseController : MonoBehaviour
     Rigidbody _rigidbody = null;
     CapsuleCollider _capsuleCollider = null;
 
+
     Vector3 _playerMoveInput;
 
     Vector3 _playerLookInput;
     Vector3 _previousPlayerLookInput = Vector3.zero;
     [SerializeField] float _cameraPitch = 0f;
     [SerializeField] float _playerLookInputLerpTime = 0.35f;
+    private CinemachineBasicMultiChannelPerlin noiseComponent;
 
     [Header("Movement")]
     [SerializeField] private float _currentSpeed; //Shown for debugging
-    [SerializeField] float _movementMultiplier = 10f;
+    [SerializeField] float _movementMultiplier = 40f;
     [SerializeField] float _notGroundedMultiplier = 1.25f;
     [SerializeField] float _rotationSpeedMultiplier = 500;
     [SerializeField] float _pitchSpeedMultiplier = 500;
@@ -34,9 +34,9 @@ public class BaseController : MonoBehaviour
     RaycastHit _groundCheckHit = new RaycastHit();
 
     [Header("Gravity")]
-    [SerializeField] float _gravityFallCurrent = -10f;
-    [SerializeField] float _gravityFallMin = -10f;
-    [SerializeField] float _gravityFallMax = -100f;
+    [SerializeField] float _gravityFallCurrent = -5f;
+    [SerializeField] float _gravityFallMin = -5f;
+    [SerializeField] float _gravityFallMax = -75f;
     [SerializeField][Range(-5f, -35f)] float _gravityFallIncrementAmount = -20f;
     [SerializeField] float _gravityFallIncrementTime = -.05f;
     [SerializeField] float _playerFallTimer = -0f;
@@ -129,7 +129,7 @@ public class BaseController : MonoBehaviour
         ////Node: the commented out stuff maes it so that if the player is slide dashing you can rotate the came without rotating the player 
         //if (!_isSlideDashing)
         //{
-            _rigidbody.rotation = Quaternion.Euler(0f, _rigidbody.rotation.eulerAngles.y + (_playerLookInput.x * _rotationSpeedMultiplier), 0f);
+        _rigidbody.rotation = Quaternion.Euler(0f, _rigidbody.rotation.eulerAngles.y + (_playerLookInput.x * _rotationSpeedMultiplier), 0f);
         //}
         //else
         //{
@@ -419,12 +419,12 @@ public class BaseController : MonoBehaviour
     private void ResetRotation()
     {
         float camTargetRotationX = _cameraController.MainCam.transform.rotation.y;
-        float camTargetRotationY = _cameraController.MainCam.transform.rotation.y; 
+        float camTargetRotationY = _cameraController.MainCam.transform.rotation.y;
         float camTargetRotationZ = _cameraController.MainCam.transform.rotation.y;
 
-        float myTargetRotationX = 0f; 
-        float myTargetRotationY = _cameraController.MainCam.transform.rotation.y; 
-        float myTargetRotationZ = 0f; 
+        float myTargetRotationX = 0f;
+        float myTargetRotationY = _cameraController.MainCam.transform.rotation.y;
+        float myTargetRotationZ = 0f;
         Vector3 myEulerAngleRotation = new Vector3(myTargetRotationX, myTargetRotationY, myTargetRotationZ);
         _rigidbody.transform.rotation = Quaternion.Euler(myEulerAngleRotation);
 
@@ -434,5 +434,5 @@ public class BaseController : MonoBehaviour
 
     }
 
-  
+
 }
