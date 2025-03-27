@@ -161,31 +161,26 @@ public class PlayerGrab : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void ThrowCharge(InputAction.CallbackContext ctx)
     {
-        if (grabbedRB != null)
+        if (ctx.performed && grabbedRB != null)
         {
-            if (ctx.performed)
-            {
-                isCharging = true;
-                usingStamina = false;
-            }
-            else if (ctx.canceled)
-            {
-                Debug.Log(chargeTime);
-                grabbedRB.AddForce(cam.transform.forward * throwForce * chargeTime / maxChargeTime, ForceMode.Impulse);
-                currentStamina = currentStamina - 25;
-                isCharging = false;
-                chargeTime = 0f;
-                grabbedRB.useGravity = true;
-                grabbedRB = null;
-                usingStamina = false;
-            }
+            isCharging = true;
+            usingStamina = false;
         }
-
+        else if (ctx.canceled && grabbedRB != null)
+        {
+            Debug.Log(chargeTime);
+            grabbedRB.AddForce(cam.transform.forward * throwForce * chargeTime / maxChargeTime, ForceMode.Impulse);
+            currentStamina = currentStamina - 25;
+            isCharging = false;
+            chargeTime = 0f;
+            grabbedRB.useGravity = true;
+            grabbedRB = null;
+            usingStamina = false;
+        }
     }
 
     private IEnumerator StaminaRecharge()
