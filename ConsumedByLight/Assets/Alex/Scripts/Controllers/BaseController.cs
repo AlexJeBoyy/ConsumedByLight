@@ -71,7 +71,7 @@ public class BaseController : MonoBehaviour
     [SerializeField] private bool _isDashing = false;
     [SerializeField] private bool _canDash = true;
     [SerializeField] private float _dashSpeed = 150f;
-    [SerializeField] private float _startDashTimer = 0f;
+    [SerializeField] private float _startDashTimer = 4f;
     [SerializeField] private float _dashTime = .4f;
     [SerializeField] private float _dashCooldown = 4;
 
@@ -95,7 +95,7 @@ public class BaseController : MonoBehaviour
             if (_dashCooldown <= 0.0f)
             {
                 _canDash = true;
-                _dashCooldown = 4f;
+                _dashCooldown = _startDashTimer;
             }
         }
     }
@@ -486,10 +486,11 @@ public class BaseController : MonoBehaviour
     }
     #endregion
 
+    #region Dashing
     void PlayerDash()
     {
 
-        if (!_isDashing && _canDash) // Prevent overlapping dashes
+        if (!_isDashing && _canDash)
         {
             StartCoroutine(DashCoroutine());
         }
@@ -511,4 +512,5 @@ public class BaseController : MonoBehaviour
         _isDashing = false;
 
     }
+    #endregion
 }
