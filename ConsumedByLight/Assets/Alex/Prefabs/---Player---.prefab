@@ -2183,6 +2183,9 @@ MonoBehaviour:
   GunMuzzle: {fileID: 8471397830910151973}
   cameraTransform: {fileID: 4342013979772156105}
   AmmoCount: {fileID: 8428711499441794104}
+  isReloading: 0
+  ShootSound: {fileID: 0}
+  ReloadAudio: {fileID: 0}
 --- !u!114 &4529119502833425763
 MonoBehaviour:
   m_ObjectHideFlags: 0
