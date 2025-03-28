@@ -15,4 +15,16 @@ The result will be the input for the backlog and from there the next sprint.
 
 
 ## Review 2
-. . .
+### [27/03/2025]
+
+## Customer Feedback
+* We moeten een game loop maken.
+* Meer focusen op de polishing. 
+* Zorgen dat het bord up to date is.
+* De reload animation is leuk.
+* (jorrit je mag wat posetiever zijn je bent een gemene klant). 
+
+
+## Suggestions for improvements:
+* Meer werken aan de game loop.
+* Opletten dat we polishing in de gaten houden.

@@ -3,8 +3,13 @@ using UnityEngine;
 
 public class FlintKnock : Gun
 {
+    public AudioSource ShootSound;
+    public AudioSource ReloadAudio;
+
+   
     public override void Shoot()
     {
+        ShootSound.Play();
         RaycastHit hit;
         Vector3 target = Vector3.zero;
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, gunData.shootingRange))

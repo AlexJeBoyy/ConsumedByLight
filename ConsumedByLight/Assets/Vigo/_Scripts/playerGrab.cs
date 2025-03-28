@@ -1,6 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerGrab : MonoBehaviour
 {
@@ -29,23 +31,40 @@ public class PlayerGrab : MonoBehaviour
     [SerializeField] private float maxChargeTime;
     private bool isCharging;
 
+    [Header("Stamina")]
+    [SerializeField] private Slider staminaGrab;
+    [SerializeField] private Slider staminaGrab2;
+    [SerializeField] private float maxStamina;
+    [SerializeField] private float currentStamina;
+    private bool usingStamina;
+
+
     Rigidbody grabbedRB;
+
+    private void Start()
+    {
+        currentStamina = maxStamina;
+    }
 
     private void FixedUpdate()
     {
         if (grabbedRB)
         {
-
-
+            usingStamina = true;
             float distanceFromCamera = Vector3.Distance(cam.transform.position, objectHolder.position);
             targetPosistion = cam.transform.position + cam.transform.forward * distanceFromCamera;
 
             float dist = Vector3.Distance(targetPosistion, grabbedRB.transform.position);
             if (dist > maxdist)
             {
+                if (grabbedRB.gameObject.GetComponent<NavMeshAgent>() != null)
+                {
+                    grabbedRB.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                }
                 grabbedRB.useGravity = true;
+                grabbedRB.freezeRotation = false;
                 grabbedRB = null;
-                return;
+                usingStamina = false;
             }
             if (dist < followDeadzone)
             {
@@ -71,6 +90,38 @@ public class PlayerGrab : MonoBehaviour
             }
         }
     }
+
+    private void Update()
+    {
+        staminaGrab.value = currentStamina;
+        staminaGrab2.value = currentStamina;
+
+        if (usingStamina)
+        {
+            currentStamina = currentStamina - Time.deltaTime * 10;
+        }
+
+        if (currentStamina <= 0f && grabbedRB != null)
+        {
+            if (grabbedRB.gameObject.GetComponent<NavMeshAgent>() != null)
+            {
+                grabbedRB.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            }
+            grabbedRB.useGravity = true;
+            grabbedRB.freezeRotation = false;
+            grabbedRB = null;
+            usingStamina = false;
+        }
+
+        if (grabbedRB == null && currentStamina <= 100)
+        {
+            StartCoroutine(StaminaRecharge());
+        }
+        else
+        {
+            StopAllCoroutines();
+        }
+    }
     public void Grab()
     {
         if (grabbedRB)
@@ -82,6 +133,7 @@ public class PlayerGrab : MonoBehaviour
             grabbedRB.useGravity = true;
             grabbedRB.freezeRotation = false;
             grabbedRB = null;
+            usingStamina = false;
         }
         else
         {
@@ -104,18 +156,26 @@ public class PlayerGrab : MonoBehaviour
 
     public void ThrowCharge(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (ctx.performed && grabbedRB != null)
         {
             isCharging = true;
         }
-        else if (ctx.canceled)
+        else if (ctx.canceled && grabbedRB != null)
         {
             Debug.Log(chargeTime);
             grabbedRB.AddForce(cam.transform.forward * throwForce * chargeTime / maxChargeTime, ForceMode.Impulse);
+            currentStamina = currentStamina - 25;
             isCharging = false;
             chargeTime = 0f;
             grabbedRB.useGravity = true;
             grabbedRB = null;
+            usingStamina = false;
         }
+    }
+
+    private IEnumerator StaminaRecharge()
+    {
+        yield return new WaitForSeconds(2);
+        currentStamina = currentStamina + Time.deltaTime * 10;
     }
 }

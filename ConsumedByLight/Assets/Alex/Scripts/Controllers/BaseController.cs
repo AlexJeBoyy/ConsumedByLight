@@ -1,13 +1,15 @@
 using Cinemachine;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class BaseController : MonoBehaviour
 {
+    #region Variables
     [SerializeField] Transform CameraFollow;
     [SerializeField] PlayerInput _input;
     [SerializeField] CameraController _cameraController;
-    Rigidbody _rigidbody = null;
+    Rigidbody _rb = null;
     CapsuleCollider _capsuleCollider = null;
 
 
@@ -21,11 +23,11 @@ public class BaseController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float _currentSpeed; //Shown for debugging
-    [SerializeField] float _movementMultiplier = 40f;
+    [SerializeField] float _movementMultiplier = 150;
     [SerializeField] float _notGroundedMultiplier = 1.25f;
     [SerializeField] float _rotationSpeedMultiplier = 500;
     [SerializeField] float _pitchSpeedMultiplier = 500;
-    [SerializeField] float _runMultiplier = 40f;
+    [SerializeField] float _runMultiplier = 40;
 
     [Header("Ground Check")]
     public bool _playerIsGrounded = true;
@@ -62,15 +64,40 @@ public class BaseController : MonoBehaviour
     [SerializeField] private float _slideDashDuration = 1.5f;
     [SerializeField] private float _slideDashTimer = 0f;
     [SerializeField] private float _slideDashColliderHeight = 1f;
-
-    private float _originalColliderHeight;
     private Vector3 _slideDashDirection;
+    private float _originalColliderHeight;
+
+    [Header("Dash")]
+    [SerializeField] private bool _isDashing = false;
+    [SerializeField] private bool _canDash = true;
+    [SerializeField] private float _dashSpeed = 150f;
+    [SerializeField] private float _startDashTimer = 0f;
+    [SerializeField] private float _dashTime = .4f;
+    [SerializeField] private float _dashCooldown = 4;
+
+    private Vector3 _dashDirection;
+
+    #endregion
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
         _capsuleCollider = GetComponent<CapsuleCollider>();
         _originalColliderHeight = _capsuleCollider.height;
+    }
+
+    private void Update()
+    {
+        if (!_canDash)
+        {
+            _dashCooldown -= Time.deltaTime;
+
+            if (_dashCooldown <= 0.0f)
+            {
+                _canDash = true;
+                _dashCooldown = 4f;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -87,36 +114,41 @@ public class BaseController : MonoBehaviour
 
         _playerMoveInput = PlayerMove();
         _playerMoveInput = PlayerSlope();
-        _playerMoveInput = PlayerRun();
+        //_playerMoveInput = PlayerRun();  //Note: deactivated running
 
 
-        if (_input.DashIsPressed && _playerIsGrounded && !_isSlideDashing && _input.MoveIsPressed)
+        if (_input.SlideIsPressed && _playerIsGrounded && !_isSlideDashing && _input.MoveIsPressed && !_isDashing)
         {
             StartSlideDash();
         }
 
-        if (_isSlideDashing)
+        if (_isSlideDashing && !_isDashing)
         {
             SlideDash();
+        }
+
+        if (_input.DashIsPressed && _canDash && !_isSlideDashing)
+        {
+            PlayerDash();
         }
 
         _playerMoveInput.y = PlayerFallGravity();
         _playerMoveInput.y = PlayerJump();
 
-        _playerMoveInput *= _rigidbody.mass; // Note: Dev purposes
+        _playerMoveInput *= _rb.mass; // Note: Dev purposes
 
-        _rigidbody.AddRelativeForce(_playerMoveInput, ForceMode.Force);
+        _rb.AddRelativeForce(_playerMoveInput, ForceMode.Force);
 
         // Showing speed
         if (!_isSlideDashing)
         {
-            _currentSpeed = _rigidbody.velocity.magnitude;
+            _currentSpeed = _rb.velocity.magnitude;
 
         }
         // Debug.Log("Current Speed: " + _currentSpeed.ToString("F2") + " units/sec");
         //Debug.Log(_playerLookInput);
     }
-
+    #region Camera
     private Vector3 GetLookInput()
     {
         _previousPlayerLookInput = _playerLookInput;
@@ -129,7 +161,7 @@ public class BaseController : MonoBehaviour
         ////Node: the commented out stuff maes it so that if the player is slide dashing you can rotate the came without rotating the player 
         //if (!_isSlideDashing)
         //{
-        _rigidbody.rotation = Quaternion.Euler(0f, _rigidbody.rotation.eulerAngles.y + (_playerLookInput.x * _rotationSpeedMultiplier), 0f);
+        _rb.rotation = Quaternion.Euler(0f, _rb.rotation.eulerAngles.y + (_playerLookInput.x * _rotationSpeedMultiplier), 0f);
         //}
         //else
         //{
@@ -145,6 +177,34 @@ public class BaseController : MonoBehaviour
         _cameraPitch = Mathf.Clamp(_cameraPitch, -89.9f, 89.9f);
         CameraFollow.rotation = Quaternion.Euler(_cameraPitch, rotationValue.y, rotationValue.z);
     }
+
+    private void PlayerFOV()
+    {
+        CinemachineVirtualCamera playerCam = _cameraController.c1Person;
+        float endFOV;
+        float transitionTime = 8f;
+        float minFOV = 60;
+        float maxFOV = 100;
+        if (_input.MoveIsPressed)
+        {
+            endFOV = 75;
+            _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
+        }
+        else if (_isSlideDashing || _isDashing)
+        {
+            endFOV = 100;
+            _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
+        }
+        else
+        {
+            endFOV = 60;
+            _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
+        }
+
+    }
+    #endregion
+
+    #region Base Movement
     private Vector3 GetMoveInput()
     {
         return new Vector3(_input.MoveInput.x, 0.0f, _input.MoveInput.y);
@@ -154,7 +214,7 @@ public class BaseController : MonoBehaviour
     {
         float sphereCastRadius = _capsuleCollider.radius * _groundCheckRaduisMultiplier;
         float sphereCastTravelDistance = _capsuleCollider.bounds.extents.y - sphereCastRadius + _groundCheckDistance;
-        return Physics.SphereCast(_rigidbody.position, sphereCastRadius, Vector3.down, out _groundCheckHit, sphereCastTravelDistance);
+        return Physics.SphereCast(_rb.position, sphereCastRadius, Vector3.down, out _groundCheckHit, sphereCastTravelDistance);
     }
     private Vector3 PlayerMove()
     {
@@ -167,9 +227,9 @@ public class BaseController : MonoBehaviour
 
         if (_playerIsGrounded)
         {
-            Vector3 localGroundCheckHitNormal = _rigidbody.transform.InverseTransformDirection(_groundCheckHit.normal);
+            Vector3 localGroundCheckHitNormal = _rb.transform.InverseTransformDirection(_groundCheckHit.normal);
 
-            float groundSlopeAngle = Vector3.Angle(localGroundCheckHitNormal, _rigidbody.transform.up);
+            float groundSlopeAngle = Vector3.Angle(localGroundCheckHitNormal, _rb.transform.up);
 
             if (groundSlopeAngle == 0.0f)
             {
@@ -177,16 +237,16 @@ public class BaseController : MonoBehaviour
                 {
                     RaycastHit rayHit;
                     float rayHeightFromGround = .1f;
-                    float rayCalculatedRayHeight = _rigidbody.position.y - _capsuleCollider.bounds.extents.y + rayHeightFromGround;
-                    Vector3 rayOrgin = new Vector3(_rigidbody.position.x, rayCalculatedRayHeight, _rigidbody.position.z);
-                    if (Physics.Raycast(rayOrgin, _rigidbody.transform.TransformDirection(calculatedPlayerMovement), out rayHit, .75f))
+                    float rayCalculatedRayHeight = _rb.position.y - _capsuleCollider.bounds.extents.y + rayHeightFromGround;
+                    Vector3 rayOrgin = new Vector3(_rb.position.x, rayCalculatedRayHeight, _rb.position.z);
+                    if (Physics.Raycast(rayOrgin, _rb.transform.TransformDirection(calculatedPlayerMovement), out rayHit, .75f))
                     {
-                        if (Vector3.Angle(rayHit.normal, _rigidbody.transform.up) > _maxSlopeAngle)
+                        if (Vector3.Angle(rayHit.normal, _rb.transform.up) > _maxSlopeAngle)
                         {
                             calculatedPlayerMovement.y = -_movementMultiplier;
                         }
                     }
-                    Debug.DrawRay(rayOrgin, _rigidbody.transform.TransformDirection(calculatedPlayerMovement), Color.green, 1f);
+                    Debug.DrawRay(rayOrgin, _rb.transform.TransformDirection(calculatedPlayerMovement), Color.green, 1f);
                 }
 
                 if (calculatedPlayerMovement.y == 0f)
@@ -196,10 +256,10 @@ public class BaseController : MonoBehaviour
             }
             else
             {
-                Quaternion slopeAngleRotation = Quaternion.FromToRotation(_rigidbody.transform.up, localGroundCheckHitNormal);
+                Quaternion slopeAngleRotation = Quaternion.FromToRotation(_rb.transform.up, localGroundCheckHitNormal);
                 calculatedPlayerMovement = slopeAngleRotation * calculatedPlayerMovement;
 
-                float relativeSlopeAngle = Vector3.Angle(calculatedPlayerMovement, _rigidbody.transform.up) - 90.0f;
+                float relativeSlopeAngle = Vector3.Angle(calculatedPlayerMovement, _rb.transform.up) - 90.0f;
                 calculatedPlayerMovement += calculatedPlayerMovement * (relativeSlopeAngle / 90f);
 
                 if (groundSlopeAngle < _maxSlopeAngle)
@@ -220,11 +280,14 @@ public class BaseController : MonoBehaviour
                 }
             }
 #if UNITY_EDITOR
-            Debug.DrawRay(_rigidbody.position, _rigidbody.transform.TransformDirection(calculatedPlayerMovement), Color.red, 0.5f);
+            Debug.DrawRay(_rb.position, _rb.transform.TransformDirection(calculatedPlayerMovement), Color.red, 0.5f);
 #endif
         }
         return calculatedPlayerMovement;
     }
+    #endregion
+
+    #region Running (deactivated)
     private Vector3 PlayerRun()
     {
         Vector3 calculatePlayerRunSpeed = _playerMoveInput;
@@ -241,26 +304,9 @@ public class BaseController : MonoBehaviour
 
         return calculatePlayerRunSpeed;
     }
-    private void PlayerFOV()
-    {
-        CinemachineVirtualCamera playerCam = _cameraController.c1Person;
-        float endFOV;
-        float transitionTime = 7f;
-        float minFOV = 60;
-        float maxFOV = 90;
-        if (_input.RunIsPressed && _input.MoveIsPressed || _isSlideDashing)
-        {
-            endFOV = 90;
-            _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
-        }
-        else
-        {
-            endFOV = 60;
-            _cameraController.ChangeFOV(playerCam, endFOV, transitionTime, minFOV, maxFOV);
-        }
+    #endregion
 
-    }
-
+    #region Gravity
     private float PlayerFallGravity()
     {
         float gravity = _playerMoveInput.y;
@@ -285,6 +331,9 @@ public class BaseController : MonoBehaviour
         return gravity;
     }
 
+    #endregion
+
+    #region Jumping
     private float PlayerJump()
     {
         float calculateJumpInput = _playerMoveInput.y;
@@ -357,17 +406,18 @@ public class BaseController : MonoBehaviour
         _jumpWasPressedLastFrame = _input.JumpIsPressed;
     }
 
+    #endregion
+
+    #region Sliding
     private void StartSlideDash()
     {
-
-
-        _slideDashDirection = _rigidbody.transform.forward;
+        _slideDashDirection = _rb.transform.forward;
         _slideDashInitialSpeed = _currentSpeed;
 
         if (_slideDashDirection == Vector3.zero)
         {
             Vector3 moveInputDirection = new Vector3(_input.MoveInput.x, 0f, _input.MoveInput.y).normalized;
-            _slideDashDirection = _rigidbody.transform.TransformDirection(moveInputDirection);
+            _slideDashDirection = _rb.transform.TransformDirection(moveInputDirection);
         }
 
         _isSlideDashing = true;
@@ -377,7 +427,7 @@ public class BaseController : MonoBehaviour
         _capsuleCollider.height = _slideDashColliderHeight;
         _capsuleCollider.center = new Vector3(0f, _slideDashColliderHeight / 2f, 0f);
 
-        _rigidbody.AddForce(_slideDashDirection * _slideDashInitialSpeed, ForceMode.Impulse);
+        _rb.AddForce(_slideDashDirection * _slideDashInitialSpeed, ForceMode.Impulse);
     }
 
     private void SlideDash()
@@ -387,14 +437,14 @@ public class BaseController : MonoBehaviour
         {
             _slideDashTimer -= Time.fixedDeltaTime;
 
-            _rigidbody.AddForce(_slideDashDirection * _slideDashDeceleration * Time.fixedDeltaTime, ForceMode.Acceleration);
+            _rb.AddForce(_slideDashDirection * _slideDashDeceleration * Time.fixedDeltaTime, ForceMode.Acceleration);
 
             float speedReduction = Mathf.Lerp(_slideDashInitialSpeed, 0f, 1 - (_slideDashTimer / _slideDashDuration));
 
-            _rigidbody.AddForce(_slideDashDirection * speedReduction * Time.fixedDeltaTime, ForceMode.Acceleration);
+            _rb.AddForce(_slideDashDirection * speedReduction * Time.fixedDeltaTime, ForceMode.Acceleration);
 
 
-            if (_rigidbody.velocity.magnitude < 0.1f)
+            if (_rb.velocity.magnitude < 0.1f)
             {
                 EndSlideDash();
             }
@@ -415,9 +465,10 @@ public class BaseController : MonoBehaviour
         _isSlideDashing = false;
     }
 
-    //Note: the reset rotation function does not work because if you rotate the player the camera rotates with the player instead of staying loose from it and not rotating with it
+
     private void ResetRotation()
     {
+        //Note: the reset rotation function does not work because if you rotate the player the camera rotates with the player instead of staying loose from it and not rotating with it
         float camTargetRotationX = _cameraController.MainCam.transform.rotation.y;
         float camTargetRotationY = _cameraController.MainCam.transform.rotation.y;
         float camTargetRotationZ = _cameraController.MainCam.transform.rotation.y;
@@ -426,13 +477,38 @@ public class BaseController : MonoBehaviour
         float myTargetRotationY = _cameraController.MainCam.transform.rotation.y;
         float myTargetRotationZ = 0f;
         Vector3 myEulerAngleRotation = new Vector3(myTargetRotationX, myTargetRotationY, myTargetRotationZ);
-        _rigidbody.transform.rotation = Quaternion.Euler(myEulerAngleRotation);
+        _rb.transform.rotation = Quaternion.Euler(myEulerAngleRotation);
 
         Vector3 camEulerAngleRotation = new Vector3(camTargetRotationX, camTargetRotationY, camTargetRotationZ);
         _cameraController.MainCam.transform.rotation = Quaternion.Euler(camEulerAngleRotation);
         Debug.Log("reset rotation" + camEulerAngleRotation);
 
     }
+    #endregion
 
+    void PlayerDash()
+    {
 
+        if (!_isDashing && _canDash) // Prevent overlapping dashes
+        {
+            StartCoroutine(DashCoroutine());
+        }
+    }
+
+    IEnumerator DashCoroutine()
+    {
+        _canDash = false;
+        _isDashing = true;
+        _dashDirection = _rb.transform.forward;
+        float startTime = Time.time;
+
+        while (Time.time < startTime + _dashTime)
+        {
+            _rb.AddForce(_dashDirection * _dashSpeed, ForceMode.Impulse);
+
+            yield return null; // Wait for next frame
+        }
+        _isDashing = false;
+
+    }
 }
