@@ -1,13 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Cinemachine;
-using Unity.VisualScripting;
-using UnityEngine.ProBuilder.Shapes;
+using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public bool UsingOrbidCam { get; private set; } = false; 
+    public bool UsingOrbidCam { get; private set; } = false;
 
     [SerializeField] PlayerInput _input;
 
@@ -20,13 +16,18 @@ public class CameraController : MonoBehaviour
     public CinemachineVirtualCamera c3Person;
     public CinemachineVirtualCamera orbitCam;
 
+    [Header("Shake effect")]
+    public float shakeAmount = 0.1f;
+    public float shakeDecrease = 1;
+    public float _currentShake = 0;
+
     private void Start()
     {
         c1Person.Priority += _activeCamPriorityModifer;
         _activeCam = c1Person;
         FirstPerson();
         Cursor.lockState = CursorLockMode.Locked;
-        
+
     }
 
     //private void Update()
@@ -36,6 +37,11 @@ public class CameraController : MonoBehaviour
     //        ChangeCam();
     //    }
     //}
+
+    private void Update()
+    {
+        HandleScreenShake();
+    }
 
     private void ChangeCam()
     {
@@ -80,17 +86,32 @@ public class CameraController : MonoBehaviour
     {
         cam.m_Lens.FieldOfView = Mathf.Clamp(Mathf.Lerp(cam.m_Lens.FieldOfView, endFOV, duration * Time.deltaTime), minFOV, maxFOV);
     }
-    //public IEnumerator ChangeFOV(CinemachineVirtualCamera cam, float endFOV, float duration)
-    //{
-    //    float startFOV = cam.m_Lens.FieldOfView;
-    //    float time = 0;
-    //    while (time < duration)
-    //    {
-    //        cam.m_Lens.FieldOfView = Mathf.Lerp(cam.m_Lens.FieldOfView, endFOV, Time.deltaTime * 5);
-    //        cam.m_Lens.FieldOfView = Mathf.Lerp(startFOV, endFOV, time / duration);
-    //        yield return null;
-    //        time += Time.deltaTime;
-    //    }
-        
+
+    private void HandleScreenShake()
+    {
+        if (_currentShake > 0)
+        {
+            Vector3 shakeOffset = Random.insideUnitSphere * _currentShake;
+            transform.position += shakeOffset;
+
+            _currentShake -= Time.deltaTime * shakeDecrease;
+            _currentShake = Mathf.Max(0, _currentShake);
+        }
+    }
+
+    public void AddShake(float amount)
+    {
+        _currentShake = Mathf.Max(_currentShake, amount);
+    }
+
+    //Note: add this when you want to add the camera shake
+
+    //CamContrl CameraController;
+
+    //if (camContrl != null)
+    //{camContrl.AddShake(.2f); //Note: Edit this value to change the intensity of the shake
+    //    
     //}
+
+
 }
