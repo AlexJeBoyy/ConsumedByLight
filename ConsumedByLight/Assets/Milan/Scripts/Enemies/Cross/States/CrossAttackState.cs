@@ -21,7 +21,7 @@ public class CrossAttackState : ICrossBaseState
 
     IEnumerator Attack(CrossStateMachine cross)
     {
-        cross.crossAnimator.Play("Swing");
+        cross.crossAnimator.Play("CrossSmash");
 
         yield return new WaitForSeconds(2);
         cross.SwitchState(cross.chaseState);
