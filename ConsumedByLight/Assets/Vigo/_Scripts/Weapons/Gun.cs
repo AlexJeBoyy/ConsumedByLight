@@ -64,15 +64,11 @@ public abstract class Gun : MonoBehaviour
         isReloading = true;
         Reloadanim.SetBool("Reloading", true);
 
-        Debug.Log(gunData.gunName + " is reloading");
-
         yield return new WaitForSeconds(gunData.reloadTime);
 
         currentAmmo = gunData.magazineSize;
         Reloadanim.SetBool("Reloading", false);
         isReloading = false;
-
-        Debug.Log(gunData.gunName + " is reloaded");
     }
 
     public void TryShoot()

@@ -23,7 +23,7 @@ public class CrossAttackState : ICrossBaseState
     {
         cross.crossAnimator.Play("CrossSmash");
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3.5f);
         cross.SwitchState(cross.chaseState);
 
     }

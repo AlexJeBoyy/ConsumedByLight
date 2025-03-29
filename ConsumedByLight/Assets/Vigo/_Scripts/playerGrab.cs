@@ -38,6 +38,8 @@ public class PlayerGrab : MonoBehaviour
     [SerializeField] private float currentStamina;
     private bool usingStamina;
 
+    Outline currentOutline;
+
 
     Rigidbody grabbedRB;
 
@@ -121,7 +123,45 @@ public class PlayerGrab : MonoBehaviour
         {
             StopAllCoroutines();
         }
+
+        CheckForOutline();
     }
+
+    void CheckForOutline()
+    {
+        RaycastHit hit;
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+        if (Physics.Raycast(ray, out hit, maxGrabDistance))
+        {
+            Outline newOutline = hit.collider.GetComponentInChildren<Outline>();
+            if (newOutline != null)
+            {
+                if (newOutline != currentOutline || currentOutline == null)
+                {
+                    if (currentOutline != null)
+                    {
+                        currentOutline.enabled = false;
+                    }
+                    currentOutline = newOutline;
+                    currentOutline.enabled = true;
+                    Debug.Log(newOutline);
+                }
+                else
+                {
+                    currentOutline.enabled = true;
+                }
+            }
+            else
+            {
+                currentOutline.enabled = false;
+            }
+        }
+        else
+        {
+            currentOutline.enabled = false;
+        }
+    }
+
     public void Grab()
     {
         if (grabbedRB)
@@ -162,7 +202,6 @@ public class PlayerGrab : MonoBehaviour
         }
         else if (ctx.canceled && grabbedRB != null)
         {
-            Debug.Log(chargeTime);
             grabbedRB.AddForce(cam.transform.forward * throwForce * chargeTime / maxChargeTime, ForceMode.Impulse);
             currentStamina = currentStamina - 25;
             isCharging = false;
