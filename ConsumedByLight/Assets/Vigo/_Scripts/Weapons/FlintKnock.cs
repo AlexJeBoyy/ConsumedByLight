@@ -4,9 +4,7 @@ using UnityEngine;
 public class FlintKnock : Gun
 {
     public AudioSource ShootSound;
-    public AudioSource ReloadAudio;
-
-   
+    
     public override void Shoot()
     {
         ShootSound.Play();
