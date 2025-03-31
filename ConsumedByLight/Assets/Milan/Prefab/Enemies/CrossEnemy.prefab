@@ -309,7 +309,8 @@ MonoBehaviour:
     type: 3}
   bloodOvertimeVfx: {fileID: 2650629519272455120, guid: 8e6cc79392eab9d42892efe9fd705868,
     type: 3}
-  deathSound: {fileID: -7709178032101995183}
+  audioSource: {fileID: -7709178032101995183}
+  deathSound: {fileID: 8300000, guid: 8ef2aed3a818d5f4187ff627789cd17b, type: 3}
 --- !u!82 &-7709178032101995183
 AudioSource:
   m_ObjectHideFlags: 0

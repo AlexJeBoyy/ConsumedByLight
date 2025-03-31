@@ -7,7 +7,8 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] GameObject bloodVfx;
     [SerializeField] GameObject bloodOvertimeVfx;
-    [SerializeField] AudioSource deathSound;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip deathSound;
     public void TakeDamage(Vector3 damagePoint)
     {
         GetComponent<NavMeshAgent>().enabled = false;
@@ -19,7 +20,8 @@ public class EnemyHealth : MonoBehaviour
         Instantiate(bloodVfx, damagePoint, Quaternion.identity);
         GameObject blood = Instantiate(bloodOvertimeVfx, transform);
         blood.transform.position = damagePoint;
-        deathSound.Play();
+        audioSource.clip = deathSound;
+        audioSource.Play();
         Destroy(gameObject, 1f);
     }
 }
