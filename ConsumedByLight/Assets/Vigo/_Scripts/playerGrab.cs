@@ -153,12 +153,18 @@ public class PlayerGrab : MonoBehaviour
             }
             else
             {
-                currentOutline.enabled = false;
+                if (currentOutline != null)
+                {
+                    currentOutline.enabled = false;
+                }
             }
         }
         else
         {
-            currentOutline.enabled = false;
+            if (currentOutline != null)
+            {
+                currentOutline.enabled = false;
+            }
         }
     }
 
