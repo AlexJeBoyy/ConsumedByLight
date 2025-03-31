@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -12,10 +10,16 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] Animator UI;
     [SerializeField] GameObject gun;
     [SerializeField] float health;
+    [SerializeField] Slider[] healthSliders;
     bool dead = false;
     public void TakeDamage(float dmg)
     {
         health -= dmg;
+        foreach (var slider in healthSliders)
+        {
+            slider.value = health;
+        }
+
         if (health <= 0 && !dead)
         {
             grab.enabled = false;
