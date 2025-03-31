@@ -10,7 +10,7 @@ public abstract class Gun : MonoBehaviour
     public Transform GunMuzzle;
     public Transform cameraTransform;
 
-    
+
     WeaponAnim weaponanim;
     Animator Reloadanim;
     private CinemachineImpulseSource recoilShakeImpulseSource;
@@ -48,6 +48,11 @@ public abstract class Gun : MonoBehaviour
             AmmoCount.text = "Reloading...";
         }
 
+        if (!isReloading && currentAmmo <= 0)
+        {
+            StartCoroutine(Reload());
+        }
+
     }
 
     public void TryReloading()
@@ -60,7 +65,7 @@ public abstract class Gun : MonoBehaviour
 
     private IEnumerator Reload()
     {
-       
+
         isReloading = true;
         Reloadanim.SetBool("Reloading", true);
 
