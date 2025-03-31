@@ -32,8 +32,7 @@ public class PlayerGrab : MonoBehaviour
     private bool isCharging;
 
     [Header("Stamina")]
-    [SerializeField] private Slider staminaGrab;
-    [SerializeField] private Slider staminaGrab2;
+    [SerializeField] Slider[] staminaSliders;
     [SerializeField] private float maxStamina;
     [SerializeField] private float currentStamina;
     private bool usingStamina;
@@ -95,8 +94,10 @@ public class PlayerGrab : MonoBehaviour
 
     private void Update()
     {
-        staminaGrab.value = currentStamina;
-        staminaGrab2.value = currentStamina;
+        foreach (var slider in staminaSliders)
+        {
+            slider.value = currentStamina;
+        }
 
         if (usingStamina)
         {
