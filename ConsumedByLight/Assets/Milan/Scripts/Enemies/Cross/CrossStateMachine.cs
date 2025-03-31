@@ -18,7 +18,6 @@ public class CrossStateMachine : MonoBehaviour
 
     [SerializeField] public Animator crossAnimator;
     [SerializeField] public AudioSource audioSource;
-    [SerializeField] public AudioClip draggingClip;
     [SerializeField] public AudioClip smashClip;
     private void Start()
     {
