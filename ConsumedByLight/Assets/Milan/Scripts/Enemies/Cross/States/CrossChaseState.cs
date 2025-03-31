@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class CrossChaseState : ICrossBaseState
 {
+    CrossStateMachine CSM { get; set; }
     float refreshtime = 0.5f;
     float timer;
     public void Exit(CrossStateMachine cross)
@@ -22,9 +23,10 @@ public class CrossChaseState : ICrossBaseState
     public void Update(CrossStateMachine cross)
     {
         if (!cross.agent.enabled) { return; }
-
+        
         UpdateTimer();
-
+        //CSM.audioSource.clip = CSM.draggingClip;
+       // CSM.audioSource.loop = true;
         if (timer <= 0)
         {
             timer = refreshtime;
@@ -33,6 +35,7 @@ public class CrossChaseState : ICrossBaseState
 
         if (cross.agent.remainingDistance <= cross.agent.stoppingDistance)
         {
+            //CSM.audioSource.loop = false;
             cross.SwitchState(cross.attackState);
         }
     }
