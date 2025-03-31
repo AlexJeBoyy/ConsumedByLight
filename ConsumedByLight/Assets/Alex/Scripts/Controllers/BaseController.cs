@@ -19,6 +19,7 @@ public class BaseController : MonoBehaviour
     Vector3 _previousPlayerLookInput = Vector3.zero;
     [SerializeField] float _cameraPitch = 0f;
     [SerializeField] float _playerLookInputLerpTime = 0.35f;
+    [SerializeField] AudioSource _audioSource = null;
     private CinemachineBasicMultiChannelPerlin noiseComponent;
 
     [Header("Movement")]
@@ -74,6 +75,7 @@ public class BaseController : MonoBehaviour
     [SerializeField] private float _startDashTimer = 4f;
     [SerializeField] private float _dashTime = .4f;
     [SerializeField] private float _dashCooldown = 4;
+    [SerializeField] private AudioClip dashSound;
 
     private Vector3 _dashDirection;
 
@@ -498,6 +500,8 @@ public class BaseController : MonoBehaviour
 
     IEnumerator DashCoroutine()
     {
+        _audioSource.clip = dashSound;
+        _audioSource.Play();
         _canDash = false;
         _isDashing = true;
         _dashDirection = _rb.transform.forward;
