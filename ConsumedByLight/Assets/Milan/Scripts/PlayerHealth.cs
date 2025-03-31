@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] BaseController move;
     [SerializeField] PlayerGrab grab;
     [SerializeField] Animator deathAnim;
+    [SerializeField] Animator UI;
     [SerializeField] GameObject gun;
     [SerializeField] float health;
     bool dead = false;
@@ -22,6 +23,9 @@ public class PlayerHealth : MonoBehaviour
             dead = true;
             gun.SetActive(false);
             deathAnim.Play("Die");
+            UI.SetTrigger("Show");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         Instantiate(bloodVfx, gameObject.transform.position, Quaternion.identity);
     }
