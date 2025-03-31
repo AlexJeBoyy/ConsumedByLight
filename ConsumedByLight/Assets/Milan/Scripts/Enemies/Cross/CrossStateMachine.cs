@@ -17,6 +17,8 @@ public class CrossStateMachine : MonoBehaviour
     [HideInInspector] public GameObject target;
 
     [SerializeField] public Animator crossAnimator;
+    [SerializeField] public AudioSource audioSource;
+    [SerializeField] public AudioClip smashClip;
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
