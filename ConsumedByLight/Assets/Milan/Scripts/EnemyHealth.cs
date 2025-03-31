@@ -12,16 +12,23 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(Vector3 damagePoint)
     {
         GetComponent<NavMeshAgent>().enabled = false;
+
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.freezeRotation = false;
+
         Vector3 dir = transform.position - damagePoint;
         dir.Normalize();
         rb.AddForce(dir* 500, ForceMode.Impulse);
+
+        EnemySpawner.instance.numOfAliveEnemies--;
+
         Instantiate(bloodVfx, damagePoint, Quaternion.identity);
         GameObject blood = Instantiate(bloodOvertimeVfx, transform);
         blood.transform.position = damagePoint;
+
         audioSource.clip = deathSound;
         audioSource.Play();
+
         Destroy(gameObject, 1f);
     }
 }

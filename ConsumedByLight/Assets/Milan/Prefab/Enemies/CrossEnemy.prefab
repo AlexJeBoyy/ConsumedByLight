@@ -218,7 +218,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2
+  m_Speed: 4
   m_Acceleration: 4
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -633,6 +633,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4278359064448548843}
+  - component: {fileID: 874045886488783123}
   m_Layer: 6
   m_Name: ModelHolder
   m_TagString: Untagged
@@ -656,6 +657,24 @@ Transform:
   - {fileID: 7184964761698016408}
   m_Father: {fileID: 8213017457006603786}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &874045886488783123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3629663668959752858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &4304712347141027021
 GameObject:
   m_ObjectHideFlags: 0
@@ -5923,7 +5942,7 @@ MonoBehaviour:
   smashVFX: {fileID: 2710491157373869030, guid: c2b4c5d764c707e40a5cd2a4d80cd1cc,
     type: 3}
   impactPoint: {fileID: 8266113682928089762}
-  explosiveRadius: 5
+  explosiveRadius: 10
   layerMask:
     serializedVersion: 2
     m_Bits: 8
