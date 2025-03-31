@@ -15,6 +15,10 @@ public abstract class Gun : MonoBehaviour
     Animator Reloadanim;
     private CinemachineImpulseSource recoilShakeImpulseSource;
 
+    [SerializeField] GameObject muzzleFlash;
+
+    [HideInInspector] public bool isShooting = false;
+
     [SerializeField] private TextMeshProUGUI AmmoCount;
 
     private float currentAmmo = 0f;
@@ -52,6 +56,7 @@ public abstract class Gun : MonoBehaviour
         {
             StartCoroutine(Reload());
         }
+
 
     }
 
@@ -94,6 +99,8 @@ public abstract class Gun : MonoBehaviour
 
     private void HandleShoot()
     {
+        isShooting = true;
+        StartCoroutine(MuzzleFlash());
         currentAmmo--;
         Debug.Log("shoot");
         weaponanim.isRecoiling = true;
@@ -103,5 +110,12 @@ public abstract class Gun : MonoBehaviour
     }
 
     public abstract void Shoot();
+
+    private IEnumerator MuzzleFlash()
+    {
+        muzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        muzzleFlash.SetActive(false);
+    }
 }
 

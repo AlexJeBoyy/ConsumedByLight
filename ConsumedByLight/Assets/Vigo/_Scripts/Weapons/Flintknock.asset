@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Flintknock
   m_EditorClassIdentifier: 
   gunName: Flintknock
-  shootingRange: 25
+  shootingRange: 50
   fireRate: 5
   magazineSize: 1
   reloadTime: 0.75
   bulletTrialPrefab: {fileID: 5830053583707791753, guid: ea8530ec0041a244fa6ae8b9aee26fba,
     type: 3}
-  bulletSpeed: 25
+  bulletSpeed: 75
