@@ -617,7 +617,11 @@ MonoBehaviour:
   _currentShake: 0
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!1 &1105456335069744353
+=======
+--- !u!1 &1060329921922841579
+>>>>>>> Stashed changes
 =======
 --- !u!1 &1060329921922841579
 >>>>>>> Stashed changes
@@ -633,6 +637,7 @@ GameObject:
   m_Component:
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   - component: {fileID: 9117984893226246144}
   - component: {fileID: 3582468389430558807}
   - component: {fileID: 5305011425498687003}
@@ -641,12 +646,17 @@ GameObject:
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
   - component: {fileID: 3381933267036590766}
   - component: {fileID: 7901725223253400964}
   - component: {fileID: 7109465744973960244}
   m_Layer: 5
   m_Name: Text (TMP)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -657,7 +667,11 @@ GameObject:
   m_IsActive: 1
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!224 &9117984893226246144
+=======
+--- !u!224 &3381933267036590766
+>>>>>>> Stashed changes
 =======
 --- !u!224 &3381933267036590766
 >>>>>>> Stashed changes
@@ -671,8 +685,13 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_GameObject: {fileID: 1105456335069744353}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+=======
+  m_GameObject: {fileID: 1060329921922841579}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+>>>>>>> Stashed changes
 =======
   m_GameObject: {fileID: 1060329921922841579}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -687,6 +706,7 @@ RectTransform:
   m_Children: []
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_Father: {fileID: 1300294151467047985}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.488, y: 0.25}
@@ -698,6 +718,8 @@ RectTransform:
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
   m_Father: {fileID: 6231142741207156186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -707,6 +729,9 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7901725223253400964
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -717,9 +742,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_GameObject: {fileID: 1105456335069744353}
   m_CullTransparentMesh: 1
 --- !u!114 &5305011425498687003
+=======
+  m_GameObject: {fileID: 1060329921922841579}
+  m_CullTransparentMesh: 1
+--- !u!114 &7109465744973960244
+>>>>>>> Stashed changes
 =======
   m_GameObject: {fileID: 1060329921922841579}
   m_CullTransparentMesh: 1
@@ -737,6 +768,7 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_GameObject: {fileID: 1105456335069744353}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -748,6 +780,8 @@ MonoBehaviour:
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
   m_GameObject: {fileID: 1060329921922841579}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -757,6 +791,9 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -766,6 +803,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_Sprite: {fileID: 0}
@@ -870,6 +908,8 @@ MonoBehaviour:
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
   m_text: 'Restart
 
 '
@@ -943,6 +983,9 @@ MonoBehaviour:
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -2302,10 +2345,13 @@ MonoBehaviour:
   health: 20
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   healthSliders:
   - {fileID: 3725032428143481326}
   - {fileID: 4010994371695966872}
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 --- !u!82 &6303633018486465863
@@ -2405,6 +2451,9 @@ AudioSource:
     m_PostInfinity: 2
     m_RotationOrder: 4
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -2808,7 +2857,11 @@ RectTransform:
   - {fileID: 3594669029264612530}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   - {fileID: 2775892655676728712}
+=======
+  - {fileID: 6231142741207156186}
+>>>>>>> Stashed changes
 =======
   - {fileID: 6231142741207156186}
 >>>>>>> Stashed changes
