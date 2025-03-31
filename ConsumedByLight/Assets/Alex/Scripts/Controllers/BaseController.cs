@@ -65,6 +65,7 @@ public class BaseController : MonoBehaviour
     [SerializeField] private float _slideDashDuration = 1.5f;
     [SerializeField] private float _slideDashTimer = 0f;
     [SerializeField] private float _slideDashColliderHeight = 1f;
+    [SerializeField] private AudioClip slideSound;
     private Vector3 _slideDashDirection;
     private float _originalColliderHeight;
 
@@ -413,6 +414,8 @@ public class BaseController : MonoBehaviour
     #region Sliding
     private void StartSlideDash()
     {
+         _audioSource.clip = slideSound;
+        _audioSource.Play();
         _slideDashDirection = _rb.transform.forward;
         _slideDashInitialSpeed = _currentSpeed;
 
@@ -434,7 +437,8 @@ public class BaseController : MonoBehaviour
 
     private void SlideDash()
     {
-
+       
+       
         if (_slideDashTimer > 0f)
         {
             _slideDashTimer -= Time.fixedDeltaTime;
@@ -459,7 +463,7 @@ public class BaseController : MonoBehaviour
 
     private void EndSlideDash()
     {
-
+        _audioSource.Stop();
         //ResetRotation();
 
         _capsuleCollider.height = _originalColliderHeight;
