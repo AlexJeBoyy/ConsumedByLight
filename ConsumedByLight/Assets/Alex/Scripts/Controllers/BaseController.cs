@@ -71,9 +71,9 @@ public class BaseController : MonoBehaviour
     [Header("Dash")]
     [SerializeField] private bool _isDashing = false;
     [SerializeField] private bool _canDash = true;
-    [SerializeField] private float _dashSpeed = 150f;
+    [SerializeField] private float _dashSpeed = 300f;
     [SerializeField] private float _startDashTimer = 4f;
-    [SerializeField] private float _dashTime = .4f;
+    [SerializeField] private float _dashTime = .5f;
     [SerializeField] private float _dashCooldown = 4;
     [SerializeField] private AudioClip dashSound;
 
