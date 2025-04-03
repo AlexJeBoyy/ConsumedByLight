@@ -24,6 +24,8 @@ public class PlayerGrab : MonoBehaviour
     private Vector3 targetPosistion;
     [SerializeField] private float distanceMod;
     [SerializeField] private float maxdist;
+    [SerializeField] GameObject HandModel;
+    Animator Handanim;
 
     [Header("Charge")]
     [SerializeField] private float chargeSpeed;
@@ -45,6 +47,8 @@ public class PlayerGrab : MonoBehaviour
     private void Start()
     {
         currentStamina = maxStamina;
+        Handanim = HandModel.GetComponent<Animator>();
+
     }
 
     private void FixedUpdate()
@@ -94,6 +98,10 @@ public class PlayerGrab : MonoBehaviour
 
     private void Update()
     {
+        if (grabbedRB)
+        {
+            Handanim.SetBool("UsingTel", true);
+        }
         foreach (var slider in staminaSliders)
         {
             slider.value = currentStamina;
@@ -114,6 +122,7 @@ public class PlayerGrab : MonoBehaviour
             grabbedRB.freezeRotation = false;
             grabbedRB = null;
             usingStamina = false;
+            Handanim.SetBool("UsingTel", false);
         }
 
         if (grabbedRB == null && currentStamina <= 100)
@@ -181,6 +190,7 @@ public class PlayerGrab : MonoBehaviour
             grabbedRB.freezeRotation = false;
             grabbedRB = null;
             usingStamina = false;
+            Handanim.SetBool("UsingTel", false);
         }
         else
         {
@@ -206,16 +216,21 @@ public class PlayerGrab : MonoBehaviour
         if (ctx.performed && grabbedRB != null)
         {
             isCharging = true;
+            Handanim.SetBool("Charging", true);
         }
         else if (ctx.canceled && grabbedRB != null)
         {
             grabbedRB.AddForce(cam.transform.forward * throwForce * chargeTime / maxChargeTime, ForceMode.Impulse);
             currentStamina = currentStamina - 25;
             isCharging = false;
+            Handanim.SetTrigger("Release");
+            Handanim.SetBool("Charging", false);
             chargeTime = 0f;
             grabbedRB.useGravity = true;
             grabbedRB = null;
             usingStamina = false;
+            Handanim.SetBool("UsingTel", false);
+
         }
     }
 

@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] Animator deathAnim;
     [SerializeField] Animator UI;
     [SerializeField] GameObject gun;
+    [SerializeField] GameObject hand;
     [SerializeField] float health;
     [SerializeField] Slider[] healthSliders;
     bool dead = false;
@@ -26,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
             move.enabled = false;
             dead = true;
             gun.SetActive(false);
+            hand.SetActive(false);
             deathAnim.Play("Die");
             UI.SetTrigger("Show");
             Cursor.lockState = CursorLockMode.None;
