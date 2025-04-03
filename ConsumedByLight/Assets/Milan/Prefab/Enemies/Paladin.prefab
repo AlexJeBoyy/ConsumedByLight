@@ -173,7 +173,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 054c9068b6b67624790284617333cb38, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -268,8 +268,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 50e76e20faabef14698e725cdcf1f4e2, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -778,7 +778,7 @@ MonoBehaviour:
   reloadSound: {fileID: 0}
   audioSource: {fileID: 6987699562554074877}
   crossSmash: {fileID: 0}
-  paladinSwing: {fileID: 0}
+  paladinSwing: {fileID: 8300000, guid: 50e76e20faabef14698e725cdcf1f4e2, type: 3}
 --- !u!4 &8757643572625846493 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f6833b44068cd4e47bb1a3084082736a,
