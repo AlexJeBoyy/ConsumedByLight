@@ -23,7 +23,7 @@ public class PaladinAttackState : IPaladinBaseState
     IEnumerator Attack(PaladinStateMachine paladin)
     {
         
-        paladin.swordAnimator.Play("Attack");
+        paladin.swordAnimator.SetTrigger("Attack");
         yield return new WaitForSeconds(0.35f);
         paladin.isAttacking = true;
         yield return new WaitForSeconds(0.4f);
