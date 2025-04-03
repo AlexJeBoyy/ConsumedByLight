@@ -1714,12 +1714,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &1353648408 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 3137497184917025379, guid: d8732a589c0a7f345ae5a5a99154eaaa,
-    type: 3}
-  m_PrefabInstance: {fileID: 1788668563}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1486039430
 GameObject:
   m_ObjectHideFlags: 0
@@ -2116,16 +2110,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 341390739313979878, guid: d8732a589c0a7f345ae5a5a99154eaaa,
-        type: 3}
-      propertyPath: waveChage
-      value: 
-      objectReference: {fileID: 8300000, guid: fdc5346d05b645d4493d7e3d0de06894, type: 3}
-    - target: {fileID: 341390739313979878, guid: d8732a589c0a7f345ae5a5a99154eaaa,
-        type: 3}
-      propertyPath: audioSource
-      value: 
-      objectReference: {fileID: 1353648408}
     - target: {fileID: 883660721411372735, guid: d8732a589c0a7f345ae5a5a99154eaaa,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2184,6 +2168,11 @@ PrefabInstance:
     - target: {fileID: 2202071186890228922, guid: d8732a589c0a7f345ae5a5a99154eaaa,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3137497184917025379, guid: d8732a589c0a7f345ae5a5a99154eaaa,
+        type: 3}
+      propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4760048717571553485, guid: d8732a589c0a7f345ae5a5a99154eaaa,

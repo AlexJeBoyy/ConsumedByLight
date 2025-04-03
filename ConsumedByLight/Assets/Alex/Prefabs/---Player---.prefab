@@ -2061,7 +2061,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: fdc5346d05b645d4493d7e3d0de06894, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2504,7 +2504,7 @@ MonoBehaviour:
   deathAnim: {fileID: 594642156290428070}
   UI: {fileID: 0}
   gun: {fileID: 7862840682417878004}
-  health: 1
+  health: 20
   healthSliders:
   - {fileID: 4976806449525239813}
   - {fileID: 3898215021942354455}
