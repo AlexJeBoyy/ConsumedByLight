@@ -7,6 +7,7 @@ public class PaladinSwordBehaviour : MonoBehaviour
     [SerializeField] GameObject contactVFX;
     [SerializeField] float cooldownTimer = 1;
     float cooldownTime;
+    [SerializeField] PaladinStateMachine state;
 
     private void Start()
     {
@@ -21,10 +22,13 @@ public class PaladinSwordBehaviour : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && cooldownTime <= 0)
         {
-            cooldownTime = cooldownTimer;
-            Vector3 collisionPoint = collision.contacts[0].point;
-            Instantiate(contactVFX, collisionPoint, Quaternion.identity);
-            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(1);
+            if (state.isAttacking)
+            {
+                cooldownTime = cooldownTimer;
+                Vector3 collisionPoint = collision.contacts[0].point;
+                Instantiate(contactVFX, collisionPoint, Quaternion.identity);
+                collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(1);
+            }
         }
     }
 }

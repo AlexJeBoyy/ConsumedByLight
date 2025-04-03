@@ -15,6 +15,7 @@ public class PaladinStateMachine : MonoBehaviour
 
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public GameObject target;
+    [HideInInspector] public bool isAttacking = false;
 
     [SerializeField] public Animator swordAnimator;
 
