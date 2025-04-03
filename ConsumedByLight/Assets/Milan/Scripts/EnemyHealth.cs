@@ -11,6 +11,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] AudioClip deathSound;
     public void TakeDamage(Vector3 damagePoint)
     {
+        audioSource.PlayOneShot(deathSound);
         GetComponent<NavMeshAgent>().enabled = false;
 
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -18,7 +19,7 @@ public class EnemyHealth : MonoBehaviour
 
         Vector3 dir = transform.position - damagePoint;
         dir.Normalize();
-        rb.AddForce(dir* 500, ForceMode.Impulse);
+        rb.AddForce(dir * 500, ForceMode.Impulse);
 
         EnemySpawner.instance.numOfAliveEnemies--;
 
@@ -26,8 +27,9 @@ public class EnemyHealth : MonoBehaviour
         GameObject blood = Instantiate(bloodOvertimeVfx, transform);
         blood.transform.position = damagePoint;
 
-        audioSource.clip = deathSound;
-        audioSource.Play();
+        //audioSource.clip = deathSound;
+
+
 
         Destroy(gameObject, 1f);
     }

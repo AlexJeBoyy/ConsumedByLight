@@ -18,6 +18,7 @@ public class PaladinStateMachine : MonoBehaviour
     [HideInInspector] public bool isAttacking = false;
 
     [SerializeField] public Animator swordAnimator;
+    
 
     private void Start()
     {

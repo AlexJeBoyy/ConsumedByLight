@@ -5959,8 +5959,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadSound: {fileID: 0}
-  crossEnemy: {fileID: -7709178032101995183}
+  audioSource: {fileID: -7709178032101995183}
   crossSmash: {fileID: 8300000, guid: b0c9fa3913e722f42a8510b78ca9013a, type: 3}
+  paladinSwing: {fileID: 0}
 --- !u!4 &6098603913903998287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4677506825471993002, guid: 3ed6ce02a80f6a646adb548642c0a81c,
