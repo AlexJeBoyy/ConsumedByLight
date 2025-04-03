@@ -48444,7 +48444,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.53333336
-    functionName: paladinSwingSound
+    functionName: PaladinSwingSound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
