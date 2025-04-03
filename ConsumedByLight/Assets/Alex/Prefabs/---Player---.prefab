@@ -271,8 +271,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadSound: {fileID: 5602884079845440597}
-  crossEnemy: {fileID: 0}
+  audioSource: {fileID: 0}
   crossSmash: {fileID: 0}
+  paladinSwing: {fileID: 0}
 --- !u!82 &5602884079845440597
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2498,7 +2499,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c2a069d28eacfc647820f52e114b35c9, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

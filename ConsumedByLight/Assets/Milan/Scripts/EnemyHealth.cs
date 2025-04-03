@@ -11,7 +11,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] AudioClip deathSound;
     public void TakeDamage(Vector3 damagePoint)
     {
-
+        audioSource.PlayOneShot(deathSound);
         GetComponent<NavMeshAgent>().enabled = false;
 
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -28,7 +28,7 @@ public class EnemyHealth : MonoBehaviour
         blood.transform.position = damagePoint;
 
         //audioSource.clip = deathSound;
-        audioSource.PlayOneShot(deathSound);
+
 
 
         Destroy(gameObject, 1f);
