@@ -510,7 +510,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.89678156, b: 0.7216981, a: 1}
-  m_Intensity: 0.07
+  m_Intensity: 17.13
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1262,7 +1262,7 @@ PrefabInstance:
     - target: {fileID: 8557898758624712524, guid: 0de0f1a9c4d322c40b1d044ab0eda8eb,
         type: 3}
       propertyPath: maxRange
-      value: 60
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 8557898758624712524, guid: 0de0f1a9c4d322c40b1d044ab0eda8eb,
         type: 3}
@@ -1307,17 +1307,47 @@ PrefabInstance:
     - target: {fileID: 8557898758624712524, guid: 0de0f1a9c4d322c40b1d044ab0eda8eb,
         type: 3}
       propertyPath: WaveData.Array.data[0].numOfCross
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8557898758624712524, guid: 0de0f1a9c4d322c40b1d044ab0eda8eb,
         type: 3}
       propertyPath: WaveData.Array.data[1].numOfCross
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8557898758624712524, guid: 0de0f1a9c4d322c40b1d044ab0eda8eb,
         type: 3}
       propertyPath: WaveData.Array.data[2].numOfCross
-      value: 8
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557898758624712524, guid: 0de0f1a9c4d322c40b1d044ab0eda8eb,
+        type: 3}
+      propertyPath: WaveData.Array.data[0].numOfPriest
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557898758624712524, guid: 0de0f1a9c4d322c40b1d044ab0eda8eb,
+        type: 3}
+      propertyPath: WaveData.Array.data[1].numOfPriest
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557898758624712524, guid: 0de0f1a9c4d322c40b1d044ab0eda8eb,
+        type: 3}
+      propertyPath: WaveData.Array.data[2].numOfPriest
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557898758624712524, guid: 0de0f1a9c4d322c40b1d044ab0eda8eb,
+        type: 3}
+      propertyPath: WaveData.Array.data[0].numOfPaladins
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557898758624712524, guid: 0de0f1a9c4d322c40b1d044ab0eda8eb,
+        type: 3}
+      propertyPath: WaveData.Array.data[1].numOfPaladins
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557898758624712524, guid: 0de0f1a9c4d322c40b1d044ab0eda8eb,
+        type: 3}
+      propertyPath: WaveData.Array.data[2].numOfPaladins
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8557898758624712524, guid: 0de0f1a9c4d322c40b1d044ab0eda8eb,
         type: 3}
@@ -1760,7 +1790,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 5672993d1fd91964facf8dd1a854d120,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.32
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5672993d1fd91964facf8dd1a854d120,
         type: 3}
@@ -1770,7 +1800,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 5672993d1fd91964facf8dd1a854d120,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.4443855
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5672993d1fd91964facf8dd1a854d120,
         type: 3}
@@ -1818,7 +1848,8 @@ PrefabInstance:
       value: blockoutkerk
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -8391222552659086748, guid: 5672993d1fd91964facf8dd1a854d120, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5672993d1fd91964facf8dd1a854d120,
         type: 3}
@@ -1841,10 +1872,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 756834780}
-    - targetCorrespondingSourceObject: {fileID: -8391222552659086748, guid: 5672993d1fd91964facf8dd1a854d120,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1025377477}
   m_SourcePrefab: {fileID: 100100000, guid: 5672993d1fd91964facf8dd1a854d120, type: 3}
 --- !u!4 &987756538 stripped
 Transform:
@@ -1852,34 +1879,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1788668563}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1025377473 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: 5672993d1fd91964facf8dd1a854d120,
-    type: 3}
-  m_PrefabInstance: {fileID: 954019461}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &1025377477
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1025377473}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5495902117074765545, guid: 5672993d1fd91964facf8dd1a854d120, type: 3}
 --- !u!1 &1145004581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2575,7 +2574,7 @@ PrefabInstance:
     - target: {fileID: 8316084605332837460, guid: d8732a589c0a7f345ae5a5a99154eaaa,
         type: 3}
       propertyPath: health
-      value: 1
+      value: 59.02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
