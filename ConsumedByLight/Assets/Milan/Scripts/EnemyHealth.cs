@@ -16,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
 
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.freezeRotation = false;
+        rb.isKinematic = false;
 
         Vector3 dir = transform.position - damagePoint;
         dir.Normalize();
@@ -26,10 +27,6 @@ public class EnemyHealth : MonoBehaviour
         Instantiate(bloodVfx, damagePoint, Quaternion.identity);
         GameObject blood = Instantiate(bloodOvertimeVfx, transform);
         blood.transform.position = damagePoint;
-
-        //audioSource.clip = deathSound;
-
-
 
         Destroy(gameObject, 1f);
     }

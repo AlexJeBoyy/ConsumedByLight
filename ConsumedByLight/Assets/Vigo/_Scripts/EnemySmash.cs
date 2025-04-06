@@ -23,6 +23,7 @@ public class EnemySmash : MonoBehaviour
 
         if (speedOfObject >= destroySpeedThreshold)
         {
+            EnemySpawner.instance.numOfAliveEnemies--;
             Instantiate(bloodVfx, collision.contacts[0].point, Quaternion.identity);
             Destroy(gameObject);
         }

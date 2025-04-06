@@ -154,7 +154,6 @@ public class PlayerGrab : MonoBehaviour
                     }
                     currentOutline = newOutline;
                     currentOutline.enabled = true;
-                    Debug.Log(newOutline);
                 }
                 else
                 {
@@ -186,7 +185,16 @@ public class PlayerGrab : MonoBehaviour
             {
                 grabbedRB.gameObject.GetComponent<NavMeshAgent>().enabled = false;
             }
+            if (grabbedRB.gameObject.CompareTag("CrossEnemy"))
+            {
+                grabbedRB.gameObject.GetComponent<CrossStateMachine>().Grabbed();
+            }
+            if (grabbedRB.gameObject.CompareTag("Paladin"))
+            {
+                grabbedRB.gameObject.GetComponent<PaladinStateMachine>().Grabbed();
+            }
             grabbedRB.useGravity = true;
+            grabbedRB.isKinematic = false;
             grabbedRB.freezeRotation = false;
             grabbedRB = null;
             usingStamina = false;

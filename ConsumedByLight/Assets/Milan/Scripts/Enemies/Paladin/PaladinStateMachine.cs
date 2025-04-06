@@ -12,6 +12,7 @@ public class PaladinStateMachine : MonoBehaviour
     [HideInInspector] public PaladinAttackState attackState = new();
     [HideInInspector] public PaladinDieState dieState = new();
     [HideInInspector] public PaladinInactiveState inactiveState = new();
+    [HideInInspector] public PaladinGetupState getupState = new();
 
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public GameObject target;
@@ -39,5 +40,10 @@ public class PaladinStateMachine : MonoBehaviour
         currentState.Exit(this);
         currentState = newState;
         currentState.Start(this);
+    }
+
+    public void Grabbed()
+    {
+        SwitchState(getupState);
     }
 }

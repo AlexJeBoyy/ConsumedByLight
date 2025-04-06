@@ -14,7 +14,10 @@ public class PaladinChaseState : IPaladinBaseState
     public void Start(PaladinStateMachine paladin)
     {
         timer = refreshtime;
-        paladin.agent.SetDestination(paladin.target.transform.position);
+        if (paladin.agent.isOnNavMesh)
+        {
+            paladin.agent.SetDestination(paladin.target.transform.position);
+        }
     }
 
     public void Update(PaladinStateMachine paladin)
@@ -24,12 +27,17 @@ public class PaladinChaseState : IPaladinBaseState
         if (timer <= 0)
         {
             timer = refreshtime;
-            paladin.agent.SetDestination(paladin.target.transform.position);
+            if (paladin.agent.isOnNavMesh)
+            {
+                paladin.agent.SetDestination(paladin.target.transform.position);
+            }
         }
-
-        if (paladin.agent.remainingDistance <= paladin.agent.stoppingDistance)
+        if (paladin.agent.isOnNavMesh)
         {
-            paladin.SwitchState(paladin.attackState);
+            if (paladin.agent.remainingDistance <= paladin.agent.stoppingDistance)
+            {
+                paladin.SwitchState(paladin.attackState);
+            }
         }
     }
 

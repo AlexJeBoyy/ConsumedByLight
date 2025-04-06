@@ -27,6 +27,7 @@ public class EnemySpawner : MonoBehaviour
     bool isSpawning = false;
 
     [SerializeField] WaveInfo[] WaveData;
+    WaveInfo customWave;
 
     private void Awake()
     {
@@ -55,10 +56,11 @@ public class EnemySpawner : MonoBehaviour
     {
         currentWave++;
 
-        if (currentWave > WaveData.Length)
+        if (currentWave > WaveData.Length -1)
         {
-            wavetext.text = $"Win";
-            waveDisplayer.Play("WaveDisplayer");
+            customWave.numOfCross = Mathf.RoundToInt(UnityEngine.Random.Range(1, 3) * (1 + (0.5f * currentWave)));
+            customWave.numOfPaladins = Mathf.RoundToInt(UnityEngine.Random.Range(3, 6) * (1 + (0.5f * currentWave)));
+            StartCoroutine(SpawnWave(customWave));
         }
         else
         {

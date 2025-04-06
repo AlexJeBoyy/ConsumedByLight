@@ -12,6 +12,7 @@ public class CrossStateMachine : MonoBehaviour
     [HideInInspector] public CrossAttackState attackState = new();
     [HideInInspector] public CrossDieState dieState = new();
     [HideInInspector] public CrossInactiveState inactiveState = new();
+    [HideInInspector] public CrossGetupState getupState = new();
 
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public GameObject target;
@@ -38,5 +39,10 @@ public class CrossStateMachine : MonoBehaviour
         currentState.Exit(this);
         currentState = newState;
         currentState.Start(this);
+    }
+
+    public void Grabbed()
+    {
+        SwitchState(getupState);
     }
 }
